@@ -2,7 +2,7 @@
    Shared by DragonSpire.io and dragonspireinteractive.com. Dark is the default;
    set data-theme="light" on any element to switch that subtree to light mode. */
 
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap");
+/* Fonts load from Google Fonts via <link> tags in each page head (preconnect + stylesheet), not @import, so they do not chain behind this file. */
 
 /* .ink and .diagram-frame__panel always use the dark tokens, even inside a light page. */
 :root,

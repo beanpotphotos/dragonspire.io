@@ -243,8 +243,10 @@ main:focus { outline: none; }
 .split.split--axe { grid-template-columns: minmax(0, 1fr); }
 .a4-on .timeline__step { min-height: 46vh; }
 .a4-on .timeline__step { align-items: start; }
-.a4-on .timeline__body { align-content: start; opacity: 0.45; transition: opacity 0.35s var(--ease); }
-.a4-on .timeline__step.is-active .timeline__body { opacity: 1; }
+.a4-on .timeline__body { align-content: start; }
+/* Inactive steps dim by colour, not opacity, so the text keeps 4.5:1 contrast in both themes. */
+.a4-on .timeline__title { color: var(--muted); transition: color 0.35s var(--ease); }
+.a4-on .timeline__step.is-active .timeline__title { color: var(--text); }
 .a4-on .timeline__step::before { transition: background-color 0.35s var(--ease), color 0.35s var(--ease), box-shadow 0.35s var(--ease); }
 .a4-on .timeline__step.is-active::before {
   background: var(--gold);

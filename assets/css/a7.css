@@ -75,7 +75,7 @@
   color: var(--muted);
 }
 .a7-btn--approve { border-color: var(--gold); background: var(--gold); color: var(--on-gold); }  /* still: pressed */
-.a7-btn--other { opacity: 0.45; }
+.a7-btn--other { opacity: 0.75; }  /* 0.75 keeps 4.5:1 on the panel */
 .a7-cursor {
   position: absolute;
   left: 62%;
@@ -214,7 +214,7 @@
 }
 @keyframes a7-dim {
   0%, 29% { opacity: 1; }
-  33%, 100% { opacity: 0.45; }
+  33%, 100% { opacity: 0.75; }
 }
 @keyframes a7-stamp {
   0%, 29% { opacity: 0; transform: rotate(-16deg) scale(1.8); }

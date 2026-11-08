@@ -1,0 +1,288 @@
+/* DragonSpire.io page styles (Stage 4). Loads after ds.css, components.css, a2.css. */
+
+html { scroll-behavior: smooth; }
+section[id], main { scroll-margin-top: 84px; }
+main:focus { outline: none; }
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  z-index: 100;
+  padding: 0.6em 1em;
+  background: var(--gold);
+  color: var(--on-gold);
+  font-weight: 600;
+  border-radius: var(--radius);
+  text-decoration: none;
+}
+.skip-link:focus { top: 12px; }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* thin gold-tinted rule between sections */
+.section--rule { border-top: 1px solid var(--line); }
+
+/* ---------- two-column split (stacks on phones) ---------- */
+
+.split { display: grid; gap: var(--space-7); align-items: start; }
+@media (min-width: 960px) {
+  .split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-8); }
+}
+
+/* ---------- 1. hero ---------- */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: grid;
+  align-items: center;
+  padding-block: var(--space-7) var(--space-8);
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(60% 55% at 78% 45%, color-mix(in srgb, var(--gold) 9%, transparent), transparent 70%);
+  pointer-events: none;
+}
+.hero__grid { display: grid; gap: var(--space-6); align-items: center; }
+.hero__copy { display: grid; gap: var(--space-5); justify-items: start; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-2); }
+.hero__where { max-width: 44ch; }
+
+@media (min-width: 960px) {
+  .hero { min-height: min(calc(100svh - 68px), 920px); padding-block: var(--space-8); }
+  .hero__grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: var(--space-8); }
+}
+
+/* ---------- 2. chatbot ---------- */
+
+#chatbot .section-head .lede { color: var(--text); }
+.answer { margin-top: var(--space-9); display: grid; gap: var(--space-7); }
+.answer__title { max-width: 32ch; }
+.points { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-6); }
+@media (min-width: 860px) { .points { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); } }
+.point { display: grid; gap: var(--space-3); padding-top: var(--space-4); border-top: var(--hair) solid var(--gold); }
+.point__title { font-size: var(--step-h3); }
+.point__text { color: var(--muted); }
+
+/* ---------- 4. timeline tuning ---------- */
+
+#axe .section-head h2 { max-width: 30ch; }
+#axe .timeline__title { font-size: var(--step-h3); }
+
+/* ---------- 5. three tables ---------- */
+
+.p-web { --part: var(--players); }
+.tables { list-style: none; margin: 0 0 var(--space-7); padding: 0; display: grid; gap: var(--space-4); }
+@media (min-width: 860px) { .tables { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.table-card {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--part);
+  border-radius: var(--radius);
+  min-width: 0;
+}
+.table-card__name { font-size: var(--step-h3); }
+.table-card__text { color: var(--muted); }
+
+/* ---------- 6. Dee Emma ---------- */
+
+.banner {
+  margin: 0 auto var(--space-7);
+  max-width: 900px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.banner img { width: 100%; border-radius: var(--radius); }
+.dee__copy { display: grid; gap: var(--space-5); }
+.manners { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.manners li {
+  position: relative;
+  padding: var(--space-3) 0 var(--space-3) var(--space-6);
+  border-bottom: 1px solid var(--line);
+}
+.manners li:last-child { border-bottom: 0; }
+.manners li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: calc(var(--space-3) + 0.55em);
+  width: 9px;
+  height: 9px;
+  border: var(--hair) solid var(--teal);
+  transform: rotate(45deg);
+}
+@media (min-width: 960px) { .split--dee { align-items: center; } }
+
+/* ---------- 7. GM modes strip ---------- */
+
+.modes {
+  list-style: none;
+  margin: 0 0 var(--space-7);
+  padding: 0;
+  display: grid;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  overflow: hidden;
+}
+@media (min-width: 720px) { .modes { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.mode { display: grid; align-content: start; gap: var(--space-2); padding: var(--space-5); min-width: 0; }
+.mode + .mode { border-top: 1px solid var(--line); }
+@media (min-width: 720px) { .mode + .mode { border-top: 0; border-left: 1px solid var(--line); } }
+.mode__name { font-size: var(--step-h3); }
+.mode__text { color: var(--muted); display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.mode--on { box-shadow: inset 0 3px 0 var(--gold); }
+.mode--on .mode__name { color: var(--gold); }
+
+/* ---------- 8. numbers strip ---------- */
+
+/* a slightly lighter panel; four cells with gold hairlines between (2 x 2 under 960 px) */
+.numbers {
+  background: color-mix(in srgb, var(--panel) 94%, var(--text));
+  padding: var(--space-3) var(--space-2);
+}
+.numbers .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; }
+.numbers .stat {
+  --rule: color-mix(in srgb, var(--gold) 60%, transparent);
+  align-content: start;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-4);
+  min-width: 0;
+}
+.numbers .stat:nth-child(even) { border-left: var(--hair) solid var(--rule); }
+.numbers .stat:nth-child(n+3) { border-top: var(--hair) solid var(--rule); }
+.numbers .stat__num {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.12em;
+  font-size: clamp(3rem, 2.1rem + 3.6vw, 5rem);
+  font-variant-numeric: lining-nums tabular-nums;
+  white-space: nowrap;
+}
+.numbers .stat__cap { max-width: 26ch; }
+.d20 {
+  flex: none;
+  width: 0.34em;
+  height: 0.34em;
+  margin-top: 0.08em;
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.3;
+  stroke-linejoin: round;
+}
+@media (min-width: 720px) {
+  .numbers { padding: var(--space-4); }
+  .numbers .stat { padding: var(--space-6) var(--space-5); }
+}
+@media (min-width: 960px) {
+  .numbers .stat-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .numbers .stat:nth-child(n) { border-top: 0; border-left: 0; }
+  .numbers .stat + .stat { border-left: var(--hair) solid var(--rule); }
+}
+
+/* ---------- 9. closing + 10. footer ---------- */
+
+.closing { position: relative; isolation: isolate; overflow: hidden; }
+.closing::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(50% 60% at 50% 40%, color-mix(in srgb, var(--gold) 7%, transparent), transparent 70%);
+  pointer-events: none;
+}
+.closing .section-head { margin-bottom: 0; gap: var(--space-5); }
+.closing .lede { max-width: 46ch; }
+.closing__mark { width: 40px; height: 40px; fill: none; stroke: var(--gold); stroke-width: 1.5; stroke-linejoin: round; opacity: 0.9; }
+.closing__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-3); margin-top: var(--space-2); }
+.closing__actions .btn { min-height: 52px; padding-inline: 1.6em; }
+@media (max-width: 479px) {
+  .closing__actions { flex-direction: column; align-items: stretch; width: 100%; max-width: 340px; }
+  .closing__actions .btn { justify-content: center; }
+}
+
+/* ---------- Stage 5: hero refinement + A1 placement (appended) ---------- */
+
+.hero .a1 { order: -1; }
+.hero__title {
+  font-size: clamp(3rem, 1.2rem + 6.2vw, 6.25rem);
+  line-height: 0.96;
+  letter-spacing: -0.015em;
+  max-width: none;
+}
+.hero .eyebrow { display: inline-flex; align-items: center; gap: 0.7em; }
+.hero .eyebrow::before { content: ""; width: 2.2em; border-top: var(--hair) solid var(--gold); opacity: 0.8; }
+.hero .btn { min-height: 52px; padding-inline: 1.6em; }
+@media (min-width: 960px) {
+  .hero .a1 { order: 0; }
+  .hero__grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); }
+  .hero__title { font-size: clamp(3rem, (100vw - 136px) * 0.085, 6.25rem); } /* two lines in the text column */
+}
+
+/* ---------- Stage 6: A3 + A4 placement (appended) ---------- */
+
+/* 3. A3 is the visual; the five part cards sit in a row under it */
+#how .a3 { margin-bottom: var(--space-6); }
+.parts-row .part-card__name { font-size: 1.45rem; }
+
+/* 4. A4: without JS or with reduced motion, the steps then the static strip, full width.
+   When a4.js arms it (.a4-on), the steps become scroll steps beside (desktop) or under (phone)
+   a sticky A4 stage. */
+.split.split--axe { grid-template-columns: minmax(0, 1fr); }
+.a4-on .timeline__step { min-height: 46vh; }
+.a4-on .timeline__step { align-items: start; }
+.a4-on .timeline__body { align-content: start; opacity: 0.45; transition: opacity 0.35s var(--ease); }
+.a4-on .timeline__step.is-active .timeline__body { opacity: 1; }
+.a4-on .timeline__step::before { transition: background-color 0.35s var(--ease), color 0.35s var(--ease), box-shadow 0.35s var(--ease); }
+.a4-on .timeline__step.is-active::before {
+  background: var(--gold);
+  color: var(--on-gold);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--gold) 55%, transparent);
+}
+.a4-on .a4 {
+  order: -1;
+  position: sticky;
+  top: 77px;            /* under the sticky nav */
+  z-index: 5;
+  box-shadow: 0 -10px 0 var(--bg);   /* hide steps sliding up between nav and stage */
+}
+.a4-on .a4 .diagram-frame__panel { padding: var(--space-4); }
+@media (min-width: 960px) {
+  .split.split--axe.a4-on { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); }
+  .a4-on .a4 { order: 0; top: 110px; box-shadow: none; }
+  .a4-on .a4 .diagram-frame__panel { padding: var(--space-6); }
+  .a4-on .timeline__step { min-height: 40vh; }
+}
+
+/* ---------- Stage 7: A5, A6, A7 placement (appended) ---------- */
+
+/* 5. A5 is the visual; the three table cards sit under it as its legend (the h2 is A5's caption) */
+#tables .a5 { margin-bottom: var(--space-6); }
+#tables .tables { margin-bottom: 0; }
+
+/* 6. A6 beside the copy and points on desktop, under them on phones */
+@media (min-width: 960px) {
+  .split--dee { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); }
+}
+
+/* 7. the 03 mode strip is the copy; A7 under it is the product view of the same switch */
+#gm .modes { margin-bottom: var(--space-6); }
+
+/* ---------- Stage 8: phone pass ---------- */
+
+.site-nav .logo, .site-footer .logo { min-height: 44px; }
+.site-footer__links a { min-width: 44px; }
+.site-nav .site-nav__cta { min-height: 44px; }
+.nowrap { white-space: nowrap; }

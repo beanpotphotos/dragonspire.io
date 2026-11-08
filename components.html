@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DragonSpire Components</title>
+<meta name="description" content="Shared components for DragonSpire.io and dragonspireinteractive.com, in dark and light.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%230F1219'/%3E%3Cg fill='none' stroke='%23E0B04F' stroke-width='2' stroke-linejoin='round'%3E%3Cpath d='M20 3 L34.7 11.5 V28.5 L20 37 L5.3 28.5 V11.5 Z'/%3E%3Cpath d='M20 9 L25.5 17 V30 H14.5 V17 Z M14.5 22 H25.5 M14.5 26 H25.5'/%3E%3C/g%3E%3C/svg%3E">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="stylesheet" href="assets/css/ds.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<style>
+  .cs-head { padding-block: var(--space-8) var(--space-7); }
+  .cs-head .section-head { margin-bottom: 0; }
+  .cs-section { padding-bottom: var(--space-8); scroll-margin-top: 84px; }
+  .cs-section > h2 { margin-bottom: var(--space-2); }
+  .cs-note { margin-bottom: var(--space-5); }
+  .pair { display: grid; gap: var(--space-4); }
+  @media (min-width: 1000px) { .pair:not(.pair--stack) { grid-template-columns: 1fr 1fr; } }
+  .specimen { min-width: 0; display: grid; gap: var(--space-5); align-content: start; padding: var(--space-5) 16px; border: 1px solid var(--line); border-radius: var(--radius); }
+  @media (min-width: 720px) { .specimen { padding: var(--space-6); } }
+  .specimen__tag { margin: 0; }
+  .specimen .section-head { margin-bottom: 0; }
+  .specimen .site-nav, .specimen .site-footer { border: 1px solid var(--line); border-radius: var(--radius); }
+  .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); }
+</style>
+</head>
+<body>
+<header class="site-nav">
+  <div class="site-nav__inner">
+    <a class="logo" href="#"><svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2 L35.6 11 V29 L20 38 L4.4 29 V11 Z"/><path d="M20 8 L26 17 V31 H14 V17 Z M14 22 H26 M14 26.5 H26"/></svg><span><span class="logo__word">DragonSpire</span><span class="logo__sub">Components</span></span></a>
+    <div class="site-nav__tools"><button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch theme"><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button><button class="site-nav__toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-page"><span class="site-nav__bars" aria-hidden="true"></span><span class="site-nav__toggle-text">Menu</span></button></div>
+    <nav class="site-nav__menu" id="nav-page" aria-label="Main">
+      <ul class="site-nav__links"><li><a href="#c-nav">Navigation</a></li><li><a href="#c-parts">Part cards</a></li><li><a href="#c-table">Table</a></li><li><a href="#c-status">Status</a></li><li><a href="#c-footer">Footer</a></li></ul>
+      <a class="btn btn--secondary site-nav__cta" href="styleguide.html">Style guide</a>
+    </nav>
+  </div>
+</header>
+<main class="container">
+  <header class="cs-head">
+    <div class="section-head">
+      <p class="eyebrow">Design system · Stage 2</p>
+      <h1>Shared components</h1>
+      <p class="lede">The building blocks both sites reuse, each shown in dark and light. The page around them follows the toggle in the bar.</p>
+    </div>
+  </header>
+<section class="cs-section" id="c-logo" aria-labelledby="h-logo">
+  <h2 id="h-logo">Logo and theme toggle</h2>
+  <p class="muted cs-note">Hexagon-spire mark with the wordmark. The toggle shows a sun in dark mode and a moon in light mode.</p>
+  <div class="pair">
+    <div class="specimen" data-theme="dark"><p class="label specimen__tag">Dark</p><div class="row"><a class="logo" href="#"><svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2 L35.6 11 V29 L20 38 L4.4 29 V11 Z"/><path d="M20 8 L26 17 V31 H14 V17 Z M14 22 H26 M14 26.5 H26"/></svg><span><span class="logo__word">DragonSpire</span></span></a><a class="logo" href="#"><svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2 L35.6 11 V29 L20 38 L4.4 29 V11 Z"/><path d="M20 8 L26 17 V31 H14 V17 Z M14 22 H26 M14 26.5 H26"/></svg><span><span class="logo__word">DragonSpire</span><span class="logo__sub">Interactive</span></span></a></div>
+<div class="row"><button class="theme-toggle" type="button" aria-label="Switch theme"><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button><span class="small muted">Theme toggle. In a page, add <code>data-theme-toggle</code> and it flips &lt;html&gt; and remembers the choice.</span></div></div>
+    <div class="specimen" data-theme="light"><p class="label specimen__tag">Light</p><div class="row"><a class="logo" href="#"><svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2 L35.6 11 V29 L20 38 L4.4 29 V11 Z"/><path d="M20 8 L26 17 V31 H14 V17 Z M14 22 H26 M14 26.5 H26"/></svg><span><span class="logo__word">DragonSpire</span></span></a><a class="logo" href="#"><svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2 L35.6 11 V29 L20 38 L4.4 29 V11 Z"/><path d="M20 8 L26 17 V31 H14 V17 Z M14 22 H26 M14 26.5 H26"/></svg><span><span class="logo__word">DragonSpire</span><span class="logo__sub">Interactive</span></span></a></div>
+<div class="row"><button class="theme-toggle" type="button" aria-label="Switch theme"><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button><span class="small muted">Theme toggle. In a page, add <code>data-theme-toggle</code> and it flips &lt;html&gt; and remembers the choice.</span></div></div>
+  </div>
+</section>
+<section class="cs-section" id="c-nav" aria-labelledby="h-nav">
+  <h2 id="h-nav">Navigation bar</h2>
+  <p class="muted cs-note">Sticky. Logo left, links, one button. Collapses behind a Menu button when its own width is under 820 px. Dark: DragonSpire.io. Light: the company site, with the theme toggle.</p>
+  <div class="pair pair--stack">
+    <div class="specimen" data-theme="dark"><p class="label specimen__tag">Dark</p><header class="site-nav site-nav--static">
+  <div class="site-nav__inner">
+    <a class="logo" href="#"><svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2 L35.6 11 V29 L20 38 L4.4 29 V11 Z"/><path d="M20 8 L26 17 V31 H14 V17 Z M14 22 H26 M14 26.5 H26"/></svg><span><span class="logo__word">DragonSpire</span></span></a>
+    <div class="site-nav__tools"><button class="site-nav__toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-dark"><span class="site-nav__bars" aria-hidden="true"></span><span class="site-nav__toggle-text">Menu</span></button></div>
+    <nav class="site-nav__menu" id="nav-dark" aria-label="Main">
+      <ul class="site-nav__links"><li><a href="#">How it works</a></li><li><a href="#">Dee Emma</a></li><li><a href="#">For game masters</a></li><li><a href="#">Company<span class="site-nav__ext" aria-hidden="true">↗</span></a></li></ul>
+      <a class="btn btn--primary site-nav__cta" href="https://play.dragonspire.io">Log in</a>
+    </nav>
+  </div>
+</header></div>
+    <div class="specimen" data-theme="light"><p class="label specimen__tag">Light</p><header class="site-nav site-nav--static">
+  <div class="site-nav__inner">
+    <a class="logo" href="#"><svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2 L35.6 11 V29 L20 38 L4.4 29 V11 Z"/><path d="M20 8 L26 17 V31 H14 V17 Z M14 22 H26 M14 26.5 H26"/></svg><span><span class="logo__word">DragonSpire</span><span class="logo__sub">Interactive</span></span></a>
+    <div class="site-nav__tools"><button class="theme-toggle" type="button" aria-label="Switch theme"><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button><button class="site-nav__toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-light"><span class="site-nav__bars" aria-hidden="true"></span><span class="site-nav__toggle-text">Menu</span></button></div>
+    <nav class="site-nav__menu" id="nav-light" aria-label="Main">
+      <ul class="site-nav__links"><li><a href="#">Product</a></li><li><a href="#">Technology</a></li><li><a href="#">Status</a></li><li><a href="#">Company</a></li></ul>
+      <a class="btn btn--secondary site-nav__cta" href="https://dragonspire.io">DragonSpire.io</a>
+    </nav>
+  </div>
+</header></div>
+  </div>
+</section>
+<section class="cs-section" id="c-head" aria-labelledby="h-head">
+  <h2 id="h-head">Section header</h2>
+  <p class="muted cs-note">Small-caps eyebrow, headline, lede.</p>
+  <div class="pair">
+    <div class="specimen" data-theme="dark"><p class="label specimen__tag">Dark</p><div class="section-head">
+  <p class="eyebrow">How it works</p>
+  <h2>Five parts. One game master.</h2>
+  <p class="lede">Each part does the job it is good at. Only one of them is AI.</p>
+</div></div>
+    <div class="specimen" data-theme="light"><p class="label specimen__tag">Light</p><div class="section-head">
+  <p class="eyebrow">How it works</p>
+  <h2>Five parts. One game master.</h2>
+  <p class="lede">Each part does the job it is good at. Only one of them is AI.</p>
+</div></div>
+  </div>
+</section>
+<section class="cs-section" id="c-buttons" aria-labelledby="h-buttons">
+  <h2 id="h-buttons">Buttons</h2>
+  <p class="muted cs-note">Primary, secondary and ghost, from ds.css.</p>
+  <div class="pair">
+    <div class="specimen" data-theme="dark"><p class="label specimen__tag">Dark</p><div class="row">
+  <a class="btn btn--primary" href="https://play.dragonspire.io">Log in to play</a>
+  <a class="btn btn--secondary" href="#">See how it works</a>
+  <a class="btn btn--ghost" href="https://dragonspireinteractive.com">Company <span class="arrow">↗</span></a>
+</div></div>
+    <div class="specimen" data-theme="light"><p class="label specimen__tag">Light</p><div class="row">
+  <a class="btn btn--primary" href="https://play.dragonspire.io">Log in to play</a>
+  <a class="btn btn--secondary" href="#">See how it works</a>
+  <a class="btn btn--ghost" href="https://dragonspireinteractive.com">Company <span class="arrow">↗</span></a>
+</div></div>
+  </div>
+</section>
+<section class="cs-section" id="c-parts" aria-labelledby="h-parts">
+  <h2 id="h-parts">Part cards</h2>
+  <p class="muted cs-note">Name in Cormorant, role, one line, a left rule in the part colour, a badge. Only Cory is AI.</p>
+  <div class="pair pair--stack">
+    <div class="specimen" data-theme="dark"><p class="label specimen__tag">Dark</p><ul class="part-grid"><li class="part-card p-cory"><h3 class="part-card__name">Cory</h3>
+<div class="part-card__meta"><p class="part-card__role">The brain</p><span class="badge badge--ai">AI</span></div>
+<p class="part-card__copy">Decides what happens next and writes what the game master says.</p></li><li class="part-card p-dee"><h3 class="part-card__name">Dee Emma</h3>
+<div class="part-card__meta"><p class="part-card__role">The voice</p><span class="badge">Code</span></div>
+<p class="part-card__copy">Joins your Discord, hears each player, and answers out loud.</p></li><li class="part-card p-fgu"><h3 class="part-card__name">FGU Link</h3>
+<div class="part-card__meta"><p class="part-card__role">The hands</p><span class="badge">Code</span></div>
+<p class="part-card__copy">Works the Fantasy Grounds table: dice, tokens, maps, the combat tracker. Never calls an AI.</p></li><li class="part-card p-cm"><h3 class="part-card__name">Campaign Manager</h3>
+<div class="part-card__meta"><p class="part-card__role">The memory</p><span class="badge">Database</span></div>
+<p class="part-card__copy">Every place, NPC and quest in your world, written by your GM and read by the game master every turn.</p></li><li class="part-card p-library"><h3 class="part-card__name">DragonLibrary</h3>
+<div class="part-card__meta"><p class="part-card__role">The rulebook</p><span class="badge">Database</span></div>
+<p class="part-card__copy">D&amp;D 2024 rules and thousands of Fantasy Grounds effect codes, matched to your table and looked up, never guessed.</p></li></ul></div>
+    <div class="specimen" data-theme="light"><p class="label specimen__tag">Light</p><ul class="part-grid"><li class="part-card p-cory"><h3 class="part-card__name">Cory</h3>
+<div class="part-card__meta"><p class="part-card__role">The brain</p><span class="badge badge--ai">AI</span></div>
+<p class="part-card__copy">Decides what happens next and writes what the game master says.</p></li><li class="part-card p-dee"><h3 class="part-card__name">Dee Emma</h3>
+<div class="part-card__meta"><p class="part-card__role">The voice</p><span class="badge">Code</span></div>
+<p class="part-card__copy">Joins your Discord, hears each player, and answers out loud.</p></li><li class="part-card p-fgu"><h3 class="part-card__name">FGU Link</h3>
+<div class="part-card__meta"><p class="part-card__role">The hands</p><span class="badge">Code</span></div>
+<p class="part-card__copy">Works the Fantasy Grounds table: dice, tokens, maps, the combat tracker. Never calls an AI.</p></li><li class="part-card p-cm"><h3 class="part-card__name">Campaign Manager</h3>
+<div class="part-card__meta"><p class="part-card__role">The memory</p><span class="badge">Database</span></div>
+<p class="part-card__copy">Every place, NPC and quest in your world, written by your GM and read by the game master every turn.</p></li><li class="part-card p-library"><h3 class="part-card__name">DragonLibrary</h3>
+<div class="part-card__meta"><p class="part-card__role">The rulebook</p><span class="badge">Database</span></div>
+<p class="part-card__copy">D&amp;D 2024 rules and thousands of Fantasy Grounds effect codes, matched to your table and looked up, never guessed.</p></li></ul></div>
+  </div>
+</section>
+<section class="cs-section" id="c-stats" aria-labelledby="h-stats">
+  <h2 id="h-stats">Stat block</h2>
+  <p class="muted cs-note">Big number, mono caption.</p>
+  <div class="pair">
+    <div class="specimen" data-theme="dark"><p class="label specimen__tag">Dark</p><div class="stat-grid"><div class="stat stat--ruled"><span class="stat__num">92</span><span class="stat__cap">things it can do in Fantasy Grounds</span></div><div class="stat stat--ruled"><span class="stat__num">42</span><span class="stat__cap">procedures it follows, written in plain text</span></div><div class="stat stat--ruled"><span class="stat__num">0</span><span class="stat__cap">dice it rolls for your character</span></div><div class="stat stat--ruled"><span class="stat__num">0.1 s</span><span class="stat__cap">from command to a verified result in Fantasy Grounds</span></div></div></div>
+    <div class="specimen" data-theme="light"><p class="label specimen__tag">Light</p><div class="stat-grid"><div class="stat stat--ruled"><span class="stat__num">92</span><span class="stat__cap">things it can do in Fantasy Grounds</span></div><div class="stat stat--ruled"><span class="stat__num">42</span><span class="stat__cap">procedures it follows, written in plain text</span></div><div class="stat stat--ruled"><span class="stat__num">0</span><span class="stat__cap">dice it rolls for your character</span></div><div class="stat stat--ruled"><span class="stat__num">0.1 s</span><span class="stat__cap">from command to a verified result in Fantasy Grounds</span></div></div></div>
+  </div>
+</section>
+<section class="cs-section" id="c-frame" aria-labelledby="h-frame">
+  <h2 id="h-frame">Diagram frame</h2>
+  <p class="muted cs-note">Ink panel with a gold hairline and a caption below. The panel stays dark ink on light pages.</p>
+  <div class="pair">
+    <div class="specimen" data-theme="dark"><p class="label specimen__tag">Dark</p><figure class="diagram-frame">
+  <div class="diagram-frame__panel"><svg class="diagram draw-on-view" viewBox="0 0 665 150" role="img" aria-labelledby="df-dark">
+<title id="df-dark">Cory sends a command to FGU Link, FGU Link drives Fantasy Grounds, and a receipt of what actually happened comes back.</title>
+<path class="ln" pathLength="1" d="M185 62 H245"/><path class="ln" pathLength="1" d="M420 62 H480"/>
+<path class="ln ln--soft" pathLength="1" d="M480 84 H420"/><path class="ln ln--soft" pathLength="1" d="M245 84 H185"/>
+<g class="node p-cory" style="--i:0"><rect class="chamber" x="10" y="40" width="175" height="64" rx="4"/><rect class="chamber-glow" x="10" y="40" width="175" height="64" rx="4"/><rect class="chamber-rule" x="20" y="52" width="3" height="40" rx="1.5"/><text class="t-name" x="32" y="70">Cory</text><text class="t-role" x="32" y="89">THE BRAIN</text></g><g class="node p-fgu" style="--i:1"><rect class="chamber" x="245" y="40" width="175" height="64" rx="4"/><rect class="chamber-glow" x="245" y="40" width="175" height="64" rx="4"/><rect class="chamber-rule" x="255" y="52" width="3" height="40" rx="1.5"/><text class="t-name" x="267" y="70">FGU Link</text><text class="t-role" x="267" y="89">THE HANDS</text></g><g class="node p-fgu" style="--i:2"><rect class="chamber" x="480" y="40" width="175" height="64" rx="4"/><rect class="chamber-glow" x="480" y="40" width="175" height="64" rx="4"/><rect class="chamber-rule" x="490" y="52" width="3" height="40" rx="1.5"/><text class="t-name" x="502" y="70">Fantasy Grounds</text><text class="t-role" x="502" y="89">5E RULESET</text></g>
+<g class="node" style="--i:3"><text class="t-label" x="332" y="132" text-anchor="middle">COMMAND →   ·   ← RECEIPT</text></g>
+<circle class="dot" cx="185" cy="62" r="2.6" style="--dot:var(--gold);--x1:60px;animation:ds-travel 2.4s linear infinite"/>
+<circle class="dot" cx="420" cy="62" r="2.6" style="--dot:var(--gold);--x1:60px;animation:ds-travel 2.4s linear -0.8s infinite"/>
+<circle class="dot" cx="420" cy="84" r="2.6" style="--dot:var(--ember);--x0:60px;--x1:0px;animation:ds-travel 2.4s linear -1.2s infinite"/>
+<circle class="dot" cx="185" cy="84" r="2.6" style="--dot:var(--ember);--x0:60px;--x1:0px;animation:ds-travel 2.4s linear -2s infinite"/>
+</svg></div>
+  <figcaption class="diagram-frame__cap"><strong>A receipt comes back.</strong> In about a tenth of a second, with what actually happened.</figcaption>
+</figure></div>
+    <div class="specimen" data-theme="light"><p class="label specimen__tag">Light</p><figure class="diagram-frame">
+  <div class="diagram-frame__panel"><svg class="diagram draw-on-view" viewBox="0 0 665 150" role="img" aria-labelledby="df-light">
+<title id="df-light">Cory sends a command to FGU Link, FGU Link drives Fantasy Grounds, and a receipt of what actually happened comes back.</title>
+<path class="ln" pathLength="1" d="M185 62 H245"/><path class="ln" pathLength="1" d="M420 62 H480"/>
+<path class="ln ln--soft" pathLength="1" d="M480 84 H420"/><path class="ln ln--soft" pathLength="1" d="M245 84 H185"/>
+<g class="node p-cory" style="--i:0"><rect class="chamber" x="10" y="40" width="175" height="64" rx="4"/><rect class="chamber-glow" x="10" y="40" width="175" height="64" rx="4"/><rect class="chamber-rule" x="20" y="52" width="3" height="40" rx="1.5"/><text class="t-name" x="32" y="70">Cory</text><text class="t-role" x="32" y="89">THE BRAIN</text></g><g class="node p-fgu" style="--i:1"><rect class="chamber" x="245" y="40" width="175" height="64" rx="4"/><rect class="chamber-glow" x="245" y="40" width="175" height="64" rx="4"/><rect class="chamber-rule" x="255" y="52" width="3" height="40" rx="1.5"/><text class="t-name" x="267" y="70">FGU Link</text><text class="t-role" x="267" y="89">THE HANDS</text></g><g class="node p-fgu" style="--i:2"><rect class="chamber" x="480" y="40" width="175" height="64" rx="4"/><rect class="chamber-glow" x="480" y="40" width="175" height="64" rx="4"/><rect class="chamber-rule" x="490" y="52" width="3" height="40" rx="1.5"/><text class="t-name" x="502" y="70">Fantasy Grounds</text><text class="t-role" x="502" y="89">5E RULESET</text></g>
+<g class="node" style="--i:3"><text class="t-label" x="332" y="132" text-anchor="middle">COMMAND →   ·   ← RECEIPT</text></g>
+<circle class="dot" cx="185" cy="62" r="2.6" style="--dot:var(--gold);--x1:60px;animation:ds-travel 2.4s linear infinite"/>
+<circle class="dot" cx="420" cy="62" r="2.6" style="--dot:var(--gold);--x1:60px;animation:ds-travel 2.4s linear -0.8s infinite"/>
+<circle class="dot" cx="420" cy="84" r="2.6" style="--dot:var(--ember);--x0:60px;--x1:0px;animation:ds-travel 2.4s linear -1.2s infinite"/>
+<circle class="dot" cx="185" cy="84" r="2.6" style="--dot:var(--ember);--x0:60px;--x1:0px;animation:ds-travel 2.4s linear -2s infinite"/>
+</svg></div>
+  <figcaption class="diagram-frame__cap"><strong>A receipt comes back.</strong> In about a tenth of a second, with what actually happened.</figcaption>
+</figure></div>
+  </div>
+</section>
+<section class="cs-section" id="c-table" aria-labelledby="h-table">
+  <h2 id="h-table">Comparison table</h2>
+  <p class="muted cs-note">The highlighted row is the AI's job. In a narrow box each row stacks into a card; the page never scrolls sideways.</p>
+  <div class="pair pair--stack">
+    <div class="specimen" data-theme="dark"><p class="label specimen__tag">Dark</p><div class="table-wrap" role="region" aria-label="AI where it is good, code where it must be right" tabindex="0">
+<table class="compare">
+<thead><tr><th scope="col">Job</th><th scope="col">Who does it in DragonSpire</th><th scope="col">Not the AI because</th></tr></thead>
+<tbody><tr><th scope="row">Rolling dice, applying damage, conditions, spell slots</th><td data-label="Who does it in DragonSpire">Fantasy Grounds' own 5E ruleset, driven by FGU Link</td><td data-label="Not the AI because">A model cannot be trusted to do arithmetic or remember rules</td></tr><tr><th scope="row">Knowing the battlefield, whose turn it is, who has how many hit points</th><td data-label="Who does it in DragonSpire">The live Fantasy Grounds combat tracker, mirrored into Cory</td><td data-label="Not the AI because">A model's memory of a fight drifts within minutes</td></tr><tr><th scope="row">Remembering the world: places, NPCs, quests, and what the party changed</th><td data-label="Who does it in DragonSpire">Campaign Manager: a database the GM writes in its own web app, read by Cory every turn</td><td data-label="Not the AI because">Model context is short and forgetful</td></tr><tr><th scope="row">Rules content: D&amp;D 2024 rules and Fantasy Grounds effect codes, each with a trust tier and the extensions it needs</th><td data-label="Who does it in DragonSpire">DragonLibrary</td><td data-label="Not the AI because">A wrong effect code fails silently in Fantasy Grounds, and models make up the syntax</td></tr><tr><th scope="row">Fairness: never roll for a player, refuse loot a player just claims, follow turn order</th><td data-label="Who does it in DragonSpire">Python code with tests</td><td data-label="Not the AI because">A model gives in to a persistent player</td></tr><tr><th scope="row">Table manners on voice: wait for a pause, stop when talked over, drop stale lines</th><td data-label="Who does it in DragonSpire">Dee Emma and Cory's speech triage</td><td data-label="Not the AI because">Needs timing a model does not have</td></tr><tr class="compare__hl"><th scope="row">Narration, NPC voices, judging what a player meant</th><td data-label="Who does it in DragonSpire">The AI model</td><td data-label="Not the AI because">This is what language models are good at</td></tr></tbody>
+</table></div></div>
+    <div class="specimen" data-theme="light"><p class="label specimen__tag">Light</p><div class="table-wrap" role="region" aria-label="AI where it is good, code where it must be right" tabindex="0">
+<table class="compare">
+<thead><tr><th scope="col">Job</th><th scope="col">Who does it in DragonSpire</th><th scope="col">Not the AI because</th></tr></thead>
+<tbody><tr><th scope="row">Rolling dice, applying damage, conditions, spell slots</th><td data-label="Who does it in DragonSpire">Fantasy Grounds' own 5E ruleset, driven by FGU Link</td><td data-label="Not the AI because">A model cannot be trusted to do arithmetic or remember rules</td></tr><tr><th scope="row">Knowing the battlefield, whose turn it is, who has how many hit points</th><td data-label="Who does it in DragonSpire">The live Fantasy Grounds combat tracker, mirrored into Cory</td><td data-label="Not the AI because">A model's memory of a fight drifts within minutes</td></tr><tr><th scope="row">Remembering the world: places, NPCs, quests, and what the party changed</th><td data-label="Who does it in DragonSpire">Campaign Manager: a database the GM writes in its own web app, read by Cory every turn</td><td data-label="Not the AI because">Model context is short and forgetful</td></tr><tr><th scope="row">Rules content: D&amp;D 2024 rules and Fantasy Grounds effect codes, each with a trust tier and the extensions it needs</th><td data-label="Who does it in DragonSpire">DragonLibrary</td><td data-label="Not the AI because">A wrong effect code fails silently in Fantasy Grounds, and models make up the syntax</td></tr><tr><th scope="row">Fairness: never roll for a player, refuse loot a player just claims, follow turn order</th><td data-label="Who does it in DragonSpire">Python code with tests</td><td data-label="Not the AI because">A model gives in to a persistent player</td></tr><tr><th scope="row">Table manners on voice: wait for a pause, stop when talked over, drop stale lines</th><td data-label="Who does it in DragonSpire">Dee Emma and Cory's speech triage</td><td data-label="Not the AI because">Needs timing a model does not have</td></tr><tr class="compare__hl"><th scope="row">Narration, NPC voices, judging what a player meant</th><td data-label="Who does it in DragonSpire">The AI model</td><td data-label="Not the AI because">This is what language models are good at</td></tr></tbody>
+</table></div></div>
+  </div>
+</section>
+<section class="cs-section" id="c-timeline" aria-labelledby="h-timeline">
+  <h2 id="h-timeline">Numbered timeline</h2>
+  <p class="muted cs-note">For real sequences only.</p>
+  <div class="pair">
+    <div class="specimen" data-theme="dark"><p class="label specimen__tag">Dark</p><ol class="timeline"><li class="timeline__step"><div class="timeline__body"><h3 class="timeline__title">You speak.</h3><p class="timeline__text">Dee Emma hears you in Discord.</p></div></li><li class="timeline__step"><div class="timeline__body"><h3 class="timeline__title">Cory listens.</h3><p class="timeline__text">Was that meant for the game master? Is it your turn? It checks Fantasy Grounds.</p></div></li><li class="timeline__step"><div class="timeline__body"><h3 class="timeline__title">Cory picks a move.</h3><p class="timeline__text">The AI asks for an attack roll; it does not invent one.</p></div></li><li class="timeline__step"><div class="timeline__body"><h3 class="timeline__title">Fantasy Grounds rolls.</h3><p class="timeline__text">The real 5E ruleset rolls and applies the damage.</p></div></li><li class="timeline__step"><div class="timeline__body"><h3 class="timeline__title">A receipt comes back.</h3><p class="timeline__text">In about a tenth of a second, with what actually happened.</p></div></li><li class="timeline__step"><div class="timeline__body"><h3 class="timeline__title">Dee Emma tells the story.</h3><p class="timeline__text">“Your axe bites deep. The goblin staggers.”</p></div></li></ol></div>
+    <div class="specimen" data-theme="light"><p class="label specimen__tag">Light</p><ol class="timeline"><li class="timeline__step"><div class="timeline__body"><h3 class="timeline__title">You speak.</h3><p class="timeline__text">Dee Emma hears you in Discord.</p></div></li><li class="timeline__step"><div class="timeline__body"><h3 class="timeline__title">Cory listens.</h3><p class="timeline__text">Was that meant for the game master? Is it your turn? It checks Fantasy Grounds.</p></div></li><li class="timeline__step"><div class="timeline__body"><h3 class="timeline__title">Cory picks a move.</h3><p class="timeline__text">The AI asks for an attack roll; it does not invent one.</p></div></li><li class="timeline__step"><div class="timeline__body"><h3 class="timeline__title">Fantasy Grounds rolls.</h3><p class="timeline__text">The real 5E ruleset rolls and applies the damage.</p></div></li><li class="timeline__step"><div class="timeline__body"><h3 class="timeline__title">A receipt comes back.</h3><p class="timeline__text">In about a tenth of a second, with what actually happened.</p></div></li><li class="timeline__step"><div class="timeline__body"><h3 class="timeline__title">Dee Emma tells the story.</h3><p class="timeline__text">“Your axe bites deep. The goblin staggers.”</p></div></li></ol></div>
+  </div>
+</section>
+<section class="cs-section" id="c-status" aria-labelledby="h-status">
+  <h2 id="h-status">Status pill</h2>
+  <p class="muted cs-note">Live is teal filled, Offline-tested is a gold outline, Not yet proven is a muted outline.</p>
+  <div class="pair">
+    <div class="specimen" data-theme="dark"><p class="label specimen__tag">Dark</p><div class="row"><span class="pill pill--live">Live</span><span class="pill pill--offline">Offline-tested</span><span class="pill pill--unproven">Not yet proven</span></div>
+<ul class="status-list">
+  <li><span>Voice conversation in Discord, turn awareness, table manners</span><span class="pill pill--live">Live</span></li>
+  <li><span>XP once per fight, refusing loot a player claims</span><span class="pill pill--offline">Offline-tested</span></li>
+  <li><span>A full session run unattended</span><span class="pill pill--unproven">Not yet proven</span></li>
+</ul></div>
+    <div class="specimen" data-theme="light"><p class="label specimen__tag">Light</p><div class="row"><span class="pill pill--live">Live</span><span class="pill pill--offline">Offline-tested</span><span class="pill pill--unproven">Not yet proven</span></div>
+<ul class="status-list">
+  <li><span>Voice conversation in Discord, turn awareness, table manners</span><span class="pill pill--live">Live</span></li>
+  <li><span>XP once per fight, refusing loot a player claims</span><span class="pill pill--offline">Offline-tested</span></li>
+  <li><span>A full session run unattended</span><span class="pill pill--unproven">Not yet proven</span></li>
+</ul></div>
+  </div>
+</section>
+<section class="cs-section" id="c-quote" aria-labelledby="h-quote">
+  <h2 id="h-quote">Quote block</h2>
+  <p class="muted cs-note">Pull quote in Cormorant italic.</p>
+  <div class="pair">
+    <div class="specimen" data-theme="dark"><p class="label specimen__tag">Dark</p><blockquote class="quote">
+  <p>A gifted improviser with no memory, no rulebook and no spine.</p>
+  <footer>DragonSpire Interactive</footer>
+</blockquote></div>
+    <div class="specimen" data-theme="light"><p class="label specimen__tag">Light</p><blockquote class="quote">
+  <p>A gifted improviser with no memory, no rulebook and no spine.</p>
+  <footer>DragonSpire Interactive</footer>
+</blockquote></div>
+  </div>
+</section>
+<section class="cs-section" id="c-footer" aria-labelledby="h-footer">
+  <h2 id="h-footer">Footer</h2>
+  <p class="muted cs-note">Both domains and the trademark line, word for word.</p>
+  <div class="pair pair--stack">
+    <div class="specimen" data-theme="dark"><p class="label specimen__tag">Dark</p><footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__top">
+      <a class="logo" href="#"><svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2 L35.6 11 V29 L20 38 L4.4 29 V11 Z"/><path d="M20 8 L26 17 V31 H14 V17 Z M14 22 H26 M14 26.5 H26"/></svg><span><span class="logo__word">DragonSpire</span></span></a>
+      <ul class="site-footer__links">
+        <li><a href="https://dragonspire.io">DragonSpire.io</a></li>
+        <li><a href="https://dragonspireinteractive.com">dragonspireinteractive.com</a></li>
+        <li><a href="https://play.dragonspire.io">Log in</a></li>
+      </ul>
+    </div>
+    <p class="site-footer__made">DragonSpire is made by DragonSpire Interactive.</p>
+    <p class="site-footer__legal">Fantasy Grounds Unity is a product of SmiteWorks. Dungeons &amp; Dragons is a trademark of Wizards of the Coast. DragonSpire is not affiliated with either.</p>
+  </div>
+</footer></div>
+    <div class="specimen" data-theme="light"><p class="label specimen__tag">Light</p><footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__top">
+      <a class="logo" href="#"><svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2 L35.6 11 V29 L20 38 L4.4 29 V11 Z"/><path d="M20 8 L26 17 V31 H14 V17 Z M14 22 H26 M14 26.5 H26"/></svg><span><span class="logo__word">DragonSpire</span></span></a>
+      <ul class="site-footer__links">
+        <li><a href="https://dragonspire.io">DragonSpire.io</a></li>
+        <li><a href="https://dragonspireinteractive.com">dragonspireinteractive.com</a></li>
+        <li><a href="https://play.dragonspire.io">Log in</a></li>
+      </ul>
+    </div>
+    <p class="site-footer__made">DragonSpire is made by DragonSpire Interactive.</p>
+    <p class="site-footer__legal">Fantasy Grounds Unity is a product of SmiteWorks. Dungeons &amp; Dragons is a trademark of Wizards of the Coast. DragonSpire is not affiliated with either.</p>
+  </div>
+</footer></div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__top">
+      <a class="logo" href="#"><svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2 L35.6 11 V29 L20 38 L4.4 29 V11 Z"/><path d="M20 8 L26 17 V31 H14 V17 Z M14 22 H26 M14 26.5 H26"/></svg><span><span class="logo__word">DragonSpire</span></span></a>
+      <ul class="site-footer__links">
+        <li><a href="https://dragonspire.io">DragonSpire.io</a></li>
+        <li><a href="https://dragonspireinteractive.com">dragonspireinteractive.com</a></li>
+        <li><a href="https://play.dragonspire.io">Log in</a></li>
+      </ul>
+    </div>
+    <p class="site-footer__made">DragonSpire is made by DragonSpire Interactive.</p>
+    <p class="site-footer__legal">Fantasy Grounds Unity is a product of SmiteWorks. Dungeons &amp; Dragons is a trademark of Wizards of the Coast. DragonSpire is not affiliated with either.</p>
+  </div>
+</footer>
+<script src="assets/js/ds.js"></script>
+</body>
+</html>

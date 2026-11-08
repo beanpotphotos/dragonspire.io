@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DragonSpire Design System</title>
+<meta name="description" content="The shared design system for DragonSpire.io and dragonspireinteractive.com.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%230F1219'/%3E%3Cg fill='none' stroke='%23E0B04F' stroke-width='2' stroke-linejoin='round'%3E%3Cpath d='M20 3 L34.7 11.5 V28.5 L20 37 L5.3 28.5 V11.5 Z'/%3E%3Cpath d='M20 9 L25.5 17 V30 H14.5 V17 Z M14.5 22 H25.5 M14.5 26 H25.5'/%3E%3C/g%3E%3C/svg%3E">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="stylesheet" href="assets/css/ds.css">
+<style>
+  .sg-wrap { max-width: 1360px; margin: 0 auto; padding: var(--space-8) 16px var(--space-9); }
+  @media (min-width: 720px) { .sg-wrap { padding-inline: var(--space-6); } }
+  .sg-head { display: grid; gap: var(--space-4); margin-bottom: var(--space-8); }
+  .brand { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-5); }
+  .brand svg { width: 34px; height: 34px; }
+  .brand span { font-family: var(--font-display); font-weight: 600; font-size: 1.6rem; letter-spacing: 0.01em; }
+  .sg-section { margin-bottom: var(--space-8); }
+  .sg-section > h2 { margin-bottom: var(--space-2); }
+  .sg-section > p { margin-bottom: var(--space-6); }
+
+  .swatches { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+  .swatch { display: grid; gap: var(--space-3); align-content: start; padding: var(--space-4); background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); }
+  .swatch__chips { display: grid; grid-template-columns: 2fr 1fr; height: 72px; border-radius: 4px; overflow: hidden; border: 1px solid var(--line); }
+  .chip { display: block; }
+  .swatch__body { display: grid; gap: var(--space-1); }
+  .swatch__part { font-family: var(--font-display); font-weight: 600; font-size: 1.35rem; line-height: 1.15; }
+  .swatch__note { font-size: var(--step-small); }
+  .swatch__hex { margin-top: var(--space-2); display: flex; flex-wrap: wrap; gap: 0.4em; }
+  .neutrals { list-style: none; margin: var(--space-6) 0 0; padding: 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .neutral { display: grid; grid-template-columns: 64px 1fr; gap: var(--space-3); align-items: center; }
+  .neutral .swatch__chips { height: 48px; }
+
+  .themes { display: grid; gap: var(--space-6); }
+  @media (min-width: 1100px) { .themes { grid-template-columns: 1fr 1fr; } }
+  .theme-block { border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-6) var(--space-5); display: grid; gap: var(--space-7); align-content: start; min-width: 0; }
+  @media (min-width: 720px) { .theme-block { padding: var(--space-7); } }
+  .theme-block__head { display: grid; gap: var(--space-1); padding-bottom: var(--space-4); border-bottom: 1px solid var(--line); }
+  .sg-group { display: grid; gap: var(--space-4); min-width: 0; }
+  .sg-tag { color: var(--gold); }
+  .theme-block .display { font-size: clamp(2.5rem, 1.6rem + 3vw, 4rem); }
+  .type-spec { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-3); margin: var(--space-2) 0 0; }
+  .type-spec dt { color: var(--muted); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .type-spec dd { margin: 0; }
+  .stat-row { display: flex; flex-wrap: wrap; gap: var(--space-6); }
+  .btn-row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+  .sg-figure { margin: 0; display: grid; gap: var(--space-3); }
+  .sg-diagram { padding: var(--space-4); border-color: var(--gold); }
+  .sg-diagram svg { width: 100%; max-width: 440px; margin: 0 auto; }
+  .motifs { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-6); }
+  .motifs li { display: grid; justify-items: center; gap: var(--space-2); }
+  .motifs svg { height: 48px; width: auto; }
+  .motif-box { width: 64px; height: 48px; border: 1px solid var(--line); }
+  .motif-dot { --x0: 4px; --x1: 92px; animation: ds-travel 3s linear infinite; filter: drop-shadow(0 0 4px var(--gold)); }
+  @media (prefers-reduced-motion: reduce) { .motif-dot { display: none; } }
+
+  .principles { display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .principles h3 { margin-bottom: var(--space-2); }
+  .principles p { color: var(--muted); }
+  .avoid { font-family: var(--font-mono); font-size: var(--step-small); color: var(--muted); margin-top: var(--space-6); }
+</style>
+</head>
+<body>
+<main class="sg-wrap">
+  <header class="sg-head">
+    <div class="brand">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2 L35.6 11 V29 L20 38 L4.4 29 V11 Z" fill="none" stroke="var(--gold)" stroke-width="1.5"/><path d="M20 8 L26 17 V31 H14 V17 Z M14 22 H26 M14 26.5 H26" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      <span>DragonSpire</span>
+    </div>
+    <p class="eyebrow">Design system · Stage 1</p>
+    <h1>The engraved schematic</h1>
+    <p class="lede">One visual language for DragonSpire.io and dragonspireinteractive.com: the blueprint of a wizard's tower, drawn by an engineer. Fine gold linework on night-blue ink, one colour per part of the product.</p>
+  </header>
+
+  <section class="sg-section" aria-labelledby="c-h">
+    <h2 id="c-h">Colour: one per part</h2>
+    <p class="muted">The same part always wears the same colour, in every diagram, on both sites. Large chip is dark mode, small chip is light mode.</p>
+    <ul class="swatches">
+      <li class="swatch">
+        <div class="swatch__chips"><span class="chip" style="background:#E0B04F" title="dark #E0B04F"></span><span class="chip" style="background:#936817" title="light #936817"></span></div>
+        <div class="swatch__body">
+          <p class="swatch__part">Cory</p>
+          <p class="swatch__note muted">The brain. Also the brand colour.</p>
+          <p class="mono swatch__hex"><span>Gold</span> <span>#E0B04F</span> <span class="muted">/ #936817</span></p>
+        </div>
+      </li>
+      <li class="swatch">
+        <div class="swatch__chips"><span class="chip" style="background:#4FB3A5" title="dark #4FB3A5"></span><span class="chip" style="background:#247C76" title="light #247C76"></span></div>
+        <div class="swatch__body">
+          <p class="swatch__part">Dee Emma</p>
+          <p class="swatch__note muted">The voice in Discord.</p>
+          <p class="mono swatch__hex"><span>Teal</span> <span>#4FB3A5</span> <span class="muted">/ #247C76</span></p>
+        </div>
+      </li>
+      <li class="swatch">
+        <div class="swatch__chips"><span class="chip" style="background:#E5793F" title="dark #E5793F"></span><span class="chip" style="background:#B6521D" title="light #B6521D"></span></div>
+        <div class="swatch__body">
+          <p class="swatch__part">FGU Link + Fantasy Grounds</p>
+          <p class="swatch__note muted">The hands at the tabletop.</p>
+          <p class="mono swatch__hex"><span>Ember</span> <span>#E5793F</span> <span class="muted">/ #B6521D</span></p>
+        </div>
+      </li>
+      <li class="swatch">
+        <div class="swatch__chips"><span class="chip" style="background:#8F9BE8" title="dark #8F9BE8"></span><span class="chip" style="background:#5662BD" title="light #5662BD"></span></div>
+        <div class="swatch__body">
+          <p class="swatch__part">AI model providers</p>
+          <p class="swatch__note muted">Outside the system, behind a port.</p>
+          <p class="mono swatch__hex"><span>Periwinkle</span> <span>#8F9BE8</span> <span class="muted">/ #5662BD</span></p>
+        </div>
+      </li>
+      <li class="swatch">
+        <div class="swatch__chips"><span class="chip" style="background:#8A96AD" title="dark #8A96AD"></span><span class="chip" style="background:#647088" title="light #647088"></span></div>
+        <div class="swatch__body">
+          <p class="swatch__part">Campaign Manager + DragonLibrary</p>
+          <p class="swatch__note muted">Memory and rules: the databases.</p>
+          <p class="mono swatch__hex"><span>Slate</span> <span>#8A96AD</span> <span class="muted">/ #647088</span></p>
+        </div>
+      </li>
+    </ul>
+    <ul class="neutrals">
+      <li class="neutral"><div class="swatch__chips"><span class="chip" style="background:#0F1219"></span><span class="chip" style="background:#FAF6EE"></span></div><p><strong>Ink</strong> <span class="muted small">background</span><br><span class="mono">#0F1219 <span class="muted">/ #FAF6EE</span></span></p></li>
+      <li class="neutral"><div class="swatch__chips"><span class="chip" style="background:#1A2030"></span><span class="chip" style="background:#FFFDF8"></span></div><p><strong>Panel</strong> <span class="muted small">cards, frames</span><br><span class="mono">#1A2030 <span class="muted">/ #FFFDF8</span></span></p></li>
+      <li class="neutral"><div class="swatch__chips"><span class="chip" style="background:#2A3245"></span><span class="chip" style="background:#E2D8C4"></span></div><p><strong>Line</strong> <span class="muted small">hairlines, borders</span><br><span class="mono">#2A3245 <span class="muted">/ #E2D8C4</span></span></p></li>
+      <li class="neutral"><div class="swatch__chips"><span class="chip" style="background:#EFE6D2"></span><span class="chip" style="background:#2A2418"></span></div><p><strong>Parchment</strong> <span class="muted small">text</span><br><span class="mono">#EFE6D2 <span class="muted">/ #2A2418</span></span></p></li>
+      <li class="neutral"><div class="swatch__chips"><span class="chip" style="background:#A3ABBD"></span><span class="chip" style="background:#6B6354"></span></div><p><strong>Muted</strong> <span class="muted small">secondary text</span><br><span class="mono">#A3ABBD <span class="muted">/ #6B6354</span></span></p></li>
+    </ul>
+  </section>
+
+  <section class="sg-section" aria-labelledby="t-h">
+    <h2 id="t-h">Dark and light</h2>
+    <p class="muted">Dark is the DragonSpire.io default. Light is the company site default for long reading; its diagrams sit in dark ink frames.</p>
+    <div class="themes">
+      <section class="theme-block ornate" data-theme="dark" aria-label="Dark mode">
+        <header class="theme-block__head">
+          <p class="label">Dark mode</p>
+          <p class="small muted">Ink #0F1219 · DragonSpire.io default</p>
+        </header>
+
+        <div class="sg-group">
+          <p class="label sg-tag">Type scale</p>
+          <p class="eyebrow">Coming soon · Alpha</p>
+          <p class="display">Not a chatbot in a wizard's hat.</p>
+          <h2>Five parts. One game master.</h2>
+          <h3>Real dice, real rules.</h3>
+          <p class="lede">DragonSpire runs your D&amp;D game with real rules, real dice and a world that remembers. The AI tells the story. Everything else is built to get it right.</p>
+          <p>Fantasy Grounds' 5E ruleset rolls every attack and applies every hit. The AI reads the result; it cannot make one up.</p>
+          <p class="mono">FGU Link · LOOKUP_EFFECT · 0.07 to 0.16 s</p>
+          <dl class="type-spec mono">
+            <div><dt>Display</dt><dd>Cormorant Garamond 600</dd></div>
+            <div><dt>Eyebrow</dt><dd>Cormorant 600, small caps</dd></div>
+            <div><dt>Body</dt><dd>IBM Plex Sans 17 px, 65ch</dd></div>
+            <div><dt>Labels</dt><dd>IBM Plex Mono</dd></div>
+          </dl>
+        </div>
+
+        <div class="sg-group">
+          <p class="label sg-tag">Numbers</p>
+          <div class="stat-row">
+            <div class="stat"><span class="stat__num">92</span><span class="stat__cap">things it can do in Fantasy Grounds</span></div>
+            <div class="stat"><span class="stat__num">0.1 s</span><span class="stat__cap">from command to a verified result in Fantasy Grounds</span></div>
+          </div>
+        </div>
+
+        <div class="sg-group">
+          <p class="label sg-tag">Buttons</p>
+          <div class="btn-row">
+            <a class="btn btn--primary" href="#">Log in to play</a>
+            <a class="btn btn--secondary" href="#">See how it works</a>
+            <a class="btn btn--ghost" href="#">Company <span class="arrow">↗</span></a>
+          </div>
+        </div>
+
+        <div class="sg-group">
+          <p class="label sg-tag">Sample diagram</p>
+          <figure class="sg-figure">
+            <div class="sg-diagram panel">
+<svg class="diagram draw-on-view" viewBox="0 0 440 620" role="img" aria-labelledby="spire-dark-t">
+<title id="spire-dark-t">Five chambers stacked as a spire: Cory at the top, then Dee Emma, Campaign Manager, DragonLibrary and FGU Link at the base, joined by gold lines that carry small dots of light.</title>
+<path class="ln" pathLength="1" d="M24 596 H416"/>
+<path class="ln" pathLength="1" d="M140 110 L240 30 L340 110"/>
+<path class="ln" pathLength="1" d="M240 30 V18"/>
+<g class="node" style="--i:0"><path class="ln d20" pathLength="1" d="M240 44 l14 8 v16 l-14 8 l-14 -8 v-16 z M240 47 L229 66 H251 Z M240 47 V44 M229 66 L226 68 M251 66 L254 68" style="stroke-width:1.2"/></g>
+<path class="ln" pathLength="1" d="M52 595.0 V145.0"/>
+<path class="ln" pathLength="1" d="M52 145.0 H140.0"/>
+<circle class="node" style="--i:0" cx="52" cy="145.0" r="3" fill="var(--bg)" stroke="var(--gold)" stroke-width="1.5"/>
+<path class="ln" pathLength="1" d="M240 180 V210"/>
+<path class="ln" pathLength="1" d="M52 245.0 H130.0"/>
+<circle class="node" style="--i:1" cx="52" cy="245.0" r="3" fill="var(--bg)" stroke="var(--gold)" stroke-width="1.5"/>
+<path class="ln" pathLength="1" d="M240 280 V310"/>
+<path class="ln" pathLength="1" d="M52 345.0 H120.0"/>
+<circle class="node" style="--i:2" cx="52" cy="345.0" r="3" fill="var(--bg)" stroke="var(--gold)" stroke-width="1.5"/>
+<path class="ln" pathLength="1" d="M240 380 V410"/>
+<path class="ln" pathLength="1" d="M52 445.0 H110.0"/>
+<circle class="node" style="--i:3" cx="52" cy="445.0" r="3" fill="var(--bg)" stroke="var(--gold)" stroke-width="1.5"/>
+<path class="ln" pathLength="1" d="M240 480 V510"/>
+<path class="ln" pathLength="1" d="M52 545.0 H100.0"/>
+<circle class="node" style="--i:4" cx="52" cy="545.0" r="3" fill="var(--bg)" stroke="var(--gold)" stroke-width="1.5"/>
+<g class="node p-fgu" style="--i:0">
+  <rect class="chamber" x="100.0" y="510" width="280" height="70" rx="4"/>
+  <rect class="chamber-glow" x="100.0" y="510" width="280" height="70" rx="4"/>
+  <rect class="chamber-rule" x="112.0" y="524" width="3" height="42" rx="1.5"/>
+  <text class="t-name" x="128.0" y="544.0">FGU Link</text>
+  <text class="t-role" x="128.0" y="563.0">THE HANDS</text>
+</g>
+<g class="node p-library" style="--i:1">
+  <rect class="chamber" x="110.0" y="410" width="260" height="70" rx="4"/>
+  <rect class="chamber-glow" x="110.0" y="410" width="260" height="70" rx="4"/>
+  <rect class="chamber-rule" x="122.0" y="424" width="3" height="42" rx="1.5"/>
+  <text class="t-name" x="138.0" y="444.0">DragonLibrary</text>
+  <text class="t-role" x="138.0" y="463.0">THE RULEBOOK</text>
+</g>
+<g class="node p-cm" style="--i:2">
+  <rect class="chamber" x="120.0" y="310" width="240" height="70" rx="4"/>
+  <rect class="chamber-glow" x="120.0" y="310" width="240" height="70" rx="4"/>
+  <rect class="chamber-rule" x="132.0" y="324" width="3" height="42" rx="1.5"/>
+  <text class="t-name" x="148.0" y="344.0">Campaign Manager</text>
+  <text class="t-role" x="148.0" y="363.0">THE MEMORY</text>
+</g>
+<g class="node p-dee" style="--i:3">
+  <rect class="chamber" x="130.0" y="210" width="220" height="70" rx="4"/>
+  <rect class="chamber-glow" x="130.0" y="210" width="220" height="70" rx="4"/>
+  <rect class="chamber-rule" x="142.0" y="224" width="3" height="42" rx="1.5"/>
+  <text class="t-name" x="158.0" y="244.0">Dee Emma</text>
+  <text class="t-role" x="158.0" y="263.0">THE VOICE</text>
+</g>
+<g class="node p-cory" style="--i:4">
+  <rect class="chamber" x="140.0" y="110" width="200" height="70" rx="4"/>
+  <rect class="chamber-glow" x="140.0" y="110" width="200" height="70" rx="4"/>
+  <rect class="chamber-rule" x="152.0" y="124" width="3" height="42" rx="1.5"/>
+  <text class="t-name" x="168.0" y="144.0">Cory</text>
+  <text class="t-role" x="168.0" y="163.0">THE BRAIN</text>
+</g>
+<g class="node" style="--i:5">
+<path class="ln ln--soft" d="M404 110 V580" style="stroke-dasharray:none"/>
+<path class="ln ln--soft" d="M398 110 H410" style="stroke-dasharray:none"/>
+<path class="ln ln--soft" d="M398 210 H410" style="stroke-dasharray:none"/>
+<path class="ln ln--soft" d="M398 310 H410" style="stroke-dasharray:none"/>
+<path class="ln ln--soft" d="M398 410 H410" style="stroke-dasharray:none"/>
+<path class="ln ln--soft" d="M398 510 H410" style="stroke-dasharray:none"/>
+<path class="ln ln--soft" d="M398 580 H410" style="stroke-dasharray:none"/>
+<text class="t-label" x="404" y="100" text-anchor="middle">5</text>
+</g>
+<circle class="dot" cx="52" cy="0" r="2.6" style="--dot:var(--gold);--y0:545.0px;--y1:145.0px;animation:ds-travel 6s linear 0s infinite"/>
+<circle class="dot" cx="52" cy="0" r="2.6" style="--dot:var(--gold);--y0:545.0px;--y1:145.0px;animation:ds-travel 6s linear -3s infinite"/>
+<circle class="dot" cx="52" cy="0" r="2.6" style="--dot:var(--teal);--y0:145.0px;--y1:545.0px;animation:ds-travel 7.5s linear -1.5s infinite"/>
+<circle class="dot" cx="240" cy="0" r="2.6" style="--dot:var(--teal);--y0:210px;--y1:180px;animation:ds-travel 2.4s linear -0.0s infinite"/>
+<circle class="dot" cx="240" cy="0" r="2.6" style="--dot:var(--slate);--y0:280px;--y1:310px;animation:ds-travel 2.4s linear -0.6s infinite"/>
+<circle class="dot" cx="240" cy="0" r="2.6" style="--dot:var(--slate);--y0:410px;--y1:380px;animation:ds-travel 2.4s linear -1.2s infinite"/>
+<circle class="dot" cx="240" cy="0" r="2.6" style="--dot:var(--ember);--y0:480px;--y1:510px;animation:ds-travel 2.4s linear -1.7999999999999998s infinite"/>
+</svg>
+
+            </div>
+            <figcaption class="small muted">Five chambers, one spire. Lines draw once on scroll, then the chambers light from the base up and dots of light carry data between them.</figcaption>
+          </figure>
+        </div>
+
+        <div class="sg-group">
+          <p class="label sg-tag">Motifs</p>
+          <ul class="motifs">
+            <li><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4 L41.3 14 V34 L24 44 L6.7 34 V14 Z" fill="none" stroke="var(--gold)" stroke-width="1.5"/><path d="M24 12 L34.4 18 V30 L24 36 L13.6 30 V18 Z" fill="none" stroke="var(--gold)" stroke-width="1.5" opacity=".5"/></svg><span class="label">Hexagon</span></li>
+            <li><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4 L41.3 14 V34 L24 44 L6.7 34 V14 Z M24 9 L11 32 H37 Z M24 9 V4 M11 32 L6.7 34 M37 32 L41.3 34 M11 32 L24 44 L37 32" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linejoin="round"/><text x="24" y="27" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="var(--gold)">20</text></svg><span class="label">d20 face</span></li>
+            <li><div class="ornate motif-box"></div><span class="label">Corner ticks</span></li>
+            <li><svg viewBox="0 0 96 48" aria-hidden="true"><path d="M4 24 H92" stroke="var(--gold)" stroke-width="1.5"/><circle cx="4" cy="24" r="3" fill="var(--bg)" stroke="var(--gold)" stroke-width="1.5"/><circle cx="92" cy="24" r="3" fill="var(--bg)" stroke="var(--gold)" stroke-width="1.5"/><circle class="motif-dot" cx="0" cy="24" r="2.6" fill="var(--gold)"/></svg><span class="label">1.5 px line + data dot</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="theme-block ornate" data-theme="light" aria-label="Light mode">
+        <header class="theme-block__head">
+          <p class="label">Light mode</p>
+          <p class="small muted">Paper #FAF6EE · dragonspireinteractive.com default</p>
+        </header>
+
+        <div class="sg-group">
+          <p class="label sg-tag">Type scale</p>
+          <p class="eyebrow">Coming soon · Alpha</p>
+          <p class="display">Not a chatbot in a wizard's hat.</p>
+          <h2>Five parts. One game master.</h2>
+          <h3>Real dice, real rules.</h3>
+          <p class="lede">DragonSpire runs your D&amp;D game with real rules, real dice and a world that remembers. The AI tells the story. Everything else is built to get it right.</p>
+          <p>Fantasy Grounds' 5E ruleset rolls every attack and applies every hit. The AI reads the result; it cannot make one up.</p>
+          <p class="mono">FGU Link · LOOKUP_EFFECT · 0.07 to 0.16 s</p>
+          <dl class="type-spec mono">
+            <div><dt>Display</dt><dd>Cormorant Garamond 600</dd></div>
+            <div><dt>Eyebrow</dt><dd>Cormorant 600, small caps</dd></div>
+            <div><dt>Body</dt><dd>IBM Plex Sans 17 px, 65ch</dd></div>
+            <div><dt>Labels</dt><dd>IBM Plex Mono</dd></div>
+          </dl>
+        </div>
+
+        <div class="sg-group">
+          <p class="label sg-tag">Numbers</p>
+          <div class="stat-row">
+            <div class="stat"><span class="stat__num">92</span><span class="stat__cap">things it can do in Fantasy Grounds</span></div>
+            <div class="stat"><span class="stat__num">0.1 s</span><span class="stat__cap">from command to a verified result in Fantasy Grounds</span></div>
+          </div>
+        </div>
+
+        <div class="sg-group">
+          <p class="label sg-tag">Buttons</p>
+          <div class="btn-row">
+            <a class="btn btn--primary" href="#">Log in to play</a>
+            <a class="btn btn--secondary" href="#">See how it works</a>
+            <a class="btn btn--ghost" href="#">Company <span class="arrow">↗</span></a>
+          </div>
+        </div>
+
+        <div class="sg-group">
+          <p class="label sg-tag">Sample diagram</p>
+          <figure class="sg-figure">
+            <div class="sg-diagram panel">
+<svg class="diagram draw-on-view" viewBox="0 0 440 620" role="img" aria-labelledby="spire-light-t">
+<title id="spire-light-t">Five chambers stacked as a spire: Cory at the top, then Dee Emma, Campaign Manager, DragonLibrary and FGU Link at the base, joined by gold lines that carry small dots of light.</title>
+<path class="ln" pathLength="1" d="M24 596 H416"/>
+<path class="ln" pathLength="1" d="M140 110 L240 30 L340 110"/>
+<path class="ln" pathLength="1" d="M240 30 V18"/>
+<g class="node" style="--i:0"><path class="ln d20" pathLength="1" d="M240 44 l14 8 v16 l-14 8 l-14 -8 v-16 z M240 47 L229 66 H251 Z M240 47 V44 M229 66 L226 68 M251 66 L254 68" style="stroke-width:1.2"/></g>
+<path class="ln" pathLength="1" d="M52 595.0 V145.0"/>
+<path class="ln" pathLength="1" d="M52 145.0 H140.0"/>
+<circle class="node" style="--i:0" cx="52" cy="145.0" r="3" fill="var(--bg)" stroke="var(--gold)" stroke-width="1.5"/>
+<path class="ln" pathLength="1" d="M240 180 V210"/>
+<path class="ln" pathLength="1" d="M52 245.0 H130.0"/>
+<circle class="node" style="--i:1" cx="52" cy="245.0" r="3" fill="var(--bg)" stroke="var(--gold)" stroke-width="1.5"/>
+<path class="ln" pathLength="1" d="M240 280 V310"/>
+<path class="ln" pathLength="1" d="M52 345.0 H120.0"/>
+<circle class="node" style="--i:2" cx="52" cy="345.0" r="3" fill="var(--bg)" stroke="var(--gold)" stroke-width="1.5"/>
+<path class="ln" pathLength="1" d="M240 380 V410"/>
+<path class="ln" pathLength="1" d="M52 445.0 H110.0"/>
+<circle class="node" style="--i:3" cx="52" cy="445.0" r="3" fill="var(--bg)" stroke="var(--gold)" stroke-width="1.5"/>
+<path class="ln" pathLength="1" d="M240 480 V510"/>
+<path class="ln" pathLength="1" d="M52 545.0 H100.0"/>
+<circle class="node" style="--i:4" cx="52" cy="545.0" r="3" fill="var(--bg)" stroke="var(--gold)" stroke-width="1.5"/>
+<g class="node p-fgu" style="--i:0">
+  <rect class="chamber" x="100.0" y="510" width="280" height="70" rx="4"/>
+  <rect class="chamber-glow" x="100.0" y="510" width="280" height="70" rx="4"/>
+  <rect class="chamber-rule" x="112.0" y="524" width="3" height="42" rx="1.5"/>
+  <text class="t-name" x="128.0" y="544.0">FGU Link</text>
+  <text class="t-role" x="128.0" y="563.0">THE HANDS</text>
+</g>
+<g class="node p-library" style="--i:1">
+  <rect class="chamber" x="110.0" y="410" width="260" height="70" rx="4"/>
+  <rect class="chamber-glow" x="110.0" y="410" width="260" height="70" rx="4"/>
+  <rect class="chamber-rule" x="122.0" y="424" width="3" height="42" rx="1.5"/>
+  <text class="t-name" x="138.0" y="444.0">DragonLibrary</text>
+  <text class="t-role" x="138.0" y="463.0">THE RULEBOOK</text>
+</g>
+<g class="node p-cm" style="--i:2">
+  <rect class="chamber" x="120.0" y="310" width="240" height="70" rx="4"/>
+  <rect class="chamber-glow" x="120.0" y="310" width="240" height="70" rx="4"/>
+  <rect class="chamber-rule" x="132.0" y="324" width="3" height="42" rx="1.5"/>
+  <text class="t-name" x="148.0" y="344.0">Campaign Manager</text>
+  <text class="t-role" x="148.0" y="363.0">THE MEMORY</text>
+</g>
+<g class="node p-dee" style="--i:3">
+  <rect class="chamber" x="130.0" y="210" width="220" height="70" rx="4"/>
+  <rect class="chamber-glow" x="130.0" y="210" width="220" height="70" rx="4"/>
+  <rect class="chamber-rule" x="142.0" y="224" width="3" height="42" rx="1.5"/>
+  <text class="t-name" x="158.0" y="244.0">Dee Emma</text>
+  <text class="t-role" x="158.0" y="263.0">THE VOICE</text>
+</g>
+<g class="node p-cory" style="--i:4">
+  <rect class="chamber" x="140.0" y="110" width="200" height="70" rx="4"/>
+  <rect class="chamber-glow" x="140.0" y="110" width="200" height="70" rx="4"/>
+  <rect class="chamber-rule" x="152.0" y="124" width="3" height="42" rx="1.5"/>
+  <text class="t-name" x="168.0" y="144.0">Cory</text>
+  <text class="t-role" x="168.0" y="163.0">THE BRAIN</text>
+</g>
+<g class="node" style="--i:5">
+<path class="ln ln--soft" d="M404 110 V580" style="stroke-dasharray:none"/>
+<path class="ln ln--soft" d="M398 110 H410" style="stroke-dasharray:none"/>
+<path class="ln ln--soft" d="M398 210 H410" style="stroke-dasharray:none"/>
+<path class="ln ln--soft" d="M398 310 H410" style="stroke-dasharray:none"/>
+<path class="ln ln--soft" d="M398 410 H410" style="stroke-dasharray:none"/>
+<path class="ln ln--soft" d="M398 510 H410" style="stroke-dasharray:none"/>
+<path class="ln ln--soft" d="M398 580 H410" style="stroke-dasharray:none"/>
+<text class="t-label" x="404" y="100" text-anchor="middle">5</text>
+</g>
+<circle class="dot" cx="52" cy="0" r="2.6" style="--dot:var(--gold);--y0:545.0px;--y1:145.0px;animation:ds-travel 6s linear 0s infinite"/>
+<circle class="dot" cx="52" cy="0" r="2.6" style="--dot:var(--gold);--y0:545.0px;--y1:145.0px;animation:ds-travel 6s linear -3s infinite"/>
+<circle class="dot" cx="52" cy="0" r="2.6" style="--dot:var(--teal);--y0:145.0px;--y1:545.0px;animation:ds-travel 7.5s linear -1.5s infinite"/>
+<circle class="dot" cx="240" cy="0" r="2.6" style="--dot:var(--teal);--y0:210px;--y1:180px;animation:ds-travel 2.4s linear -0.0s infinite"/>
+<circle class="dot" cx="240" cy="0" r="2.6" style="--dot:var(--slate);--y0:280px;--y1:310px;animation:ds-travel 2.4s linear -0.6s infinite"/>
+<circle class="dot" cx="240" cy="0" r="2.6" style="--dot:var(--slate);--y0:410px;--y1:380px;animation:ds-travel 2.4s linear -1.2s infinite"/>
+<circle class="dot" cx="240" cy="0" r="2.6" style="--dot:var(--ember);--y0:480px;--y1:510px;animation:ds-travel 2.4s linear -1.7999999999999998s infinite"/>
+</svg>
+
+            </div>
+            <figcaption class="small muted">Five chambers, one spire. Lines draw once on scroll, then the chambers light from the base up and dots of light carry data between them.</figcaption>
+          </figure>
+        </div>
+
+        <div class="sg-group">
+          <p class="label sg-tag">Motifs</p>
+          <ul class="motifs">
+            <li><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4 L41.3 14 V34 L24 44 L6.7 34 V14 Z" fill="none" stroke="var(--gold)" stroke-width="1.5"/><path d="M24 12 L34.4 18 V30 L24 36 L13.6 30 V18 Z" fill="none" stroke="var(--gold)" stroke-width="1.5" opacity=".5"/></svg><span class="label">Hexagon</span></li>
+            <li><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4 L41.3 14 V34 L24 44 L6.7 34 V14 Z M24 9 L11 32 H37 Z M24 9 V4 M11 32 L6.7 34 M37 32 L41.3 34 M11 32 L24 44 L37 32" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linejoin="round"/><text x="24" y="27" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="var(--gold)">20</text></svg><span class="label">d20 face</span></li>
+            <li><div class="ornate motif-box"></div><span class="label">Corner ticks</span></li>
+            <li><svg viewBox="0 0 96 48" aria-hidden="true"><path d="M4 24 H92" stroke="var(--gold)" stroke-width="1.5"/><circle cx="4" cy="24" r="3" fill="var(--bg)" stroke="var(--gold)" stroke-width="1.5"/><circle cx="92" cy="24" r="3" fill="var(--bg)" stroke="var(--gold)" stroke-width="1.5"/><circle class="motif-dot" cx="0" cy="24" r="2.6" fill="var(--gold)"/></svg><span class="label">1.5 px line + data dot</span></li>
+          </ul>
+        </div>
+      </section>
+
+    </div>
+  </section>
+
+  <section class="sg-section" aria-labelledby="p-h">
+    <h2 id="p-h">Motion and voice</h2>
+    <p class="muted">The rules every page follows.</p>
+    <div class="principles">
+      <div><h3>Slow and purposeful</h3><p>Data moves as small glowing dots along gold lines. Diagrams draw themselves once when scrolled into view. No bouncing, no heavy parallax.</p></div>
+      <div><h3>Still when asked</h3><p>With reduced motion turned on, every diagram shows its finished state, fully drawn, with no moving dots.</p></div>
+      <div><h3>Plain and specific</h3><p>Short sentences. Real numbers instead of adjectives. Slightly wry about chatbot DMs, never smug.</p></div>
+    </div>
+    <p class="avoid">Never: purple-to-blue gradients · robot or brain icons · chat bubbles as the main visual · dragon clip art · parchment and candles · emoji · neon green · revolutionary · magic · unleash</p>
+  </section>
+</main>
+<script src="assets/js/ds.js"></script>
+</body>
+</html>

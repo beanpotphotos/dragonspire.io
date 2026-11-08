@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DragonSpire · AI Game Master</title>
+<meta name="description" content="DragonSpire runs your D&amp;D game with real rules, real dice and a world that remembers. The AI tells the story. Everything else is built to get it right.">
+<meta name="theme-color" content="#0F1219">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%230F1219'/%3E%3Cg fill='none' stroke='%23E0B04F' stroke-width='2' stroke-linejoin='round'%3E%3Cpath d='M20 3 L34.7 11.5 V28.5 L20 37 L5.3 28.5 V11.5 Z'/%3E%3Cpath d='M20 9 L25.5 17 V30 H14.5 V17 Z M14.5 22 H25.5 M14.5 26 H25.5'/%3E%3C/g%3E%3C/svg%3E">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="stylesheet" href="assets/css/ds.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/a1.css">
+<link rel="stylesheet" href="assets/css/a2.css">
+<link rel="stylesheet" href="assets/css/a3.css">
+<link rel="stylesheet" href="assets/css/a4.css">
+<link rel="stylesheet" href="assets/css/a5.css">
+<link rel="stylesheet" href="assets/css/a6.css">
+<link rel="stylesheet" href="assets/css/a7.css">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- 0. Navigation -->
+<header class="site-nav">
+  <div class="site-nav__inner">
+    <a class="logo" href="#top" aria-label="DragonSpire, back to top"><svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2 L35.6 11 V29 L20 38 L4.4 29 V11 Z"/><path d="M20 8 L26 17 V31 H14 V17 Z M14 22 H26 M14 26.5 H26"/></svg><span><span class="logo__word">DragonSpire</span></span></a>
+    <div class="site-nav__tools"><button class="site-nav__toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-main"><span class="site-nav__bars" aria-hidden="true"></span><span class="site-nav__toggle-text">Menu</span></button></div>
+    <nav class="site-nav__menu" id="nav-main" aria-label="Main">
+      <ul class="site-nav__links">
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#dee-emma">Dee Emma</a></li>
+        <li><a href="#gm">For game masters</a></li>
+        <li><a href="https://dragonspireinteractive.com">Company<span class="site-nav__ext" aria-hidden="true">↗</span></a></li>
+      </ul>
+      <a class="btn btn--primary site-nav__cta" href="https://play.dragonspire.io">Log in</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+
+<!-- 1. Hero -->
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="container hero__grid">
+    <div class="hero__copy">
+      <p class="eyebrow">Coming soon · Alpha</p>
+      <h1 class="display hero__title" id="hero-title">Not a chatbot <br>in a wizard's hat.</h1>
+      <p class="lede">DragonSpire runs your D&amp;D game with real rules, real dice and a world that remembers. The AI tells the story. Everything else is built to get it right.</p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="https://play.dragonspire.io">Log in to play</a>
+        <a class="btn btn--secondary" href="#how">See how it works <span class="arrow" aria-hidden="true">↓</span></a>
+      </div>
+      <p class="hero__where small muted">Runs inside Fantasy Grounds Unity, in your Discord voice channel, and on the web.</p>
+    </div>
+    <figure class="a1" id="a1-slot" role="img" aria-label="The DragonSpire spire builds itself from the ground up in five chambers, FGU Link (the hands), DragonLibrary (the rulebook), Campaign Manager (the memory), Dee Emma (the voice) and Cory (the brain) at the top, with dots of light travelling between them.">
+      <div class="a1__stage" aria-hidden="true">
+<svg class="a1-svg" viewBox="0 0 240 556" aria-hidden="true" focusable="false">
+<defs><filter id="a1-blur" x="-40%" y="-60%" width="180%" height="220%"><feGaussianBlur stdDeviation="9"/></filter></defs>
+<g class="a1-frame">
+<path class="a1-ln a1-ln--ground" pathLength="1" d="M8 540 H232"/>
+<path class="a1-ln a1-ln--wall" pathLength="1" d="M13 540 L66 120"/>
+<path class="a1-ln a1-ln--wall" pathLength="1" d="M227 540 L174 120"/>
+<g class="a1-dim">
+<path d="M14 532 V120"/>
+<path d="M10 532 H18 M10 464 H18"/>
+<path d="M10 446 H18 M10 378 H18"/>
+<path d="M10 360 H18 M10 292 H18"/>
+<path d="M10 274 H18 M10 206 H18"/>
+<path d="M10 188 H18 M10 120 H18"/>
+</g>
+</g>
+<g class="a1-roof">
+<path class="a1-ln" pathLength="1" d="M58 120 H182"/>
+<path class="a1-ln" pathLength="1" d="M66 120 L120 62 L174 120"/>
+<path class="a1-ln" pathLength="1" d="M120 62 V54"/>
+</g>
+<g class="a1-d20"><g class="a1-d20__spin">
+<path d="M120 14 L137.3 24 V44 L120 54 L102.7 44 V24 Z M120 19 L107 42 H133 Z M120 19 V14 M107 42 L102.7 44 M133 42 L137.3 44 M107 42 L120 54 L133 42"/>
+</g></g>
+<g class="a1-ch p-fgu" style="--i:0">
+  <path class="a1-ch__glow" d="M24 532 L32.6 464 H207.4 L216 532 Z" filter="url(#a1-blur)"/>
+  <path class="a1-ch__fill" d="M24 532 L32.6 464 H207.4 L216 532 Z"/>
+  <path class="a1-ch__draw" pathLength="1" d="M24 532 L32.6 464 H207.4 L216 532 Z"/>
+  <path class="a1-ch__lit" d="M24 532 L32.6 464 H207.4 L216 532 Z"/>
+  <path class="a1-ch__band" d="M39.6 472 H200.4"/>
+</g>
+<g class="a1-ch p-library" style="--i:1">
+  <path class="a1-ch__glow" d="M34.9 446 L43.4 378 H196.6 L205.1 446 Z" filter="url(#a1-blur)"/>
+  <path class="a1-ch__fill" d="M34.9 446 L43.4 378 H196.6 L205.1 446 Z"/>
+  <path class="a1-ch__draw" pathLength="1" d="M34.9 446 L43.4 378 H196.6 L205.1 446 Z"/>
+  <path class="a1-ch__lit" d="M34.9 446 L43.4 378 H196.6 L205.1 446 Z"/>
+  <path class="a1-ch__band" d="M50.4 386 H189.6"/>
+</g>
+<g class="a1-ch p-cm" style="--i:2">
+  <path class="a1-ch__glow" d="M45.7 360 L54.3 292 H185.7 L194.3 360 Z" filter="url(#a1-blur)"/>
+  <path class="a1-ch__fill" d="M45.7 360 L54.3 292 H185.7 L194.3 360 Z"/>
+  <path class="a1-ch__draw" pathLength="1" d="M45.7 360 L54.3 292 H185.7 L194.3 360 Z"/>
+  <path class="a1-ch__lit" d="M45.7 360 L54.3 292 H185.7 L194.3 360 Z"/>
+  <path class="a1-ch__band" d="M61.3 300 H178.7"/>
+</g>
+<g class="a1-ch p-dee" style="--i:3">
+  <path class="a1-ch__glow" d="M56.6 274 L65.1 206 H174.9 L183.4 274 Z" filter="url(#a1-blur)"/>
+  <path class="a1-ch__fill" d="M56.6 274 L65.1 206 H174.9 L183.4 274 Z"/>
+  <path class="a1-ch__draw" pathLength="1" d="M56.6 274 L65.1 206 H174.9 L183.4 274 Z"/>
+  <path class="a1-ch__lit" d="M56.6 274 L65.1 206 H174.9 L183.4 274 Z"/>
+  <path class="a1-ch__band" d="M72.1 214 H167.9"/>
+</g>
+<g class="a1-ch p-cory" style="--i:4">
+  <path class="a1-ch__glow" d="M67.4 188 L76 120 H164 L172.6 188 Z" filter="url(#a1-blur)"/>
+  <path class="a1-ch__fill" d="M67.4 188 L76 120 H164 L172.6 188 Z"/>
+  <path class="a1-ch__draw" pathLength="1" d="M67.4 188 L76 120 H164 L172.6 188 Z"/>
+  <path class="a1-ch__lit" d="M67.4 188 L76 120 H164 L172.6 188 Z"/>
+  <path class="a1-ch__band" d="M83 128 H157"/>
+</g>
+<g class="a1-rails">
+<path class="a1-rail" style="--i:1" pathLength="1" d="M109 498.0 V412.0 M131 412.0 V498.0"/>
+<path class="a1-rail" style="--i:2" pathLength="1" d="M109 412.0 V326.0 M131 326.0 V412.0"/>
+<path class="a1-rail" style="--i:3" pathLength="1" d="M109 326.0 V240.0 M131 240.0 V326.0"/>
+<path class="a1-rail" style="--i:4" pathLength="1" d="M109 240.0 V154.0 M131 154.0 V240.0"/>
+</g>
+<g class="a1-ports">
+<g class="p-fgu" style="--i:0"><circle class="a1-port" cx="109" cy="498.0" r="2.6"/><circle class="a1-port" cx="131" cy="498.0" r="2.6"/></g>
+<g class="p-library" style="--i:1"><circle class="a1-port" cx="109" cy="412.0" r="2.6"/><circle class="a1-port" cx="131" cy="412.0" r="2.6"/></g>
+<g class="p-cm" style="--i:2"><circle class="a1-port" cx="109" cy="326.0" r="2.6"/><circle class="a1-port" cx="131" cy="326.0" r="2.6"/></g>
+<g class="p-dee" style="--i:3"><circle class="a1-port" cx="109" cy="240.0" r="2.6"/><circle class="a1-port" cx="131" cy="240.0" r="2.6"/></g>
+<g class="p-cory" style="--i:4"><circle class="a1-port" cx="109" cy="154.0" r="2.6"/><circle class="a1-port" cx="131" cy="154.0" r="2.6"/></g>
+</g>
+<g class="a1-dots">
+<circle class="a1-dot a1-dot--up" cx="109" cy="0" r="2.6" style="animation-delay:0s"/>
+<circle class="a1-dot a1-dot--up" cx="109" cy="0" r="2.6" style="animation-delay:-2.1s"/>
+<circle class="a1-dot a1-dot--dn" cx="131" cy="0" r="2.6" style="animation-delay:-1.0s"/>
+<circle class="a1-dot a1-dot--dn" cx="131" cy="0" r="2.6" style="animation-delay:-3.1s"/>
+<circle class="a1-dot a1-dot--up" cx="109" cy="0" r="2.6" style="animation-delay:-3.6s"/>
+</g>
+</svg>
+<ol class="a1-labels">
+<li class="a1-label p-fgu" style="--i:0;--y:89.57%;--edge:0.8821"><span class="a1-label__name">FGU Link</span><span class="a1-label__role">the hands</span></li>
+<li class="a1-label p-library" style="--i:1;--y:74.10%;--edge:0.8369"><span class="a1-label__name">DragonLibrary</span><span class="a1-label__role">the rulebook</span></li>
+<li class="a1-label p-cm" style="--i:2;--y:58.63%;--edge:0.7917"><span class="a1-label__name">Campaign Manager</span><span class="a1-label__role">the memory</span></li>
+<li class="a1-label p-dee" style="--i:3;--y:43.17%;--edge:0.7464"><span class="a1-label__name">Dee Emma</span><span class="a1-label__role">the voice</span></li>
+<li class="a1-label p-cory" style="--i:4;--y:27.70%;--edge:0.7012"><span class="a1-label__name">Cory</span><span class="a1-label__role">the brain</span></li>
+</ol>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- 2. You've tried the chatbot DM -->
+<section class="section section--rule" id="chatbot" aria-labelledby="chatbot-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="chatbot-title">You've tried the chatbot DM. So have we.</h2>
+      <p class="lede">You asked it to run a dungeon. It forgot the goblin's hit points, rolled a 23 on a d20, renamed the innkeeper twice, and handed you the dragon's hoard because you asked nicely. A language model on its own is a storyteller with no memory and no rulebook.</p>
+    </div>
+
+<figure class="diagram-frame a2" aria-label="The same request, &quot;I swing my axe at the goblin&quot;, given to a chatbot DM and to DragonSpire">
+  <div class="diagram-frame__panel">
+    <div class="a2__stage">
+      <section class="a2__side a2__side--bot a2-scope" data-a2-length="10.6" aria-label="A chatbot DM">
+        <header class="a2__head"><p class="a2__title">A chatbot DM</p><p class="label">Chat log</p></header>
+        <ol class="a2-chat">
+          <li class="a2-msg a2-msg--old"><div class="a2-bubble"><span class="a2-who">DM bot · earlier</span><span class="a2-err a2-err--soft" style="--t:6.7">Bram</span> the innkeeper ducks behind the bar. A goblin with <span class="a2-strike" style="--t:4.5">7 HP</span><span class="a2-ins a2-step" style="--t:4.7">12</span> charges you.</div></li>
+          <li class="a2-msg a2-msg--player"><div class="a2-bubble"><span class="a2-who">Player</span><span class="a2-type a2-step" style="--t:0.2">I swing my axe at the goblin.</span></div></li>
+          <li class="a2-msg a2-msg--bot"><div class="a2-bubble a2-step a2-glitchin" style="--t:1.9"><span class="a2-who">DM bot</span>You rolled a <span class="a2-err" style="--t:2.6">23</span>! Critical hit for 31 damage.</div><p class="a2-note a2-step" style="--t:2.6">impossible roll</p></li>
+          <li class="a2-msg a2-msg--bot"><div class="a2-bubble a2-step a2-glitchin" style="--t:4"><span class="a2-who">DM bot</span>The goblin, with <span class="a2-err" style="--t:4.9">12 HP</span> left, swings back.</div><p class="a2-note a2-step" style="--t:4.9">forgot the HP</p></li>
+          <li class="a2-msg a2-msg--bot"><div class="a2-bubble a2-step a2-glitchin" style="--t:6.1"><span class="a2-who">DM bot</span><span class="a2-err" style="--t:6.7">Brom</span> the innkeeper cheers you on.</div><p class="a2-note a2-step" style="--t:6.7">renamed the NPC</p></li>
+          <li class="a2-msg a2-msg--player"><div class="a2-bubble a2-step" style="--t:8"><span class="a2-who">Player 2</span>I take the dragon's hoard.</div></li>
+          <li class="a2-msg a2-msg--bot"><div class="a2-bubble a2-step a2-glitchin" style="--t:8.8"><span class="a2-who">DM bot</span><span class="a2-err" style="--t:9.4">Sure, it's yours!</span></div><p class="a2-note a2-step" style="--t:9.4">gave away the hoard</p></li>
+        </ol>
+      </section>
+      <section class="a2__side a2__side--ds a2-scope" data-a2-length="13.2" aria-label="DragonSpire">
+        <header class="a2__head"><p class="a2__title">DragonSpire</p><p class="label">One turn</p></header>
+        <ol class="a2-flow">
+          <li style="--t:0;--tn:1.9"><div class="a2-input"><span class="a2-who">Player</span><span class="a2-type a2-step" style="--t:0.2">I swing my axe at the goblin.</span></div></li>
+          <li class="p-cory" style="--t:1.9;--tn:3.6"><div class="a2-node a2-step">
+            <p class="a2-node__head"><span class="a2-node__name">Cory</span><span class="a2-node__role">The brain</span></p>
+            <p class="a2-line a2-step" style="--t:2.4">Your turn? <span class="a2-tag">&#8644; Fantasy Grounds</span> <b>yes &#10003;</b></p>
+            <p class="a2-line a2-line--muted a2-step" style="--t:3">asks for an attack roll &rarr;</p>
+          </div></li>
+          <li class="p-fgu" style="--t:3.6;--tn:6.3"><div class="a2-node a2-step">
+            <p class="a2-node__head"><span class="a2-node__name">Fantasy Grounds</span><span class="a2-node__role">5E ruleset</span></p>
+            <p class="a2-line a2-step" style="--t:3.9">d20: 14 + 5 = 19 vs AC 15, <b>hit</b></p>
+            <p class="a2-line a2-step" style="--t:4.6">damage 1d12 + 3 = 9</p>
+            <p class="a2-line a2-hp a2-step" style="--t:5.3"><span>goblin 12 to 3 HP</span><span class="a2-hp__bar" aria-hidden="true"><span class="a2-hp__fill a2-step" style="--t:5.5"></span></span></p>
+          </div></li>
+          <li class="p-fgu" style="--t:6.3;--tn:7.4"><div class="a2-receipt a2-step">
+            <p class="a2-receipt__head"><span>Receipt</span><span class="a2-stamp a2-step" style="--t:6.75">Verified</span></p>
+            <dl><dt>attack</dt><dd>19 vs AC 15, <b>hit</b></dd><dt>damage</dt><dd>9</dd><dt>goblin</dt><dd>12 &rarr; 3 HP</dd></dl>
+          </div></li>
+          <li class="p-cm" style="--t:7.4;--tn:8.4"><div class="a2-node a2-step">
+            <p class="a2-node__head"><span class="a2-node__name">Campaign Manager</span><span class="a2-node__role">The memory</span></p>
+            <p class="a2-line">Innkeeper: <b>Bram</b></p>
+          </div></li>
+          <li style="--t:8.4;--tn:10.3">
+            <div class="a2-loot"><div class="a2-claim a2-step"><span class="a2-who">Player 2</span>I take the dragon's hoard.</div><span class="a2-wall a2-step" style="--t:8.3" aria-hidden="true"></span></div>
+            <p class="a2-deny a2-step" style="--t:9.3">Loot not offered by the game master. <strong>Denied.</strong></p>
+          </li>
+          <li class="p-dee" style="--t:10.3"><div class="a2-voice">
+            <p class="a2-node__head a2-step"><span class="a2-node__name">Dee Emma</span><span class="a2-node__role">The voice</span></p>
+            <p class="a2-ribbon a2-step" style="--t:10.6"><span class="a2-ribbon__text a2-step" style="--t:11">Your axe bites deep. The goblin staggers, barely standing.</span></p>
+          </div></li>
+        </ol>
+      </section>
+    </div>
+    <div class="a2__foot a2-scope" data-a2-length="13.2">
+      <p class="a2__caption a2-step" style="--t:11.9">Same request. <em>One of them is running a game.</em></p>
+      <button class="btn btn--secondary a2-replay" type="button">Replay <span aria-hidden="true">&#8635;</span></button>
+    </div>
+  </div>
+</figure>
+
+    <div class="answer">
+      <h2 class="answer__title">DragonSpire gives the storyteller a whole table to work with.</h2>
+      <ul class="points">
+        <li class="point"><h3 class="point__title">Real dice, real rules.</h3><p class="point__text">Fantasy Grounds' 5E ruleset rolls every attack and applies every hit. The AI reads the result; it cannot make one up.</p></li>
+        <li class="point"><h3 class="point__title">A world that remembers.</h3><p class="point__text">Places, people and quests live in a database your GM writes, not in the AI's short memory, and handed to the game master every turn.</p></li>
+        <li class="point"><h3 class="point__title">Fair by design.</h3><p class="point__text">It never rolls for your character, never decides your action, and says no when you try to pocket loot nobody offered.</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 3. How it works -->
+<section class="section section--rule" id="how" aria-labelledby="how-title">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">How it works</p>
+      <h2 id="how-title">Five parts. One game master.</h2>
+      <p class="lede">Each part does the job it is good at. Only one of them is AI.</p>
+    </div>
+<figure class="diagram-frame a3" id="a3-slot" aria-label="DragonSpire's five parts as connected chambers: Cory, the brain, in the centre, wired to Dee Emma, FGU Link, Campaign Manager and DragonLibrary">
+  <div class="diagram-frame__panel">
+    <div class="a3__stage">
+<svg class="a3-wires a3-wires--wide" viewBox="0 0 1000 440" aria-hidden="true" focusable="false">
+<path class="a3-wire" data-a3="dee" d="M140 90 H330 V196 H500"/>
+<path class="a3-wire" data-a3="fgu" d="M860 90 H670 V196 H500"/>
+<path class="a3-wire" data-a3="cm" d="M140 350 H330 V244 H500"/>
+<path class="a3-wire" data-a3="lib" d="M860 350 H670 V244 H500"/>
+<circle class="a3-dot" r="3.5"><animateMotion dur="3.6s" begin="-0.0s" repeatCount="indefinite" path="M140 90 H330 V196 H500"/></circle>
+<circle class="a3-dot" r="3.5"><animateMotion dur="3.6s" begin="-1.8s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear" path="M140 90 H330 V196 H500"/></circle>
+<circle class="a3-dot" r="3.5"><animateMotion dur="3.6s" begin="-0.9s" repeatCount="indefinite" path="M860 90 H670 V196 H500"/></circle>
+<circle class="a3-dot" r="3.5"><animateMotion dur="3.6s" begin="-2.7s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear" path="M860 90 H670 V196 H500"/></circle>
+<circle class="a3-dot" r="3.5"><animateMotion dur="3.6s" begin="-1.8s" repeatCount="indefinite" path="M140 350 H330 V244 H500"/></circle>
+<circle class="a3-dot" r="3.5"><animateMotion dur="3.6s" begin="-3.6s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear" path="M140 350 H330 V244 H500"/></circle>
+<circle class="a3-dot" r="3.5"><animateMotion dur="3.6s" begin="-2.7s" repeatCount="indefinite" path="M860 350 H670 V244 H500"/></circle>
+<circle class="a3-dot" r="3.5"><animateMotion dur="3.6s" begin="-4.5s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear" path="M860 350 H670 V244 H500"/></circle>
+</svg>
+<svg class="a3-wires a3-wires--tall" viewBox="0 0 360 560" aria-hidden="true" focusable="false">
+<path class="a3-wire" data-a3="dee" d="M90 78 V280"/>
+<path class="a3-wire" data-a3="fgu" d="M270 78 V280"/>
+<path class="a3-wire" data-a3="cm" d="M90 482 V280"/>
+<path class="a3-wire" data-a3="lib" d="M270 482 V280"/>
+<circle class="a3-dot" r="3.2"><animateMotion dur="2.4s" begin="-0.0s" repeatCount="indefinite" path="M90 78 V280"/></circle>
+<circle class="a3-dot" r="3.2"><animateMotion dur="2.4s" begin="-1.2s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear" path="M90 78 V280"/></circle>
+<circle class="a3-dot" r="3.2"><animateMotion dur="2.4s" begin="-0.9s" repeatCount="indefinite" path="M270 78 V280"/></circle>
+<circle class="a3-dot" r="3.2"><animateMotion dur="2.4s" begin="-2.1s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear" path="M270 78 V280"/></circle>
+<circle class="a3-dot" r="3.2"><animateMotion dur="2.4s" begin="-1.8s" repeatCount="indefinite" path="M90 482 V280"/></circle>
+<circle class="a3-dot" r="3.2"><animateMotion dur="2.4s" begin="-3.0s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear" path="M90 482 V280"/></circle>
+<circle class="a3-dot" r="3.2"><animateMotion dur="2.4s" begin="-2.7s" repeatCount="indefinite" path="M270 482 V280"/></circle>
+<circle class="a3-dot" r="3.2"><animateMotion dur="2.4s" begin="-3.9s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear" path="M270 482 V280"/></circle>
+</svg>
+      <button type="button" class="a3-ch p-cory" data-a3="cory"><span class="a3-ch__name">Cory</span> <span class="a3-ch__role">the brain</span> <span class="badge badge--ai a3-ch__badge">AI</span></button>
+      <button type="button" class="a3-ch p-dee" data-a3="dee"><span class="a3-ch__name">Dee Emma</span> <span class="a3-ch__role">the voice</span> <span class="badge a3-ch__badge">CODE + VOICE</span></button>
+      <button type="button" class="a3-ch p-fgu" data-a3="fgu"><span class="a3-ch__name">FGU Link</span> <span class="a3-ch__role">the hands</span> <span class="badge a3-ch__badge">CODE, NO AI</span></button>
+      <button type="button" class="a3-ch p-cm" data-a3="cm"><span class="a3-ch__name">Campaign Manager</span> <span class="a3-ch__role">the memory</span> <span class="badge a3-ch__badge">DATABASE</span></button>
+      <button type="button" class="a3-ch p-library" data-a3="lib"><span class="a3-ch__name">DragonLibrary</span> <span class="a3-ch__role">the rulebook</span> <span class="badge a3-ch__badge">DATABASE</span></button>
+    </div>
+    <ul class="a3-caps">
+      <li class="a3-cap p-cory" data-a3="cory"><span class="a3-cap__name">Cory</span> <span class="a3-cap__text">Decides what happens next and writes what the game master says. The only part that calls AI.</span></li>
+      <li class="a3-cap p-dee" data-a3="dee"><span class="a3-cap__name">Dee Emma</span> <span class="a3-cap__text">Hears each player in Discord and answers aloud with a voice for every character.</span></li>
+      <li class="a3-cap p-fgu" data-a3="fgu"><span class="a3-cap__name">FGU Link</span> <span class="a3-cap__text">Rolls, moves tokens and runs the combat tracker with Fantasy Grounds' own rules.</span></li>
+      <li class="a3-cap p-cm" data-a3="cm"><span class="a3-cap__name">Campaign Manager</span> <span class="a3-cap__text">Every place, NPC and quest your GM writes, handed to the game master every turn.</span></li>
+      <li class="a3-cap p-library" data-a3="lib"><span class="a3-cap__name">DragonLibrary</span> <span class="a3-cap__text">D&amp;D 2024 rules and thousands of Fantasy Grounds effect codes, matched to your table.</span></li>
+    </ul>
+  </div>
+</figure>
+      <ul class="part-grid parts-row">
+        <li class="part-card p-cory"><h3 class="part-card__name">Cory</h3>
+          <div class="part-card__meta"><p class="part-card__role">The brain</p><span class="badge badge--ai">AI</span></div>
+          <p class="part-card__copy">Decides what happens next and writes what the game master says.</p></li>
+        <li class="part-card p-dee"><h3 class="part-card__name">Dee Emma</h3>
+          <div class="part-card__meta"><p class="part-card__role">The voice</p><span class="badge">Code + voice</span></div>
+          <p class="part-card__copy">Joins your Discord, hears each player, and answers out loud.</p></li>
+        <li class="part-card p-fgu"><h3 class="part-card__name">FGU Link</h3>
+          <div class="part-card__meta"><p class="part-card__role">The hands</p><span class="badge">Code, no AI</span></div>
+          <p class="part-card__copy">Works the Fantasy Grounds table: dice, tokens, maps, the combat tracker. Never calls an AI.</p></li>
+        <li class="part-card p-cm"><h3 class="part-card__name">Campaign Manager</h3>
+          <div class="part-card__meta"><p class="part-card__role">The memory</p><span class="badge">Database</span></div>
+          <p class="part-card__copy">Every place, NPC and quest in your world, written by your GM and read by the game master every turn.</p></li>
+        <li class="part-card p-library"><h3 class="part-card__name">DragonLibrary</h3>
+          <div class="part-card__meta"><p class="part-card__role">The rulebook</p><span class="badge">Database</span></div>
+          <p class="part-card__copy">D&amp;D 2024 rules and thousands of Fantasy Grounds effect codes, matched to your table and looked up, never guessed.</p></li>
+      </ul>
+  </div>
+</section>
+
+<!-- 4. One swing of the axe -->
+<section class="section section--rule" id="axe" aria-labelledby="axe-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="axe-title">What happens when you say “I swing my axe at the goblin.”</h2>
+    </div>
+    <div class="split split--axe">
+      <ol class="timeline a4-steps" id="axe-steps">
+        <li class="timeline__step"><div class="timeline__body"><h3 class="timeline__title">You speak.</h3><p class="timeline__text">Dee Emma hears you in Discord.</p></div></li>
+        <li class="timeline__step"><div class="timeline__body"><h3 class="timeline__title">Cory listens.</h3><p class="timeline__text">Was that meant for the game master? Is it your turn? It checks Fantasy Grounds.</p></div></li>
+        <li class="timeline__step"><div class="timeline__body"><h3 class="timeline__title">Cory picks a move.</h3><p class="timeline__text">The AI asks for an attack roll; it does not invent one.</p></div></li>
+        <li class="timeline__step"><div class="timeline__body"><h3 class="timeline__title">Fantasy Grounds rolls.</h3><p class="timeline__text">The real 5E ruleset rolls and applies the damage.</p></div></li>
+        <li class="timeline__step"><div class="timeline__body"><h3 class="timeline__title">A receipt comes back.</h3><p class="timeline__text">In about a tenth of a second, with what actually happened.</p></div></li>
+        <li class="timeline__step"><div class="timeline__body"><h3 class="timeline__title">Dee Emma tells the story.</h3></div></li>
+      </ol>
+      <figure class="diagram-frame a4" id="a4-slot" data-a4-steps="#axe-steps" aria-label="One turn in six beats: from the player to Dee Emma, Cory, FGU Link and Fantasy Grounds, and back as a story">
+        <div class="diagram-frame__panel">
+          <div class="a4__body">
+            <div class="a4-track" aria-hidden="true">
+              <ol class="a4-stations">
+                <li class="a4-st p-player"><span class="a4-st__dot"></span><span class="a4-st__name">Player</span></li>
+                <li class="a4-st p-dee"><span class="a4-st__dot"></span><span class="a4-st__name">Dee Emma</span></li>
+                <li class="a4-st p-cory"><span class="a4-st__dot"></span><span class="a4-st__name">Cory</span></li>
+                <li class="a4-st p-fgu"><span class="a4-st__dot"></span><span class="a4-st__name">FGU Link</span></li>
+                <li class="a4-st p-fgu"><span class="a4-st__dot"></span><span class="a4-st__name">Fantasy Grounds</span></li>
+              </ol>
+              <span class="a4-token"></span>
+            </div>
+            <ol class="a4-beats">
+        <li class="a4-beat" data-from="0" data-to="1">
+          <p class="a4-beat__head"><span class="a4-beat__n">1</span><span class="a4-beat__route">Player <span class="a4-sr">to</span><span aria-hidden="true">&rarr;</span> Dee Emma</span></p>
+          <div class="a4-beat__art"><span class="a4-wave" role="img" aria-label="Sound wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+        </li>
+        <li class="a4-beat" data-from="1" data-to="2">
+          <p class="a4-beat__head"><span class="a4-beat__n">2</span><span class="a4-beat__route">Dee Emma <span class="a4-sr">to</span><span aria-hidden="true">&rarr;</span> Cory</span></p>
+          <div class="a4-beat__art"><ul class="a4-ticks"><li>meant for the GM</li><li>your turn</li></ul></div>
+        </li>
+        <li class="a4-beat" data-from="2" data-to="3">
+          <p class="a4-beat__head"><span class="a4-beat__n">3</span><span class="a4-beat__route">Cory <span class="a4-sr">to</span><span aria-hidden="true">&rarr;</span> FGU Link</span></p>
+          <div class="a4-beat__art"><p class="a4-card">attack roll</p></div>
+        </li>
+        <li class="a4-beat" data-from="3" data-to="4">
+          <p class="a4-beat__head"><span class="a4-beat__n">4</span><span class="a4-beat__route">FGU Link <span class="a4-sr">to</span><span aria-hidden="true">&rarr;</span> Fantasy Grounds</span></p>
+          <div class="a4-beat__art"><div class="a4-roll"><svg class="a4-d20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2 L21 7 V17 L12 22 L3 17 V7 Z M12 2 L7 10 H17 Z M7 10 L3 17 M17 10 L21 17 M7 10 L12 22 L17 10 M3 7 L7 10 M21 7 L17 10"/></svg><p class="a4-roll__result">14 + 5 = 19, <b>hit</b>. 9 damage.</p></div></div>
+        </li>
+        <li class="a4-beat" data-from="4" data-to="2">
+          <p class="a4-beat__head"><span class="a4-beat__n">5</span><span class="a4-beat__route">Fantasy Grounds <span class="a4-sr">to</span><span aria-hidden="true">&rarr;</span> Cory</span></p>
+          <div class="a4-beat__art"><div class="a4-receipt"><p class="a4-receipt__head">Receipt <span class="a4-timer"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="9" r="5.5"/><path d="M8 9 V6 M6.5 1.8 H9.5 M8 1.8 V3.5"/></svg>0.1 s</span></p><p>19, hit</p><p>9 damage</p></div></div>
+        </li>
+        <li class="a4-beat" data-from="2" data-to="1">
+          <p class="a4-beat__head"><span class="a4-beat__n">6</span><span class="a4-beat__route">Cory <span class="a4-sr">to</span><span aria-hidden="true">&rarr;</span> Dee Emma</span></p>
+          <div class="a4-beat__art"><p class="a4-ribbon">Your axe bites deep. The goblin staggers.</p></div>
+        </li>
+            </ol>
+          </div>
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Play where you play -->
+<section class="section section--rule" id="tables" aria-labelledby="tables-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="tables-title">Three tables. One game master.</h2>
+    </div>
+<figure class="diagram-frame a5" id="a5-slot" aria-label="One game master at three tables: Cory, the brain, is wired to Fantasy Grounds Unity, where a goblin takes 9 damage and drops from 12 to 3 hit points, to Discord voice, where Dee Emma narrates, and to the web, where a d20 lands and the chat reads &quot;Your axe bites deep. The goblin staggers.&quot;">
+  <div class="diagram-frame__panel">
+    <div class="a5__stage" aria-hidden="true">
+      <p class="a5-cory p-cory"><span class="a5-cory__name">Cory</span><span class="a5-cory__role">the brain</span></p>
+      <svg class="a5-wires" viewBox="0 0 1000 48" preserveAspectRatio="none" focusable="false">
+        <path class="a5-wire" pathLength="1" d="M500 0 V24 H162 V48"/>
+        <path class="a5-wire" pathLength="1" d="M500 0 V48"/>
+        <path class="a5-wire" pathLength="1" d="M500 0 V24 H838 V48"/>
+        <path class="a5-wire a5-wire--pulse" pathLength="1" d="M500 0 V24 H162 V48"/>
+        <path class="a5-wire a5-wire--pulse" pathLength="1" d="M500 0 V48"/>
+        <path class="a5-wire a5-wire--pulse" pathLength="1" d="M500 0 V24 H838 V48"/>
+      </svg>
+      <div class="a5-wins">
+
+        <div class="a5-win p-fgu">
+          <p class="a5-win__bar"><span class="a5-win__dots"><i></i><i></i><i></i></span><span class="a5-win__title">Fantasy Grounds Unity</span></p>
+          <svg class="a5-art" viewBox="0 0 300 188" focusable="false">
+            <rect class="a5-map" x="9" y="10" width="168" height="168" rx="2"/>
+            <path class="a5-grid" d="M33 10 V178 M57 10 V178 M81 10 V178 M105 10 V178 M129 10 V178 M153 10 V178 M9 34 H177 M9 58 H177 M9 82 H177 M9 106 H177 M9 130 H177 M9 154 H177"/>
+            <path class="a5-wall" d="M129 10 V58 H177 M9 130 H33 V178"/>
+            <g class="a5-tok a5-tok--pc"><circle cx="69" cy="94" r="9.5"/><circle class="a5-tok__dot" cx="69" cy="94" r="2.5"/></g>
+            <g class="a5-tok a5-tok--pc"><circle cx="45" cy="142" r="9.5"/><circle class="a5-tok__dot" cx="45" cy="142" r="2.5"/></g>
+            <g class="a5-tok a5-tok--foe"><circle cx="141" cy="118" r="9.5"/><text class="a5-tok__t" x="141" y="121.5">G</text></g>
+            <circle class="a5-hit" cx="93" cy="94" r="13"/>
+            <g class="a5-tok a5-tok--foe a5-goblin"><circle class="a5-goblin__body" cx="93" cy="94" r="9.5"/><text class="a5-tok__t" x="93" y="97.5">G</text></g>
+            <rect class="a5-hp__track" x="81" y="108" width="24" height="3" rx="1.5"/>
+            <rect class="a5-hp__fill" x="81" y="108" width="24" height="3" rx="1.5"/>
+            <text class="a5-dmg" x="93" y="77">&minus;9</text>
+            <text class="a5-t a5-t--label" x="188" y="21">Combat tracker</text>
+            <g class="a5-row"><rect x="186" y="30" width="106" height="24" rx="3"/><text class="a5-t a5-t--num" x="194" y="46">18</text><text class="a5-t" x="212" y="46">Vael</text></g>
+            <rect class="a5-row__hl" x="186" y="58" width="106" height="24" rx="3"/>
+            <g class="a5-row"><rect x="186" y="58" width="106" height="24" rx="3"/><text class="a5-t a5-t--num" x="194" y="74">15</text><text class="a5-t" x="212" y="74">Goblin</text></g>
+            <text class="a5-t a5-t--hp a5-hp-old" x="286" y="74">12</text>
+            <text class="a5-t a5-t--hp a5-hp-new" x="286" y="74">3</text>
+            <g class="a5-row"><rect x="186" y="86" width="106" height="24" rx="3"/><text class="a5-t a5-t--num" x="194" y="102">12</text><text class="a5-t" x="212" y="102">Brin</text></g>
+            <g class="a5-row"><rect x="186" y="114" width="106" height="24" rx="3"/><text class="a5-t a5-t--num" x="194" y="130">9</text><text class="a5-t" x="212" y="130">Goblin 2</text></g>
+            <g class="a5-row"><rect x="186" y="142" width="106" height="24" rx="3"/><text class="a5-t a5-t--num" x="194" y="158">6</text><text class="a5-t" x="212" y="158">Oska</text></g>
+          </svg>
+        </div>
+
+        <div class="a5-win p-dee">
+          <p class="a5-win__bar"><span class="a5-win__dots"><i></i><i></i><i></i></span><span class="a5-win__title">Discord voice</span></p>
+          <svg class="a5-art" viewBox="0 0 300 188" focusable="false">
+            <path class="a5-spk" d="M11 13 H14 L18.5 9.5 V22.5 L14 19 H11 Z M22 12 Q25 16 22 20 M25 9.5 Q30 16 25 22.5"/>
+            <text class="a5-t a5-t--label" x="34" y="20.5">voice · the table</text>
+            <g class="a5-tile"><rect x="9" y="32" width="90" height="72" rx="6"/><circle class="a5-av" cx="54" cy="62" r="16"/><rect class="a5-name" x="34" y="90" width="40" height="4" rx="2"/></g>
+            <g class="a5-tile"><rect x="201" y="32" width="90" height="72" rx="6"/><circle class="a5-av" cx="246" cy="62" r="16"/><rect class="a5-name" x="230" y="90" width="32" height="4" rx="2"/></g>
+            <g class="a5-tile"><rect x="9" y="110" width="90" height="72" rx="6"/><circle class="a5-av" cx="54" cy="140" r="16"/><rect class="a5-name" x="32" y="168" width="44" height="4" rx="2"/></g>
+            <g class="a5-tile"><rect x="105" y="110" width="90" height="72" rx="6"/><circle class="a5-av" cx="150" cy="140" r="16"/><rect class="a5-name" x="132" y="168" width="36" height="4" rx="2"/></g>
+            <g class="a5-tile"><rect x="201" y="110" width="90" height="72" rx="6"/><circle class="a5-av" cx="246" cy="140" r="16"/><rect class="a5-name" x="226" y="168" width="40" height="4" rx="2"/></g>
+            <g class="a5-tile a5-tile--dee"><rect x="105" y="32" width="90" height="72" rx="6"/><circle class="a5-av a5-av--dee" cx="150" cy="62" r="16"/><text class="a5-av__t" x="150" y="67">DE</text><text class="a5-t a5-t--dee" x="150" y="96">Dee Emma</text></g>
+            <g class="a5-speak">
+              <rect class="a5-speak__tile" x="105" y="32" width="90" height="72" rx="6"/>
+              <circle class="a5-speak__pulse" cx="150" cy="62" r="20"/>
+              <circle class="a5-speak__ring" cx="150" cy="62" r="20"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="a5-win p-web">
+          <p class="a5-win__bar"><span class="a5-win__dots"><i></i><i></i><i></i></span><span class="a5-win__url">play.dragonspire.io</span></p>
+          <svg class="a5-art" viewBox="0 0 300 188" focusable="false">
+            <text class="a5-t a5-t--label" x="10" y="21">Chat</text>
+            <rect class="a5-bub" x="10" y="30" width="122" height="24" rx="6"/><rect class="a5-name" x="18" y="37" width="70" height="3.5" rx="1.75"/><rect class="a5-name" x="18" y="45" width="96" height="3.5" rx="1.75"/>
+            <rect class="a5-bub" x="62" y="60" width="114" height="18" rx="6"/><rect class="a5-name" x="70" y="67.25" width="86" height="3.5" rx="1.75"/>
+            <g class="a5-say">
+              <rect class="a5-say__bub" x="10" y="86" width="166" height="56" rx="6"/>
+              <text class="a5-t a5-t--gm" x="19" y="101">GM</text>
+              <text class="a5-t a5-t--say" x="19" y="117">Your axe bites deep.</text>
+              <text class="a5-t a5-t--say" x="19" y="132">The goblin staggers.</text>
+            </g>
+            <rect class="a5-bub" x="10" y="154" width="166" height="24" rx="12"/><rect class="a5-name" x="22" y="164.25" width="58" height="3.5" rx="1.75"/>
+            <g class="a5-die"><path transform="translate(213.6 8) scale(2.2)" d="M12 2 L21 7 V17 L12 22 L3 17 V7 Z M12 2 L7 10 H17 Z M7 10 L3 17 M17 10 L21 17 M7 10 L12 22 L17 10 M3 7 L7 10 M21 7 L17 10"/></g>
+            <text class="a5-die__n" x="240" y="76">14</text>
+            <rect class="a5-bub" x="190" y="94" width="100" height="84" rx="4"/>
+            <rect class="a5-name a5-name--strong" x="198" y="103" width="46" height="5" rx="2.5"/>
+            <text class="a5-t a5-t--tiny" x="198" y="125">HP</text>
+            <rect class="a5-hp__track" x="216" y="120" width="66" height="4" rx="2"/>
+            <rect class="a5-sheet__hp" x="216" y="120" width="54" height="4" rx="2"/>
+            <rect class="a5-box" x="198" y="138" width="24" height="30" rx="3"/><rect class="a5-box" x="228" y="138" width="24" height="30" rx="3"/><rect class="a5-box" x="258" y="138" width="24" height="30" rx="3"/>
+          </svg>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</figure>
+    <ul class="tables">
+      <li class="table-card p-fgu"><h3 class="table-card__name">Fantasy Grounds Unity.</h3><p class="table-card__text">It reads the live combat tracker, sheets and maps, and acts with the ruleset's own functions.</p></li>
+      <li class="table-card p-dee"><h3 class="table-card__name">Discord voice.</h3><p class="table-card__text">A narrator voice, distinct NPC voices, and the manners to wait for a pause.</p></li>
+      <li class="table-card p-web"><h3 class="table-card__name">The web.</h3><p class="table-card__text">Chat with the GM, roll 3D dice, see your sheet, the party and the initiative order. No Fantasy Grounds needed.</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 6. Meet Dee Emma -->
+<section class="section section--rule" id="dee-emma" aria-labelledby="dee-title">
+  <div class="container">
+    <figure class="banner ornate">
+      <img src="assets/img/dee_emma_banner.jpg" width="680" height="240" loading="lazy" decoding="async"
+        alt="Illustration of Dee Emma, a smiling young woman with dark braided hair, seated behind a carved wooden game master's screen that bears her name, with maps, scrolls and glowing dice floating beside her.">
+    </figure>
+    <div class="section-head">
+      <h2 id="dee-title">Meet Dee Emma. She has table manners.</h2>
+    </div>
+    <div class="split split--dee">
+      <div class="dee__copy">
+        <p class="lede">Dee Emma is DragonSpire's voice in Discord. She hears each player on their own channel and answers in a narrator voice, with a different voice for each character she plays.</p>
+        <ul class="manners">
+          <li>Waits for a pause before she speaks.</li>
+          <li>Stops when you talk over her.</li>
+          <li>Ignores side chatter that is not for the GM.</li>
+          <li>Drops a line that went stale while it waited.</li>
+          <li>Nudges a quiet table once, gently, and only the player whose turn it is.</li>
+        </ul>
+      </div>
+      <figure class="diagram-frame a6" id="a6-slot" aria-label="Dee Emma's table manners on a voice timeline: she waits for a pause before speaking, stops when a player talks over her, ignores side chatter like &quot;pizza's here&quot;, and drops a queued line once the turn has moved on.">
+        <div class="diagram-frame__panel">
+          <div class="a6__head" aria-hidden="true">
+            <span class="a6-avatar"></span>
+            <p class="a6__who"><span class="a6__name">Dee Emma</span><span class="a6__sub">voice timeline</span></p>
+            <ul class="a6-legend"><li class="a6-legend__p">players</li><li class="a6-legend__d">Dee Emma</li></ul>
+          </div>
+          <ol class="a6-scenes">
+            <li class="a6-scene" data-speak="1.82-3">
+              <p class="a6-scene__label"><span class="a6-scene__n">1</span>Waits for a pause</p>
+              <svg class="a6-tl" viewBox="0 0 360 134" aria-hidden="true" focusable="false">
+                <path class="a6-w a6-w--p" d="M8 44.8V47.2M12 41.3V50.7M16 39.0V53.0M20 33.9V58.1M24 36.9V55.1M28 40.7V51.3M32 36.0V56.0M36 32.2V59.8M40 38.9V53.1M44 40.7V51.3M48 37.1V54.9M52 32.9V59.1M56 38.9V53.1M60 39.5V52.5M64 31.2V60.8M68 33.9V58.1M72 40.9V51.1M76 34.9V57.1M80 36.3V55.7M84 40.6V51.4M88 42.4V49.6M92 44.8V47.2"/>
+                <path class="a6-w a6-w--p" d="M100 44.8V47.2M104 43.8V48.2M108 40.7V51.3M112 37.0V55.0M116 38.9V53.1M120 42.0V50.0M124 37.2V54.8M128 36.0V56.0M132 39.0V53.0M136 40.7V51.3M140 38.7V53.3M144 37.1V54.9M148 41.4V50.6M152 38.4V53.6M156 38.6V53.4M160 36.2V55.8M164 42.8V49.2M168 37.7V54.3M172 37.2V54.8M176 38.9V53.1M180 41.5V50.5M184 43.1V48.9M188 44.8V47.2"/>
+                <path class="a6-w a6-w--d" d="M252 100.8V103.2M256 98.1V105.9M260 96.3V107.7M264 92.7V111.3M268 92.1V111.9M272 93.5V110.5M276 96.0V108.0M280 95.5V108.5M284 90.4V113.6M288 92.0V112.0M292 94.0V110.0M296 97.8V106.2M300 91.3V112.7M304 89.6V114.4M308 93.5V110.5M312 95.2V108.8M316 97.3V106.7M320 90.0V114.0M324 88.2V115.8M328 89.8V114.2M332 94.5V109.5M336 94.1V109.9M340 88.6V115.4M344 91.0V113.0M348 98.6V105.4M352 100.8V103.2"/>
+                <rect class="a6-curtain" x="0" y="0" width="360" height="134"/>
+                <path class="a6-base" d="M0 46 H360 M0 102 H360"/>
+                <line class="a6-head" x1="0" y1="24" x2="0" y2="124"/>
+                <path class="a6-mark a6-in" d="M198 31 V26 H244 V31" style="--t:1.43"/>
+                <text class="a6-note a6-in" x="221" y="19" text-anchor="middle" style="--t:1.48">pause</text>
+              </svg>
+            </li>
+            <li class="a6-scene" data-speak="0-1.49">
+              <p class="a6-scene__label"><span class="a6-scene__n">2</span>Stops when talked over</p>
+              <svg class="a6-tl" viewBox="0 0 360 134" aria-hidden="true" focusable="false">
+                <path class="a6-w a6-w--d" d="M8 100.8V103.2M12 99.0V105.0M16 96.0V108.0M20 95.3V108.7M24 94.4V109.6M28 94.8V109.2M32 91.9V112.1M36 90.1V113.9M40 92.2V111.8M44 95.7V108.3M48 98.0V106.0M52 93.1V110.9M56 93.1V110.9M60 88.4V115.6M64 93.4V110.6M68 96.7V107.3M72 96.8V107.2M76 89.1V114.9M80 88.6V115.4M84 88.8V115.2M88 93.5V110.5M92 98.4V105.6M96 93.9V110.1M100 90.5V113.5M104 92.5V111.5M108 90.2V113.8M112 96.7V107.3M116 96.1V107.9M120 89.7V114.3M124 92.3V111.7M128 88.8V115.2M132 94.6V109.4M136 96.6V107.4M140 93.4V110.6M144 90.4V113.6M148 92.2V111.8M152 94.9V109.1M156 95.9V108.1M160 95.4V108.6M164 89.6V114.4M168 91.8V112.2M172 88.9V115.1M176 93.5V110.5M180 95.5V108.5M184 91.1V112.9M188 89.7V114.3M192 89.2V114.8M196 94.8V109.2M200 97.4V106.6M204 92.6V111.4"/>
+                <path class="a6-w a6-w--ghost" d="M210 100.8V103.2M214 93.5V110.5M218 94.8V109.2M222 95.8V108.2M226 89.1V114.9M230 94.2V109.8M234 92.7V111.3M238 91.6V112.4M242 91.7V112.3M246 94.8V109.2M250 89.4V114.6M254 92.0V112.0M258 93.2V110.8M262 87.5V116.5M266 93.1V110.9M270 95.7V108.3M274 87.7V116.3M278 93.7V110.3M282 94.5V109.5M286 91.9V112.1M290 93.6V110.4M294 98.0V106.0M298 100.8V103.2"/>
+                <path class="a6-w a6-w--p" d="M186 44.8V47.2M190 44.3V47.7M194 39.3V52.7M198 35.5V56.5M202 34.8V57.2M206 39.4V52.6M210 42.2V49.8M214 37.6V54.4M218 36.2V55.8M222 34.3V57.7M226 38.3V53.7M230 40.8V51.2M234 39.3V52.7M238 36.6V55.4M242 34.1V57.9M246 33.1V58.9M250 37.6V54.4M254 42.1V49.9M258 37.4V54.6M262 34.7V57.3M266 33.1V58.9M270 34.5V57.5M274 36.5V55.5M278 41.4V50.6M282 35.9V56.1M286 35.3V56.7M290 33.7V58.3M294 35.3V56.7M298 40.4V51.6M302 40.9V51.1M306 36.1V55.9M310 32.8V59.2M314 34.1V57.9M318 37.5V54.5M322 41.0V51.0M326 39.3V52.7M330 36.8V55.2M334 35.3V56.7M338 37.0V55.0M342 43.0V49.0M346 44.8V47.2M350 44.8V47.2"/>
+                <rect class="a6-curtain" x="0" y="0" width="360" height="134"/>
+                <path class="a6-base" d="M0 46 H360 M0 102 H360"/>
+                <line class="a6-head" x1="0" y1="24" x2="0" y2="124"/>
+                <text class="a6-note a6-in" x="186" y="19" text-anchor="start" style="--t:1.34">talks over</text>
+                <path class="a6-cut a6-in" d="M206 84 V120" style="--t:1.49"/>
+                <text class="a6-note a6-in" x="212" y="130" text-anchor="start" style="--t:1.52">stops</text>
+              </svg>
+            </li>
+            <li class="a6-scene" data-speak="">
+              <p class="a6-scene__label"><span class="a6-scene__n">3</span>Ignores side chatter</p>
+              <svg class="a6-tl" viewBox="0 0 360 134" aria-hidden="true" focusable="false">
+                <path class="a6-w a6-w--p" d="M64 44.8V47.2M68 43.9V48.1M72 42.3V49.7M76 39.9V52.1M80 36.8V55.2M84 32.5V59.5M88 36.4V55.6M92 33.9V58.1M96 35.7V56.3M100 39.5V52.5M104 39.8V52.2M108 41.8V50.2M112 40.0V52.0M116 35.9V56.1M120 38.3V53.7M124 37.7V54.3M128 31.8V60.2M132 34.6V57.4M136 36.0V56.0M140 35.8V56.2M144 36.7V55.3M148 35.6V56.4M152 40.2V51.8M156 41.9V50.1M160 40.2V51.8M164 38.4V53.6M168 34.8V57.2M172 33.7V58.3M176 35.4V56.6M180 35.8V56.2M184 32.1V59.9M188 31.8V60.2M192 38.0V54.0M196 35.9V56.1M200 37.3V54.7M204 40.1V51.9M208 41.8V50.2M212 38.1V53.9M216 36.4V55.6M220 37.5V54.5M224 34.0V58.0M228 35.8V56.2M232 36.8V55.2M236 35.3V56.7M240 36.1V55.9M244 36.9V55.1M248 37.4V54.6M252 38.8V53.2M256 40.8V51.2M260 38.3V53.7M264 36.0V56.0M268 36.2V55.8M272 39.0V53.0M276 40.8V51.2M280 41.5V50.5M284 43.8V48.2M288 44.8V47.2"/>
+                <rect class="a6-curtain" x="0" y="0" width="360" height="134"/>
+                <path class="a6-base" d="M0 46 H360 M0 102 H360"/>
+                <line class="a6-head" x1="0" y1="24" x2="0" y2="124"/>
+                <g class="a6-in" style="--t:0.46"><rect class="a6-tagbox" x="64" y="6" width="90" height="19" rx="9.5"/><text class="a6-tag" x="109" y="19.5" text-anchor="middle">pizza&#8217;s here</text></g>
+                <text class="a6-note a6-in" x="176" y="130" text-anchor="middle" style="--t:2.11">no response</text>
+              </svg>
+            </li>
+            <li class="a6-scene" data-speak="">
+              <p class="a6-scene__label"><span class="a6-scene__n">4</span>Drops stale lines</p>
+              <svg class="a6-tl" viewBox="0 0 360 134" aria-hidden="true" focusable="false">
+                <path class="a6-w a6-w--p" d="M8 44.8V47.2M12 41.6V50.4M16 38.0V54.0M20 34.4V57.6M24 37.2V54.8M28 41.0V51.0M32 38.7V53.3M36 36.0V56.0M40 32.9V59.1M44 33.1V58.9M48 33.3V58.7M52 37.9V54.1M56 41.9V50.1M60 40.3V51.7M64 35.1V56.9M68 36.3V55.7M72 33.2V58.8M76 34.7V57.3M80 39.7V52.3M84 40.6V51.4M88 40.5V51.5M92 34.1V57.9M96 32.3V59.7M100 35.8V56.2M104 34.4V57.6M108 37.3V54.7M112 42.4V49.6M116 37.9V54.1M120 37.7V54.3M124 31.8V60.2M128 33.1V58.9M132 33.3V58.7M136 40.2V51.8M140 42.1V49.9M144 37.8V54.2M148 35.0V57.0M152 38.3V53.7M156 38.8V53.2M160 43.0V49.0M164 44.8V47.2"/>
+                <path class="a6-w a6-w--p" d="M190 44.8V47.2M194 44.0V48.0M198 39.3V52.7M202 35.4V56.6M206 34.6V57.4M210 40.3V51.7M214 42.3V49.7M218 40.9V51.1M222 38.1V53.9M226 35.6V56.4M230 38.5V53.5M234 39.4V52.6M238 41.0V51.0M242 39.9V52.1M246 38.5V53.5M250 35.3V56.7M254 34.3V57.7M258 39.7V52.3M262 39.7V52.3M266 40.3V51.7M270 38.5V53.5M274 37.7V54.3M278 33.3V58.7M282 37.8V54.2M286 41.1V50.9M290 42.5V49.5M294 37.1V54.9M298 35.8V56.2M302 34.0V58.0M306 35.6V56.4M310 39.0V53.0M314 41.5V50.5M318 39.5V52.5M322 36.4V55.6M326 33.9V58.1M330 35.7V56.3M334 37.0V55.0M338 42.5V49.5M342 42.6V49.4M346 44.3V47.7M350 44.8V47.2"/>
+                <rect class="a6-curtain" x="0" y="0" width="360" height="134"/>
+                <path class="a6-base" d="M0 46 H360 M0 102 H360"/>
+                <line class="a6-head" x1="0" y1="24" x2="0" y2="124"/>
+                <text class="a6-tag a6-tag--plain" x="10" y="81">queued</text>
+                <g class="a6-stale" style="--t:1.27"><rect class="a6-card" x="10" y="88" width="152" height="28" rx="5"/><text class="a6-cardtext" x="20" y="106.5">&#8220;The door creaks open&#8230;&#8221;</text></g>
+                <path class="a6-strike" d="M16 102 H156" style="--t:1.31"/>
+                <path class="a6-turn a6-in" d="M176 26 V124" style="--t:1.27"/>
+                <text class="a6-note a6-note--mono a6-in" x="182" y="19" text-anchor="start" style="--t:1.27">next turn</text>
+                <text class="a6-note a6-in" x="86" y="130" text-anchor="middle" style="--t:1.44">turn moved on</text>
+              </svg>
+            </li>
+          </ol>
+          <ol class="a6-steps" aria-hidden="true"><li></li><li></li><li></li><li></li></ol>
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 7. The GM stays in charge -->
+<section class="section section--rule" id="gm" aria-labelledby="gm-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="gm-title">For game masters: a <span class="nowrap">co-GM</span>, not a replacement.</h2>
+      <p class="lede">Pick how much DragonSpire does. In Assistant mode it drafts and you approve each move on a card. Monster actions are suggestions until you confirm. One command stops everything.</p>
+    </div>
+    <ol class="modes" aria-label="DM modes">
+      <li class="mode"><h3 class="mode__name">Passive</h3><p class="mode__text">acts only when you ask</p></li>
+      <li class="mode mode--on"><h3 class="mode__name">Assistant</h3><p class="mode__text">drafts, you approve</p></li>
+      <li class="mode"><h3 class="mode__name">Autonomous</h3><p class="mode__text">runs the table; <span class="pill pill--unproven">still being proven</span></p></li>
+    </ol>
+<figure class="diagram-frame a7" id="a7-slot" role="img" aria-label="The game master approves a card for Goblin 2's scimitar attack on Vael (+4 to hit, 1d6+2) and the attack plays out on a small map, beside a DM mode switch of Disabled, Passive, Assistant (selected) and Autonomous (in development).">
+  <div class="diagram-frame__panel">
+    <div class="a7__stage" aria-hidden="true">
+
+      <div class="a7-desk">
+        <div class="a7-card p-fgu">
+          <p class="a7-card__head"><span class="a7-card__kicker">Suggested action</span><span class="a7-card__who">Goblin 2</span></p>
+          <p class="a7-card__text">Goblin 2 attacks Vael with a scimitar. <span class="a7-card__roll">+4 to hit, 1d6+2.</span></p>
+          <p class="a7-card__btns">
+            <span class="a7-btn a7-btn--approve">Approve<svg class="a7-cursor" viewBox="0 0 20 24" focusable="false"><path d="M2 1.5 L2 19 L6.6 14.8 L9.6 21.6 L12.8 20.2 L9.9 13.5 L16 13.2 Z"/></svg></span>
+            <span class="a7-btn a7-btn--other">Edit</span>
+            <span class="a7-btn a7-btn--other">Skip</span>
+          </p>
+          <span class="a7-stamp">approved</span>
+        </div>
+      </div>
+
+      <div class="a7-map">
+        <p class="a7-label">Map</p>
+        <svg class="a7-map__art" viewBox="0 0 168 120" focusable="false">
+          <rect class="a7-map__bg" x="0.5" y="0.5" width="167" height="119" rx="3"/>
+          <path class="a7-map__grid" d="M24 0.5 V119.5 M48 0.5 V119.5 M72 0.5 V119.5 M96 0.5 V119.5 M120 0.5 V119.5 M144 0.5 V119.5 M0.5 24 H167.5 M0.5 48 H167.5 M0.5 72 H167.5 M0.5 96 H167.5"/>
+          <path class="a7-map__wall" d="M0.5 96 H48 M144 0.5 V48"/>
+          <path class="a7-path" d="M132 36 L108 60"/>
+          <g class="a7-vael"><circle class="a7-vael__flash" cx="84" cy="60" r="14"/><circle class="a7-tok a7-tok--pc" cx="84" cy="60" r="9"/><text class="a7-tok__t a7-tok__t--pc" x="84" y="63.5">V</text></g>
+          <g class="a7-gob"><circle class="a7-tok a7-tok--foe" cx="108" cy="60" r="9"/><text class="a7-tok__t" x="108" y="63.5">G2</text></g>
+          <path class="a7-slash" pathLength="1" d="M99 45 Q84 58 95 76"/>
+        </svg>
+      </div>
+
+      <div class="a7-modes">
+        <p class="a7-label">DM mode</p>
+        <ol class="a7-switch">
+          <li class="a7-opt"><span class="a7-opt__dot"></span>Disabled</li>
+          <li class="a7-opt"><span class="a7-opt__dot"></span>Passive</li>
+          <li class="a7-opt a7-opt--on"><span class="a7-opt__dot"></span>Assistant</li>
+          <li class="a7-opt"><span class="a7-opt__dot"></span>Autonomous <span class="a7-tag">in development</span></li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+</figure>
+  </div>
+</section>
+
+<!-- 8. By the numbers -->
+<section class="section section--rule" id="numbers" aria-labelledby="numbers-title">
+  <div class="container">
+    <h2 class="visually-hidden" id="numbers-title">By the numbers</h2>
+    <div class="numbers panel ornate">
+      <div class="stat-grid">
+        <div class="stat"><span class="stat__num" data-count="92">92</span><span class="stat__cap">things it can do in Fantasy Grounds</span></div>
+        <div class="stat"><span class="stat__num" data-count="42">42</span><span class="stat__cap">procedures it follows, written in plain text</span></div>
+        <div class="stat"><span class="stat__num">0<svg class="d20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2 L21 7 V17 L12 22 L3 17 V7 Z M12 2 L7 10 H17 Z M7 10 L3 17 M17 10 L21 17 M7 10 L12 22 L17 10 M3 7 L7 10 M21 7 L17 10"/></svg></span><span class="stat__cap">dice it rolls for your character</span></div>
+        <div class="stat"><span class="stat__num" data-count="0.1" data-decimals="1" data-suffix=" s">0.1 s</span><span class="stat__cap">from command to a verified result in Fantasy Grounds</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. Coming soon -->
+<section class="section section--rule closing" id="alpha" aria-labelledby="alpha-title">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <svg class="closing__mark" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M20 2 L35.6 11 V29 L20 38 L4.4 29 V11 Z"/><path d="M20 8 L26 17 V31 H14 V17 Z M14 22 H26 M14 26.5 H26"/></svg>
+      <h2 id="alpha-title">DragonSpire is in alpha.</h2>
+      <p class="lede">It is running real games with its first group now. Want the long version, the architecture, and where it is going?</p>
+      <div class="closing__actions">
+        <a class="btn btn--primary" href="https://play.dragonspire.io">Log in to play</a>
+        <a class="btn btn--secondary" href="https://dragonspireinteractive.com">Visit DragonSpire Interactive <span class="arrow" aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- 10. Footer -->
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__top">
+      <a class="logo" href="#top"><svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2 L35.6 11 V29 L20 38 L4.4 29 V11 Z"/><path d="M20 8 L26 17 V31 H14 V17 Z M14 22 H26 M14 26.5 H26"/></svg><span><span class="logo__word">DragonSpire</span><span class="logo__sub">AI Game Master</span></span></a>
+      <ul class="site-footer__links">
+        <li><a href="index.html">dragonspire.io</a></li>
+        <li><a href="https://dragonspireinteractive.com">dragonspireinteractive.com</a></li>
+        <li><a href="https://play.dragonspire.io">Log in</a></li>
+      </ul>
+    </div>
+    <p class="site-footer__made">DragonSpire is made by DragonSpire Interactive.</p>
+    <p class="site-footer__legal">Fantasy Grounds Unity is a product of SmiteWorks. Dungeons &amp; Dragons is a trademark of Wizards of the Coast. DragonSpire is not affiliated with either.</p>
+  </div>
+</footer>
+
+<script src="assets/js/ds.js"></script>
+<script src="assets/js/a1.js"></script>
+<script src="assets/js/a2.js"></script>
+<script src="assets/js/a3.js"></script>
+<script src="assets/js/a4.js"></script>
+<script src="assets/js/a5.js"></script>
+<script src="assets/js/a6.js"></script>
+<script src="assets/js/a7.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,269 @@
+/* A5: three tables (DragonSpire.io section 5; calm variant for the company Product page).
+   Needs ds.css + components.css (diagram-frame). Markup: a5 figure in the page. JS: assets/js/a5.js.
+   Cory (gold) on top, wired to three line-art windows: Fantasy Grounds Unity, Discord voice, the web.
+   One event plays in all three on a shared loop: the goblin takes 9 damage, Dee Emma's ring pulses,
+   the web chat shows the narration. All parts share one animation duration, so they stay in sync.
+   Default (no JS, reduced motion): the moment just after the hit, still.
+   a5.js adds .a5--go (animate) and .a5--paused (off screen). .a5--calm: slower, no glow.
+   Wide (figure >= 760 px): windows in a row. Narrower: windows stacked. */
+
+.a5 {
+  --a5-k: 1;
+  --a5-loop: calc(9s * var(--a5-k));
+  container-type: inline-size;
+}
+.a5--calm { --a5-k: 1.4; }
+.a5 .p-web { --part: var(--players); }
+
+/* ---------- stage ---------- */
+
+.a5__stage { display: grid; justify-items: center; }
+
+.a5-cory {
+  position: relative;
+  display: inline-grid;
+  justify-items: center;
+  gap: 1px;
+  margin: 0;
+  padding: 10px 26px 9px;
+  max-width: none;
+  background: color-mix(in srgb, var(--gold) 10%, var(--panel));
+  border: var(--hair) solid var(--gold);
+  border-radius: var(--radius);
+}
+.a5:not(.a5--calm) .a5-cory { box-shadow: 0 0 28px color-mix(in srgb, var(--gold) 24%, transparent); }
+.a5-cory::after { /* pulse ring, shown when the event goes out */
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border: var(--hair) solid var(--gold);
+  border-radius: var(--radius);
+  opacity: 0;
+  pointer-events: none;
+}
+.a5-cory__name { font-family: var(--font-display); font-weight: 600; font-size: 1.75rem; line-height: 1.05; }
+.a5-cory__role { font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+
+.a5-wires { width: 100%; height: 44px; max-width: none; overflow: visible; }
+.a5-wire {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.5;
+}
+.a5-wire--pulse { opacity: 0; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 0.14 1.2; stroke-dashoffset: 0.14; }
+.a5:not(.a5--calm) .a5-wire--pulse { filter: drop-shadow(0 0 3px var(--gold)); }
+
+.a5-wins {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+/* ---------- windows ---------- */
+
+.a5-win {
+  min-width: 0;
+  background: var(--panel);
+  border: 1px solid color-mix(in srgb, var(--part) 45%, var(--line));
+  border-top: 2px solid var(--part);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.a5-win__bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  max-width: none;
+  padding: 7px 11px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  line-height: 1.3;
+  color: var(--part);
+  white-space: nowrap;
+  overflow: hidden;
+}
+.a5-win__dots { display: inline-flex; gap: 4px; flex-shrink: 0; }
+.a5-win__dots i { width: 6px; height: 6px; border-radius: 50%; border: 1px solid var(--line); }
+.a5-win__title, .a5-win__url { overflow: hidden; text-overflow: ellipsis; }
+.a5-win__url {
+  flex: 1;
+  padding: 1px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+.a5-art { width: 100%; display: block; }
+
+/* line-art parts */
+.a5-art text { font-family: var(--font-body); }
+.a5-map { fill: color-mix(in srgb, var(--bg) 70%, var(--panel)); stroke: var(--line); stroke-width: 1; }
+.a5-grid { fill: none; stroke: var(--line); stroke-width: 1; }
+.a5-wall { fill: none; stroke: var(--slate); stroke-width: 3; stroke-linecap: square; opacity: 0.55; }
+.a5-tok circle { fill: var(--panel); stroke-width: 1.6; }
+.a5-tok--pc circle { stroke: var(--players); }
+.a5-tok--pc .a5-tok__dot { fill: var(--players); stroke: none; }
+.a5-tok--foe circle { stroke: var(--ember); }
+.a5-tok__t { font-family: var(--font-mono) !important; font-size: 10px; font-weight: 500; fill: var(--ember); text-anchor: middle; }
+.a5-goblin__body { fill: color-mix(in srgb, var(--ember) 14%, var(--panel)) !important; }
+.a5-hit { fill: none; stroke: var(--ember); stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; }
+.a5-hp__track { fill: var(--line); }
+.a5-hp__fill { fill: var(--ember); transform-box: fill-box; transform-origin: left center; transform: scaleX(0.25); }
+.a5-dmg { font-family: var(--font-mono) !important; font-size: 12px; font-weight: 500; fill: var(--ember); text-anchor: middle; }
+.a5-t { font-size: 10.5px; fill: var(--text); }
+.a5-t--label { font-family: var(--font-mono) !important; font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; fill: var(--muted); }
+.a5-t--num { font-family: var(--font-mono) !important; font-size: 9.5px; fill: var(--muted); }
+.a5-t--hp { font-family: var(--font-mono) !important; font-size: 10.5px; fill: var(--ember); text-anchor: end; }
+.a5-hp-old { opacity: 0; }
+.a5-row rect { fill: none; stroke: var(--line); stroke-width: 1; }
+.a5-row__hl { fill: color-mix(in srgb, var(--ember) 14%, transparent); stroke: var(--ember); stroke-width: 1; }
+.a5-spk { fill: none; stroke: var(--muted); stroke-width: 1.4; stroke-linejoin: round; stroke-linecap: round; }
+.a5-tile rect { fill: color-mix(in srgb, var(--bg) 60%, var(--panel)); stroke: var(--line); stroke-width: 1; }
+.a5-av { fill: none; stroke: var(--players); stroke-width: 1.5; opacity: 0.8; }
+.a5-av--dee { fill: color-mix(in srgb, var(--teal) 18%, transparent); stroke: var(--teal); opacity: 1; }
+.a5-av__t { font-family: var(--font-display) !important; font-weight: 600; font-size: 14px; fill: var(--teal); text-anchor: middle; }
+.a5-t--dee { font-size: 10.5px; fill: var(--teal); text-anchor: middle; font-weight: 500; }
+.a5-name { fill: var(--line); }
+.a5-name--strong { fill: var(--muted); opacity: 0.6; }
+.a5-speak__tile { fill: none; stroke: var(--teal); stroke-width: 1.5; }
+.a5-speak__ring { fill: none; stroke: var(--teal); stroke-width: 2.5; }
+.a5-speak__pulse { fill: none; stroke: var(--teal); stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; }
+.a5:not(.a5--calm) .a5-speak__ring { filter: drop-shadow(0 0 4px var(--teal)); }
+.a5-bub { fill: none; stroke: var(--line); stroke-width: 1; }
+.a5-say__bub { fill: color-mix(in srgb, var(--gold) 9%, transparent); stroke: var(--gold); stroke-width: 1.2; }
+.a5-t--gm { font-family: var(--font-mono) !important; font-size: 9px; letter-spacing: 0.1em; fill: var(--gold); }
+.a5-t--say { font-size: 11px; fill: var(--text); }
+.a5-t--tiny { font-family: var(--font-mono) !important; font-size: 8.5px; fill: var(--muted); }
+.a5-die { fill: none; stroke: var(--gold); stroke-width: 0.6; stroke-linejoin: round; transform-box: fill-box; transform-origin: center; }
+.a5-die__n { font-family: var(--font-mono) !important; font-size: 13px; font-weight: 500; fill: var(--gold); text-anchor: middle; }
+.a5-sheet__hp { fill: var(--players); opacity: 0.7; }
+.a5-box { fill: none; stroke: var(--line); stroke-width: 1; }
+
+.a5__caption {
+  margin: var(--space-5) auto 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+.a5__caption em { font-style: italic; color: var(--gold); }
+
+/* ---------- narrow: stacked windows ---------- */
+
+@container (max-width: 759px) {
+  .a5-wires { display: none; }
+  .a5-cory { margin-bottom: var(--space-5); }
+  .a5-cory::before { /* short gold stem down to the windows */
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    height: var(--space-5);
+    border-left: var(--hair) solid var(--gold);
+    opacity: 0.5;
+  }
+  .a5-wins { grid-template-columns: minmax(0, 1fr); max-width: 440px; }
+}
+
+/* ---------- motion (only with .a5--go) ---------- */
+
+.a5--go .a5-cory::after         { animation: a5-cory var(--a5-loop) linear infinite; }
+.a5--go .a5-wire--pulse         { animation: a5-flow var(--a5-loop) linear infinite; }
+.a5--go .a5-hit                 { animation: a5-hit var(--a5-loop) linear infinite; }
+.a5--go .a5-goblin__body        { animation: a5-flash var(--a5-loop) linear infinite; }
+.a5--go .a5-hp__fill            { animation: a5-hp var(--a5-loop) linear infinite; }
+.a5--go .a5-dmg                 { animation: a5-dmg var(--a5-loop) linear infinite; }
+.a5--go .a5-hp-old              { animation: a5-old var(--a5-loop) linear infinite; }
+.a5--go .a5-hp-new,
+.a5--go .a5-die__n              { animation: a5-new var(--a5-loop) linear infinite; }
+.a5--go .a5-row__hl             { animation: a5-row var(--a5-loop) linear infinite; }
+.a5--go .a5-die                 { animation: a5-spin var(--a5-loop) linear infinite; }
+.a5--go .a5-say                 { animation: a5-say var(--a5-loop) linear infinite; }
+.a5--go .a5-speak               { animation: a5-speak var(--a5-loop) linear infinite; }
+.a5--go .a5-speak__pulse        { animation: a5-pulse calc(1s * var(--a5-k)) ease-out infinite; }
+.a5--go.a5--calm .a5-speak__pulse { animation-name: a5-pulse-calm; }
+
+.a5--paused *, .a5--paused *::before, .a5--paused *::after { animation-play-state: paused !important; }
+
+/* timeline (percent of the loop): 11% Cory sends, 13-22% wires, 22% hit, 25% die lands,
+   28-72% Dee Emma speaks, 30% chat line, 88-96% reset */
+@keyframes a5-cory {
+  0%, 10% { opacity: 0; transform: scale(1); }
+  12% { opacity: 1; }
+  20%, 100% { opacity: 0; transform: scale(1.25, 1.5); }
+}
+@keyframes a5-flow {
+  0%, 12% { opacity: 0; stroke-dashoffset: 0.14; }
+  13% { opacity: 1; }
+  21% { opacity: 1; }
+  22%, 100% { opacity: 0; stroke-dashoffset: -1; }
+}
+@keyframes a5-hit {
+  0%, 21.5% { opacity: 0; transform: scale(0.7); }
+  23% { opacity: 1; }
+  32%, 100% { opacity: 0; transform: scale(1.9); }
+}
+@keyframes a5-flash {
+  0%, 21.5% { fill: var(--panel); }
+  23% { fill: color-mix(in srgb, var(--ember) 60%, var(--panel)); }
+  30%, 88% { fill: color-mix(in srgb, var(--ember) 14%, var(--panel)); }
+  96%, 100% { fill: var(--panel); }
+}
+@keyframes a5-hp {
+  0%, 22% { transform: scaleX(1); }
+  27%, 88% { transform: scaleX(0.25); }
+  96%, 100% { transform: scaleX(1); }
+}
+@keyframes a5-dmg {
+  0%, 21.5% { opacity: 0; transform: translateY(8px); }
+  25% { opacity: 1; transform: translateY(0); }
+  58% { opacity: 1; transform: translateY(-3px); }
+  66%, 100% { opacity: 0; transform: translateY(-5px); }
+}
+@keyframes a5-old {
+  0%, 23% { opacity: 1; }
+  25%, 88% { opacity: 0; }
+  95%, 100% { opacity: 1; }
+}
+@keyframes a5-new {
+  0%, 23% { opacity: 0; }
+  25%, 88% { opacity: 1; }
+  95%, 100% { opacity: 0; }
+}
+@keyframes a5-row {
+  0%, 21.5% { opacity: 0; }
+  24%, 62% { opacity: 1; }
+  72%, 100% { opacity: 0; }
+}
+@keyframes a5-spin {
+  0%, 15% { transform: rotate(0) scale(1); }
+  17% { transform: rotate(40deg) scale(1.1); }
+  24% { transform: rotate(720deg) scale(1); }
+  100% { transform: rotate(720deg) scale(1); }
+}
+@keyframes a5-say {
+  0%, 29% { opacity: 0; transform: translateY(6px); }
+  33%, 88% { opacity: 1; transform: none; }
+  95%, 100% { opacity: 0; transform: none; }
+}
+@keyframes a5-speak {
+  0%, 27% { opacity: 0; }
+  29%, 70% { opacity: 1; }
+  74%, 100% { opacity: 0; }
+}
+@keyframes a5-pulse {
+  0% { opacity: 0.85; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.45); }
+}
+@keyframes a5-pulse-calm {
+  0% { opacity: 0.5; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.25); }
+}

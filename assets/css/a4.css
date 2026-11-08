@@ -1,0 +1,286 @@
+/* A4: one swing of the axe (DragonSpire.io section 4).
+   Needs ds.css + components.css (diagram-frame). JS: assets/js/a4.js.
+   Default (no JS, reduced motion): a static numbered strip of the six beats.
+   Armed (.a4--armed, set by a4.js): a track of five stations with a glowing token that travels as
+   the reader scrolls through the steps list named in data-a4-steps; the current beat's card shows
+   under the track. Horizontal track; vertical when the figure is narrower than 520 px. */
+
+.a4 { container-type: inline-size; }
+.a4 .p-player { --part: var(--players); }
+.a4-sr {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* ---------- track (armed only) ---------- */
+
+.a4-track { display: none; position: relative; --pos: 0; }
+.a4--armed .a4-track { display: block; }
+
+.a4-stations {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  position: relative;
+}
+.a4-stations::before { /* the rail */
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 10px;
+  border-top: var(--hair) solid color-mix(in srgb, var(--gold) 45%, var(--line));
+}
+.a4-st {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: var(--space-2);
+  text-align: center;
+  min-width: 0;
+}
+.a4-st__dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: var(--hair) solid var(--part);
+  background: var(--bg);
+  transition: background-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+.a4-st:last-child .a4-st__dot { border-radius: 4px; } /* the table itself */
+.a4-st__name {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  line-height: 1.3;
+  color: var(--muted);
+  transition: color 0.35s var(--ease);
+}
+.a4-st.is-on .a4-st__name { color: var(--text); }
+.a4-st.is-on .a4-st__dot { background: color-mix(in srgb, var(--part) 28%, var(--bg)); }
+.a4-st.is-here .a4-st__dot {
+  background: var(--part);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--part) 22%, transparent), 0 0 18px var(--part);
+}
+
+.a4-token {
+  position: absolute;
+  z-index: 2;
+  left: calc((var(--pos) + 0.5) * 20%);
+  top: 10px;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  background: #FFF4D6;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--gold) 55%, transparent), 0 0 14px 3px var(--gold), 0 0 34px 6px color-mix(in srgb, var(--gold) 45%, transparent);
+  transition: left 0.12s linear, top 0.12s linear;
+  pointer-events: none;
+}
+
+/* ---------- beats ---------- */
+
+.a4-beats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: minmax(0, 1fr);
+}
+@container (min-width: 520px) { .a4-beats { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@container (min-width: 1320px) { .a4-beats { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+.a4:not(.a4--armed) .a4-receipt { min-width: 0; width: 100%; max-width: 16rem; }
+.a4:not(.a4--armed) .a4-ribbon { font-size: 1.15rem; }
+
+.a4-beat {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  min-width: 0;
+}
+.a4-beat__head { display: flex; align-items: center; gap: var(--space-3); margin: 0; }
+.a4-beat__n {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: var(--hair) solid var(--gold);
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1;
+  color: var(--gold);
+  font-variant-numeric: lining-nums;
+}
+.a4-beat__route {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.35;
+}
+.a4-beat__art { display: grid; justify-items: start; gap: var(--space-2); min-width: 0; }
+
+/* armed: one beat at a time under the track */
+.a4--armed .a4-beats {
+  grid-template-columns: minmax(0, 1fr);
+  margin-top: var(--space-5);
+  min-height: 10rem;
+  align-items: center;
+}
+.a4--armed .a4-beat {
+  grid-area: 1 / 1;
+  justify-items: center;
+  text-align: center;
+  padding: var(--space-4) 0 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+  background: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s var(--ease), visibility 0s linear 0.35s;
+}
+.a4--armed .a4-beat.is-on { opacity: 1; visibility: visible; transition-delay: 0s; }
+.a4--armed .a4-beat__art { justify-items: center; }
+
+/* vertical track on narrow figures */
+@container (max-width: 519px) {
+  .a4--armed .a4__body { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: var(--space-4); align-items: center; }
+  .a4-stations { grid-template-columns: minmax(0, 1fr); grid-auto-rows: 3.25rem; }
+  .a4-stations::before { left: 10px; right: auto; top: 10%; bottom: 10%; border-top: 0; border-left: var(--hair) solid color-mix(in srgb, var(--gold) 45%, var(--line)); }
+  .a4-st { display: flex; align-items: center; gap: var(--space-3); text-align: left; }
+  .a4-st__dot { flex: none; }
+  .a4-st__name { font-size: 0.6875rem; letter-spacing: 0.03em; }
+  .a4-token { left: 10px; top: calc((var(--pos) + 0.5) * 20%); }
+  .a4--armed .a4-beats { margin-top: 0; min-height: 0; }
+  .a4--armed .a4-beat { padding: 0; border-top: 0; justify-items: start; text-align: left; }
+  .a4--armed .a4-beat__head { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+  .a4--armed .a4-beat__art { justify-items: start; }
+}
+
+/* ---------- the art for each beat ---------- */
+
+/* 1: sound wave */
+.a4-wave { display: inline-flex; align-items: center; gap: 5px; height: 64px; }
+.a4-wave i { display: block; width: 5px; height: calc(var(--h) * 1.5px); border-radius: 2px; background: var(--teal); }
+.a4-wave i:nth-child(1) { --h: 10; } .a4-wave i:nth-child(2) { --h: 22; } .a4-wave i:nth-child(3) { --h: 34; }
+.a4-wave i:nth-child(4) { --h: 18; } .a4-wave i:nth-child(5) { --h: 40; } .a4-wave i:nth-child(6) { --h: 26; }
+.a4-wave i:nth-child(7) { --h: 14; } .a4-wave i:nth-child(8) { --h: 30; } .a4-wave i:nth-child(9) { --h: 12; }
+
+/* 2: two ticks */
+.a4-ticks { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
+.a4-ticks li { display: flex; align-items: center; gap: var(--space-2); font-size: 1rem; line-height: 1.3; text-align: left; }
+.a4-ticks li::before {
+  content: "\2713";
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--on-gold);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* 3: the request card */
+.a4-card {
+  margin: 0;
+  padding: 0.55em 1em;
+  border: var(--hair) solid var(--ember);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--ember) 12%, var(--bg));
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+/* 4: the d20 */
+.a4-roll { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--space-3); }
+.a4-d20 { width: 64px; height: 64px; flex: none; fill: none; stroke: var(--ember); stroke-width: 1.2; stroke-linejoin: round; }
+.a4-roll__result { margin: 0; font-size: 1.0625rem; line-height: 1.4; text-align: left; }
+.a4-roll__result b { color: var(--ember); font-weight: 600; }
+
+/* 5: receipt with timer */
+.a4-receipt {
+  display: grid;
+  gap: 4px;
+  min-width: 13rem;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--ember);
+  border-radius: var(--radius);
+  background: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--muted);
+  text-align: left;
+}
+.a4-receipt__head { display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); margin: 0; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text); }
+.a4-timer { display: inline-flex; align-items: center; gap: 5px; color: var(--gold); letter-spacing: 0.04em; text-transform: none; font-size: 0.875rem; }
+.a4-timer svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
+.a4-receipt p { margin: 0; }
+
+/* 6: speech ribbon */
+.a4-ribbon {
+  margin: 0;
+  padding: 0.6em 1.6em;
+  background: color-mix(in srgb, var(--teal) 22%, var(--bg));
+  border-block: var(--hair) solid var(--teal);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 50%, 100% 100%, 0 100%, 12px 50%);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.35rem;
+  line-height: 1.3;
+  color: var(--text);
+  max-width: 26rem;
+}
+
+/* ---------- motion for the current beat (armed only) ---------- */
+
+.a4--armed .a4-beat.is-on .a4-wave i { animation: a4-wave 0.9s var(--ease) infinite alternate; transform-origin: center; }
+.a4--armed .a4-beat.is-on .a4-wave i:nth-child(odd) { animation-delay: -0.45s; }
+.a4--armed .a4-beat.is-on .a4-wave i:nth-child(3n) { animation-delay: -0.2s; }
+.a4--armed .a4-beat.is-on .a4-ticks li { animation: a4-in 0.45s var(--ease) both; }
+.a4--armed .a4-beat.is-on .a4-ticks li:nth-child(1) { animation-delay: 0.25s; }
+.a4--armed .a4-beat.is-on .a4-ticks li:nth-child(2) { animation-delay: 0.7s; }
+.a4--armed .a4-beat.is-on .a4-card { animation: a4-slide 0.6s var(--ease) 0.1s both; }
+.a4--armed .a4-beat.is-on .a4-d20 { animation: a4-tumble 1.1s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+.a4--armed .a4-beat.is-on .a4-roll__result { animation: a4-in 0.45s var(--ease) 1s both; }
+.a4--armed .a4-beat.is-on .a4-receipt { animation: a4-flyback 0.7s cubic-bezier(0.2, 0.8, 0.3, 1.1) both; }
+.a4--armed .a4-beat.is-on .a4-timer { animation: a4-pulse 0.6s var(--ease) 0.7s both; }
+.a4--armed .a4-beat.is-on .a4-ribbon { animation: a4-unfurl 0.7s var(--ease) 0.1s both; }
+
+@keyframes a4-wave { from { transform: scaleY(0.35); } to { transform: scaleY(1); } }
+@keyframes a4-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes a4-slide { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: none; } }
+@keyframes a4-tumble {
+  0%   { opacity: 0; transform: translate(-30px, -14px) rotate(-260deg) scale(0.6); }
+  60%  { opacity: 1; transform: translate(4px, 2px) rotate(20deg) scale(1.05); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes a4-flyback { from { opacity: 0; transform: translateX(40px) rotate(4deg); } to { opacity: 1; transform: none; } }
+@keyframes a4-pulse { 0% { opacity: 0; transform: scale(1.6); } 100% { opacity: 1; transform: none; } }
+@keyframes a4-unfurl { from { opacity: 0.3; transform: scaleX(0); } to { opacity: 1; transform: scaleX(1); } }
+
+@container (max-width: 519px) {
+  .a4-roll { justify-content: flex-start; }
+  .a4-ribbon { font-size: 1.05rem; padding-inline: 1.2em; }
+  .a4-receipt { min-width: 0; }
+}

@@ -1,0 +1,207 @@
+/* A3: five chambers, five jobs (DragonSpire.io section 3; calm variant for the company site).
+   Needs ds.css + components.css (diagram-frame, badge). Markup: a3 figure in the page. JS: assets/js/a3.js.
+   Wide layout: Cory in the centre, four chambers at the corners. Narrow (< 760 px figure): 2 x 3, taller.
+   Chambers are HTML buttons placed over an SVG of gold connectors; dots travel the connectors both ways.
+   Without JS: all five captions listed under the diagram. With JS (flashy): one caption at a time,
+   cycling every 3 s, hover / focus / tap picks one. .a3--calm: slower, no glow, all five captions
+   always listed (the active one is marked). Reduced motion: no dots, no cycling. */
+
+.a3 {
+  --a3-k: 1;            /* time scale */
+  container-type: inline-size;
+}
+.a3--calm { --a3-k: 1.6; }
+
+/* ---------- stage ---------- */
+
+.a3__stage {
+  position: relative;
+  aspect-ratio: 1000 / 440;
+  isolation: isolate;
+}
+.a3:not(.a3--calm) .a3__stage::before { /* warm light behind Cory */
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(30% 42% at 50% 50%, color-mix(in srgb, var(--gold) 16%, transparent), transparent 72%);
+  pointer-events: none;
+}
+
+.a3-wires {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  overflow: visible;
+  z-index: 0;
+}
+.a3-wires--tall { display: none; }
+
+.a3-wire {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.42;
+  transition: opacity calc(0.4s * var(--a3-k)) var(--ease);
+}
+.a3-wire.is-on { opacity: 1; }
+.a3:not(.a3--calm) .a3-wire.is-on { filter: drop-shadow(0 0 4px var(--gold)); }
+
+.a3-dot { fill: var(--gold); }
+.a3:not(.a3--calm) .a3-dot { filter: drop-shadow(0 0 3px var(--gold)) drop-shadow(0 0 6px var(--gold)); }
+.a3--calm .a3-dot { opacity: 0.75; }
+
+/* ---------- chambers ---------- */
+
+.a3-ch {
+  --w: 24%;
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w);
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+  margin: 0;
+  padding: 16px 12px 13px;
+  background: var(--panel);
+  color: var(--text);
+  border: var(--hair) solid color-mix(in srgb, var(--part) 50%, var(--line));
+  border-radius: var(--radius);
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    border-color calc(0.4s * var(--a3-k)) var(--ease),
+    background-color calc(0.4s * var(--a3-k)) var(--ease),
+    box-shadow calc(0.4s * var(--a3-k)) var(--ease),
+    transform calc(0.4s * var(--a3-k)) var(--ease);
+}
+.a3-ch::before { /* part-colour band along the top */
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: var(--part);
+  opacity: 0.7;
+}
+.a3-ch__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+.a3-ch__role {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--part);
+}
+.a3-ch__badge { margin-top: 5px; font-size: 0.625rem; }
+.a3-ch:focus-visible { outline: 2px solid var(--part); outline-offset: 3px; border-radius: var(--radius); }
+
+.a3-ch[data-a3="cory"] { --x: 50%; --y: 50%; --w: 26%; padding-block: 20px 16px; }
+.a3-ch[data-a3="cory"] .a3-ch__name { font-size: 2rem; }
+.a3-ch[data-a3="dee"]  { --x: 14%; --y: 20.45%; }
+.a3-ch[data-a3="fgu"]  { --x: 86%; --y: 20.45%; }
+.a3-ch[data-a3="cm"]   { --x: 14%; --y: 79.55%; }
+.a3-ch[data-a3="lib"]  { --x: 86%; --y: 79.55%; }
+
+/* flashy: Cory always glows a little; the active chamber lights up */
+.a3:not(.a3--calm) .a3-ch[data-a3="cory"] { box-shadow: 0 0 26px color-mix(in srgb, var(--gold) 22%, transparent); }
+.a3-ch.is-on {
+  border-color: var(--part);
+  background: color-mix(in srgb, var(--part) 11%, var(--panel));
+}
+.a3-ch.is-on::before { opacity: 1; }
+.a3:not(.a3--calm) .a3-ch.is-on {
+  transform: translate(-50%, -50%) scale(1.045);
+  box-shadow: 0 0 0 1px var(--part), 0 0 32px color-mix(in srgb, var(--part) 48%, transparent);
+}
+
+/* ---------- narrow: 2 x 3, taller stage ---------- */
+
+@container (max-width: 759px) {
+  .a3__stage { aspect-ratio: 360 / 560; }
+  .a3-wires--wide { display: none; }
+  .a3-wires--tall { display: block; }
+  .a3-ch { --w: 46%; padding: 13px 8px 10px; }
+  .a3-ch__name { font-size: 1.15rem; }
+  .a3-ch__role { font-size: 0.625rem; letter-spacing: 0.1em; }
+  .a3-ch__badge { font-size: 0.5625rem; letter-spacing: 0.1em; padding-inline: 0.5em; }
+  .a3-ch[data-a3="cory"] { --w: 60%; padding-block: 16px 13px; }
+  .a3-ch[data-a3="cory"] .a3-ch__name { font-size: 1.6rem; }
+  .a3-ch[data-a3="dee"]  { --x: 25%; --y: 13.93%; }
+  .a3-ch[data-a3="fgu"]  { --x: 75%; --y: 13.93%; }
+  .a3-ch[data-a3="cm"]   { --x: 25%; --y: 86.07%; }
+  .a3-ch[data-a3="lib"]  { --x: 75%; --y: 86.07%; }
+}
+
+/* ---------- captions ---------- */
+
+/* list (no JS, and always in the calm variant) */
+.a3-caps {
+  list-style: none;
+  margin: var(--space-6) 0 0;
+  padding: var(--space-5) 0 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: var(--space-4);
+}
+@container (min-width: 760px) {
+  .a3-caps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4) var(--space-6); }
+  .a3-cap[data-a3="cory"] { grid-column: 1 / -1; }
+}
+.a3-cap {
+  display: grid;
+  gap: 2px;
+  padding: 2px 0 2px 14px;
+  border-left: 2px solid color-mix(in srgb, var(--part) 35%, transparent);
+  transition: border-color calc(0.4s * var(--a3-k)) var(--ease);
+}
+.a3-cap__name { font-family: var(--font-display); font-weight: 600; font-size: 1.2rem; line-height: 1.2; color: var(--part); }
+.a3-cap__text { font-size: 0.9375rem; line-height: 1.5; color: var(--muted); max-width: 60ch; transition: color calc(0.4s * var(--a3-k)) var(--ease); }
+.a3-cap.is-on { border-left-color: var(--part); }
+.a3-cap.is-on .a3-cap__text { color: var(--text); }
+
+/* flashy with JS: one caption at a time, centred under the diagram */
+.a3--js:not(.a3--calm) .a3-caps {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  text-align: center;
+  margin-top: var(--space-5);
+  padding-top: 0;
+  border-top: 0;
+}
+.a3--js:not(.a3--calm) .a3-cap {
+  grid-area: 1 / 1;
+  justify-items: center;
+  padding: 0;
+  border-left: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.45s var(--ease), transform 0.45s var(--ease), visibility 0s linear 0.45s;
+}
+.a3--js:not(.a3--calm) .a3-cap.is-on { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+.a3--js:not(.a3--calm) .a3-cap__name { font-size: 1.35rem; }
+.a3--js:not(.a3--calm) .a3-cap__text { font-size: 1.0625rem; color: var(--text); max-width: 54ch; }
+
+/* ---------- reduced motion: the still diagram, no dots ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .a3 .a3-dot { display: none; }
+  .a3 .a3-ch.is-on { transform: translate(-50%, -50%) !important; }
+}

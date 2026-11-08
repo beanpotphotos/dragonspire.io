@@ -1,0 +1,169 @@
+/* A1: the spire assembles (DragonSpire.io hero).
+   Needs ds.css. Markup: the .a1 figure in index.html. JS: assets/js/a1.js.
+   Build ~8 s bottom to top, hold 3 s, then loop by dimming and relighting (never rebuilding).
+   Without JS, or with reduced motion: the finished, lit spire, still. Labels hide below 720 px. */
+
+.a1 {
+  /* stage height drives everything; width follows the 240 x 556 viewBox */
+  --a1-h: 240px;
+  --a1-w: calc(var(--a1-h) * 240 / 556);
+  --a1-gap: 18px;       /* stage edge to label text */
+  --a1-lab: 0px;        /* room reserved for labels on the right */
+  margin: 0;
+  justify-self: center;
+  min-width: 0;
+}
+.a1__stage {
+  position: relative;
+  width: var(--a1-w);
+  height: var(--a1-h);
+  margin-right: var(--a1-lab);
+}
+.a1-svg { width: 100%; height: 100%; max-width: none; overflow: visible; }
+
+/* ---------- labels (HTML, beside each chamber) ---------- */
+
+.a1-labels { display: none; list-style: none; margin: 0; padding: 0; position: absolute; inset: 0; pointer-events: none; }
+.a1-label {
+  position: absolute;
+  top: var(--y);
+  left: calc(100% + var(--a1-gap));
+  transform: translateY(-50%);
+  display: grid;
+  gap: 1px;
+  white-space: nowrap;
+  line-height: 1.15;
+}
+.a1-label::before { /* leader from the chamber edge to the name */
+  content: "";
+  position: absolute;
+  top: 0.72rem;
+  right: calc(100% + 8px);
+  width: calc((1 - var(--edge)) * var(--a1-w) + var(--a1-gap) - 14px);
+  border-top: 1px solid var(--part);
+  opacity: 0.55;
+}
+.a1-label__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.2rem;
+  font-variant: small-caps;
+  text-transform: lowercase;
+  letter-spacing: 0.1em;
+  color: var(--text);
+}
+.a1-label__role {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  font-variant: small-caps;
+  letter-spacing: 0.12em;
+  color: var(--part);
+}
+
+@media (min-width: 720px) {
+  .a1 { --a1-h: 380px; --a1-lab: 10.5rem; }
+  .a1-labels { display: block; }
+}
+@media (min-width: 960px) {
+  .a1 { --a1-h: max(400px, min(68svh, 600px, calc(52vw - 100px))); }
+}
+
+/* ---------- finished (lit) state: the default, used with no JS and reduced motion ---------- */
+
+.a1-ln { fill: none; stroke: var(--gold); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.a1-ln--ground { opacity: 0.7; }
+.a1-dim path { fill: none; stroke: var(--line); stroke-width: 1; }
+.a1-d20 { opacity: 0.45; }
+.a1-d20 path { fill: none; stroke: var(--gold); stroke-width: 1.1; stroke-linejoin: round; }
+.a1-d20__spin { transform-box: fill-box; transform-origin: center; }
+
+.a1-ch__glow { fill: var(--part); opacity: 0.4; }
+.a1-ch__fill { fill: var(--part); opacity: 0.13; }
+.a1-ch__draw { fill: none; stroke: var(--gold); stroke-width: 1.5; stroke-linejoin: round; opacity: 0.85; }
+.a1-ch__lit { fill: none; stroke: var(--part); stroke-width: 1.5; stroke-linejoin: round; }
+.a1-ch__band { fill: none; stroke: var(--part); stroke-width: 1; opacity: 0.45; }
+
+.a1-rail { fill: none; stroke: var(--gold); stroke-width: 1; opacity: 0.5; }
+.a1-port { fill: var(--bg); stroke: var(--part); stroke-width: 1.3; }
+
+.a1-dots { opacity: 0; }
+.a1-dot { fill: currentColor; color: var(--gold); filter: drop-shadow(0 0 3px currentColor) drop-shadow(0 0 7px currentColor); }
+
+/* ---------- before the build (JS on, motion allowed) ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .js .a1:not(.a1--go):not(.a1--still) :is(.a1-ln, .a1-ch__draw, .a1-rail) { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .js .a1:not(.a1--go):not(.a1--still) :is(.a1-dim, .a1-d20, .a1-ch__glow, .a1-ch__fill, .a1-ch__lit, .a1-ch__band, .a1-ports > g, .a1-label) { opacity: 0; }
+  .js .a1:not(.a1--go):not(.a1--still) .a1-label { transform: translate(-8px, -50%); }
+  .a1--go :is(.a1-ln, .a1-ch__draw, .a1-rail) { stroke-dasharray: 1; }
+}
+
+/* ---------- build timeline (class a1--go) ---------- */
+
+.a1--go .a1-ln--ground { transition: stroke-dashoffset 0.7s var(--ease); }
+.a1--go .a1-ln--wall { transition: stroke-dashoffset 1s var(--ease) 0.2s; }
+.a1--go .a1-dim { transition: opacity 0.8s var(--ease) 0.6s; }
+.a1--go .a1-roof .a1-ln { transition: stroke-dashoffset 0.7s var(--ease) 5.9s; }
+.a1--go .a1-d20 { transition: opacity 1s var(--ease) 6.3s; }
+
+/* chamber i: gold outline draws, then it lights in its colour and its name fades in */
+.a1--go .a1-ch { --t: calc(0.9s + var(--i) * 1s); }
+.a1--go .a1-ch__draw { transition: stroke-dashoffset 0.7s var(--ease) var(--t); }
+.a1--go :is(.a1-ch__glow, .a1-ch__fill, .a1-ch__lit, .a1-ch__band) { transition: opacity 0.6s var(--ease) calc(var(--t) + 0.55s); }
+.a1--go .a1-rail { transition: stroke-dashoffset 0.6s var(--ease) calc(0.9s + var(--i) * 1s - 0.3s); }
+.a1--go .a1-ports > g { transition: opacity 0.5s var(--ease) calc(0.9s + var(--i) * 1s + 0.55s); }
+.a1--go .a1-label { transition: opacity 0.7s var(--ease) calc(0.9s + var(--i) * 1s + 0.6s), transform 0.7s var(--ease) calc(0.9s + var(--i) * 1s + 0.6s); }
+
+/* ---------- live: dots travel, the d20 turns (class a1--live, from ~6.6 s) ---------- */
+
+.a1--live .a1-dots { opacity: 1; transition: opacity 0.8s var(--ease); }
+.a1--live .a1-dot--up { animation: a1-up 4.2s linear infinite; }
+.a1--live .a1-dot--dn { animation: a1-dn 4.2s linear infinite; }
+.a1--live .a1-d20__spin { animation: a1-turn 16s linear infinite; }
+.a1--paused * { animation-play-state: paused !important; }
+
+/* chamber centres: 498 (FGU Link) 412 326 240 154 (Cory); the dot takes each chamber's colour */
+@keyframes a1-up {
+  0%   { transform: translateY(498px); color: var(--ember); opacity: 0; }
+  8%   { opacity: 1; }
+  25%  { color: var(--slate); }
+  50%  { color: var(--slate); }
+  75%  { color: var(--teal); }
+  92%  { opacity: 1; }
+  100% { transform: translateY(154px); color: var(--gold); opacity: 0; }
+}
+@keyframes a1-dn {
+  0%   { transform: translateY(154px); color: var(--gold); opacity: 0; }
+  8%   { opacity: 1; }
+  25%  { color: var(--teal); }
+  50%  { color: var(--slate); }
+  75%  { color: var(--slate); }
+  92%  { opacity: 1; }
+  100% { transform: translateY(498px); color: var(--ember); opacity: 0; }
+}
+@keyframes a1-turn {
+  from { transform: rotateY(0deg) rotateZ(0deg); }
+  to   { transform: rotateY(360deg) rotateZ(60deg); }
+}
+
+/* ---------- loop: dim top-down, then relight bottom-up. Lines stay drawn. ---------- */
+
+.a1--go.a1--dim .a1-ch__lit { opacity: 0.12; }
+.a1--go.a1--dim .a1-ch__glow { opacity: 0; }
+.a1--go.a1--dim .a1-ch__fill { opacity: 0.03; }
+.a1--go.a1--dim .a1-ch__band { opacity: 0.12; }
+.a1--go.a1--dim .a1-ports > g { opacity: 0.35; }
+.a1--go.a1--dim .a1-label { opacity: 0.35; }
+.a1--go.a1--dim .a1-dots { opacity: 0; }
+.a1--go.a1--dim .a1-d20 { opacity: 0.2; }
+.a1--go.a1--dim :is(.a1-ch__glow, .a1-ch__fill, .a1-ch__lit, .a1-ch__band),
+.a1--go.a1--dim .a1-ports > g,
+.a1--go.a1--dim .a1-label { transition: opacity 0.7s var(--ease) calc((4 - var(--i)) * 0.12s); }
+.a1--go.a1--dim :is(.a1-dots, .a1-d20) { transition: opacity 0.6s var(--ease); }
+
+.a1--go.a1--relight :is(.a1-ch__glow, .a1-ch__fill, .a1-ch__lit, .a1-ch__band),
+.a1--go.a1--relight .a1-ports > g,
+.a1--go.a1--relight .a1-label { transition: opacity 0.6s var(--ease) calc(var(--i) * 0.28s); }
+.a1--go.a1--relight .a1-dots { transition: opacity 0.8s var(--ease) 1.3s; }
+.a1--go.a1--relight .a1-d20 { transition: opacity 0.8s var(--ease) 1.2s; }

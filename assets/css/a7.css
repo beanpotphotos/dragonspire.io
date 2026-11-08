@@ -1,0 +1,249 @@
+/* A7: the approval card (DragonSpire.io section 7; calm variant for the company Product page).
+   Needs ds.css + components.css (diagram-frame). Markup: a7 figure in the page. JS: assets/js/a7.js.
+   A Fantasy Grounds style card slides in, a cursor clicks Approve, the card stamps "approved" in gold
+   and the goblin's attack plays on a small map. Beside it: the DM mode switch, Assistant selected.
+   Default (no JS, reduced motion): the approved card and the finished attack, still.
+   a7.js adds .a7--go (animate) and .a7--paused (off screen). .a7--calm: slower, no overshoot, no glow.
+   Wide (figure >= 760 px): card | map | switch. Narrower: stacked, switch as a 2 x 2 grid. */
+
+.a7 {
+  --a7-k: 1;
+  --a7-loop: calc(10s * var(--a7-k));
+  container-type: inline-size;
+}
+.a7--calm { --a7-k: 1.3; }
+
+/* ---------- layout ---------- */
+
+.a7__stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 0.85fr);
+  gap: var(--space-6);
+  align-items: center;
+}
+.a7-label {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---------- card ---------- */
+
+.a7-desk { padding: 6px; margin: -6px; overflow: clip; overflow-clip-margin: 6px; }
+.a7-card {
+  position: relative;
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5) var(--space-5);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--ember);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+}
+.a7-card__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-3);
+  margin: 0;
+  max-width: none;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.a7-card__kicker { color: var(--ember); }
+.a7-card__who { color: var(--muted); }
+.a7-card__text { margin: 0; font-size: 1.0625rem; line-height: 1.5; max-width: 34ch; }
+.a7-card__roll { font-family: var(--font-mono); font-size: 0.9375rem; color: var(--muted); white-space: nowrap; }
+.a7-card__btns { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: var(--space-1) 0 0; max-width: none; }
+.a7-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0.35em 1em;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--muted);
+}
+.a7-btn--approve { border-color: var(--gold); background: var(--gold); color: var(--on-gold); }  /* still: pressed */
+.a7-btn--other { opacity: 0.45; }
+.a7-cursor {
+  position: absolute;
+  left: 62%;
+  top: 52%;
+  width: 17px;
+  height: auto;
+  max-width: none;
+  overflow: visible;
+  pointer-events: none;
+}
+.a7-cursor path { fill: var(--text); stroke: var(--bg); stroke-width: 1.4; stroke-linejoin: round; }
+.a7-stamp {
+  position: absolute;
+  right: var(--space-4);
+  bottom: calc(var(--space-5) + 2px);
+  padding: 0.12em 0.55em;
+  border: 2px solid var(--gold);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: color-mix(in srgb, var(--gold) 8%, var(--panel));
+  transform: rotate(-8deg);
+}
+.a7:not(.a7--calm) .a7-stamp { box-shadow: 0 0 18px color-mix(in srgb, var(--gold) 30%, transparent); }
+
+/* ---------- map ---------- */
+
+.a7-map__art { width: 100%; display: block; }
+.a7-map__bg { fill: var(--panel); stroke: var(--line); stroke-width: 1; }
+.a7-map__grid { fill: none; stroke: var(--line); stroke-width: 1; }
+.a7-map__wall { fill: none; stroke: var(--slate); stroke-width: 3; opacity: 0.55; }
+.a7-path { fill: none; stroke: var(--ember); stroke-width: 1.2; stroke-dasharray: 3 3; opacity: 0.6; }
+.a7-tok { fill: var(--panel); stroke-width: 1.6; }
+.a7-tok--pc { stroke: var(--players); }
+.a7-tok--foe { stroke: var(--ember); fill: color-mix(in srgb, var(--ember) 14%, var(--panel)); }
+.a7-tok__t { font-family: var(--font-mono); font-size: 8.5px; font-weight: 500; fill: var(--ember); text-anchor: middle; }
+.a7-tok__t--pc { fill: var(--players); font-size: 9.5px; }
+.a7-vael__flash { fill: none; stroke: var(--ember); stroke-width: 2; opacity: 0; }
+.a7-slash { fill: none; stroke: var(--text); stroke-width: 2.2; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.a7:not(.a7--calm) .a7-slash { filter: drop-shadow(0 0 3px var(--ember)); }
+
+/* ---------- mode switch ---------- */
+
+.a7-switch { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
+.a7-opt {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  min-height: 42px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-size: 0.9375rem;
+  line-height: 1.25;
+  color: var(--muted);
+}
+.a7-opt__dot {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+}
+.a7-opt--on {
+  border-color: var(--gold);
+  background: color-mix(in srgb, var(--gold) 10%, transparent);
+  color: var(--text);
+  font-weight: 600;
+}
+.a7-opt--on .a7-opt__dot { border-color: var(--gold); background: var(--gold); box-shadow: inset 0 0 0 2px var(--bg); }
+.a7-tag {
+  padding: 0.1em 0.5em;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---------- narrow ---------- */
+
+@container (max-width: 759px) {
+  .a7__stage { grid-template-columns: minmax(0, 1fr); gap: var(--space-5); }
+  .a7-map__art { max-width: 360px; }
+  .a7-switch { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .a7-opt { font-size: 0.875rem; padding: 7px 10px; }
+}
+@container (max-width: 480px) {
+  .a7-card { padding: var(--space-4); }
+  .a7-card__text { font-size: 1rem; }
+  .a7-stamp { right: var(--space-3); top: var(--space-3); bottom: auto; font-size: 0.75rem; }
+}
+
+/* ---------- motion (only with .a7--go) ---------- */
+
+.a7--go .a7-card            { animation: a7-card var(--a7-loop) var(--ease) infinite; }
+.a7--go .a7-cursor          { animation: a7-cursor var(--a7-loop) var(--ease) infinite; }
+.a7--go .a7-btn--approve    { animation: a7-approve var(--a7-loop) linear infinite; }
+.a7--go .a7-btn--other      { animation: a7-dim var(--a7-loop) linear infinite; }
+.a7--go .a7-stamp           { animation: a7-stamp var(--a7-loop) linear infinite; }
+.a7--go.a7--calm .a7-stamp  { animation-name: a7-stamp-calm; }
+.a7--go .a7-gob             { animation: a7-gob var(--a7-loop) var(--ease) infinite; }
+.a7--go .a7-path            { animation: a7-path var(--a7-loop) linear infinite; }
+.a7--go .a7-slash           { animation: a7-slash var(--a7-loop) linear infinite; }
+.a7--go .a7-vael__flash     { animation: a7-flash var(--a7-loop) linear infinite; }
+
+.a7--paused *, .a7--paused *::before, .a7--paused *::after { animation-play-state: paused !important; }
+
+/* timeline (percent of the loop): 5-11% card in, 15-26% cursor travels, 28% click, 30-34% stamp,
+   36-44% goblin moves, 46-50% slash, 88-95% card out, 92-97% map resets */
+@keyframes a7-card {
+  0%, 5% { opacity: 0; transform: translateX(32px); }
+  11%, 88% { opacity: 1; transform: none; }
+  95%, 100% { opacity: 0; transform: translateY(-8px); }
+}
+@keyframes a7-cursor {
+  0%, 12% { opacity: 0; transform: translate(130px, 22px); }
+  15% { opacity: 1; transform: translate(130px, 22px); }
+  26% { opacity: 1; transform: translate(0, 0) scale(1); }
+  27.5% { transform: translate(0, 0) scale(0.8); }
+  29% { transform: translate(0, 0) scale(1); }
+  48% { opacity: 1; transform: translate(0, 0); }
+  54%, 100% { opacity: 0; transform: translate(6px, 10px); }
+}
+@keyframes a7-approve {
+  0%, 27.5% { background: transparent; color: var(--gold); }
+  28.5%, 100% { background: var(--gold); color: var(--on-gold); }
+}
+@keyframes a7-dim {
+  0%, 29% { opacity: 1; }
+  33%, 100% { opacity: 0.45; }
+}
+@keyframes a7-stamp {
+  0%, 29% { opacity: 0; transform: rotate(-16deg) scale(1.8); }
+  32.5% { opacity: 1; transform: rotate(-8deg) scale(0.93); }
+  35%, 100% { opacity: 1; transform: rotate(-8deg) scale(1); }
+}
+@keyframes a7-stamp-calm {
+  0%, 29% { opacity: 0; transform: rotate(-8deg) scale(1.15); }
+  34%, 100% { opacity: 1; transform: rotate(-8deg) scale(1); }
+}
+@keyframes a7-gob {
+  0%, 36% { transform: translate(24px, -24px); }
+  44%, 90% { transform: translate(0, 0); }
+  97%, 100% { transform: translate(24px, -24px); }
+}
+@keyframes a7-path {
+  0%, 36% { opacity: 0; }
+  40%, 86% { opacity: 0.6; }
+  92%, 100% { opacity: 0; }
+}
+@keyframes a7-slash {
+  0%, 44.9% { opacity: 0; stroke-dashoffset: 1; }
+  45% { opacity: 1; stroke-dashoffset: 1; }
+  50% { opacity: 1; stroke-dashoffset: 0; }
+  72% { opacity: 1; stroke-dashoffset: 0; }
+  80%, 100% { opacity: 0; stroke-dashoffset: 0; }
+}
+@keyframes a7-flash {
+  0%, 47% { opacity: 0; }
+  50% { opacity: 0.9; }
+  62%, 100% { opacity: 0; }
+}

@@ -1,0 +1,157 @@
+/* A6: Dee Emma's table manners (DragonSpire.io section 6).
+   Needs ds.css + components.css (diagram-frame). Markup: a6 figure in the page. JS: assets/js/a6.js.
+   A voice timeline, players in grey and Dee Emma in teal, in four labelled scenes.
+   Default (no JS, reduced motion): the four scenes as a static strip, each finished.
+   a6.js adds .a6--go: one scene at a time (3 s each, 12 s loop), a playhead sweeps it, notes pop in
+   at their --t (seconds), and the avatar lights while Dee Emma speaks. Pauses off screen. */
+
+.a6 {
+  --a6-k: 1;
+  container-type: inline-size;
+}
+
+/* ---------- head: avatar, name, legend ---------- */
+
+.a6__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--line);
+}
+.a6-avatar {
+  position: relative;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid color-mix(in srgb, var(--teal) 55%, var(--line));
+  background: url("../img/dee_emma_banner.jpg") no-repeat -38px -11px / 326px 115px;
+  transition: box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.a6-avatar::after { /* speaking pulse */
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 2px solid var(--teal);
+  opacity: 0;
+}
+.a6-avatar.is-speaking { border-color: var(--teal); box-shadow: 0 0 0 2px var(--teal), 0 0 18px color-mix(in srgb, var(--teal) 55%, transparent); }
+.a6-avatar.is-speaking::after { animation: a6-ring 0.9s ease-out infinite; }
+.a6__who { display: grid; gap: 1px; margin: 0; }
+.a6__name { font-family: var(--font-display); font-weight: 600; font-size: 1.4rem; line-height: 1.1; color: var(--teal); }
+.a6__sub { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.a6-legend {
+  list-style: none;
+  margin: 0 0 0 auto;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.a6-legend li { display: inline-flex; align-items: center; gap: 7px; }
+.a6-legend li::before { content: ""; width: 16px; height: 3px; border-radius: 2px; background: var(--players); opacity: 0.75; }
+.a6-legend__d::before { background: var(--teal) !important; opacity: 1 !important; }
+
+/* ---------- scenes (static strip by default) ---------- */
+
+.a6-scenes { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-4); }
+.a6-scene { min-width: 0; display: grid; gap: var(--space-2); }
+.a6-scene + .a6-scene { padding-top: var(--space-4); border-top: 1px solid var(--line); }
+.a6-scene__label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+.a6-scene__n {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  border: 1px solid var(--teal);
+  border-radius: 50%;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--teal);
+}
+.a6-tl { width: 100%; display: block; }
+
+/* timeline parts */
+.a6-w { fill: none; stroke-width: 2.2; stroke-linecap: round; }
+.a6-w--p { stroke: var(--players); opacity: 0.72; }
+.a6-w--d { stroke: var(--teal); }
+.a6:not(.a6--calm) .a6-w--d { filter: drop-shadow(0 0 2px color-mix(in srgb, var(--teal) 70%, transparent)); }
+.a6-w--ghost { stroke: var(--teal); opacity: 0.16; }
+.a6-base { fill: none; stroke: var(--line); stroke-width: 1; }
+.a6-curtain { display: none; fill: var(--bg); }
+.a6-head { display: none; stroke: var(--gold); stroke-width: 1.3; }
+.a6-mark { fill: none; stroke: var(--gold); stroke-width: 1.2; }
+.a6-note { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 15px; fill: var(--text); }
+.a6-note--mono { font-family: var(--font-mono); font-style: normal; font-weight: 400; font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; fill: var(--muted); }
+.a6-cut { fill: none; stroke: var(--teal); stroke-width: 2.4; stroke-linecap: round; }
+.a6-tagbox { fill: color-mix(in srgb, var(--players) 12%, transparent); stroke: var(--players); stroke-opacity: 0.6; stroke-width: 1; }
+.a6-tag { font-family: var(--font-mono); font-size: 10px; fill: var(--players); }
+.a6-tag--plain { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; fill: var(--muted); }
+.a6-card { fill: color-mix(in srgb, var(--teal) 12%, transparent); stroke: var(--teal); stroke-width: 1.2; }
+.a6-cardtext { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 13.5px; fill: var(--text); }
+.a6-stale { opacity: 0.35; }
+.a6-strike { fill: none; stroke: var(--muted); stroke-width: 1.4; transform-box: fill-box; transform-origin: left center; }
+.a6-turn { fill: none; stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; }
+
+.a6-steps { display: none; }
+
+/* ---------- motion (only with .a6--go) ---------- */
+
+.a6--go .a6-scenes { gap: 0; }
+.a6--go .a6-scene {
+  grid-area: 1 / 1;
+  padding-top: 0;
+  border-top: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s var(--ease), visibility 0s linear 0.35s;
+}
+.a6--go .a6-scene.is-on { opacity: 1; visibility: visible; transition-delay: 0s; }
+.a6--go .a6-curtain { display: inline; transform: translateX(360px); }
+.a6--go .a6-head { display: inline; opacity: 0; }
+
+.a6--go .a6-scene.is-on .a6-curtain { animation: a6-sweep calc(2.6s * var(--a6-k)) linear both; }
+.a6--go .a6-scene.is-on .a6-head { animation: a6-head calc(2.6s * var(--a6-k)) linear both; }
+.a6--go .a6-scene.is-on .a6-in { animation: a6-in calc(0.4s * var(--a6-k)) var(--ease) calc(var(--t, 0) * var(--a6-k) * 1s) both; }
+.a6--go .a6-scene.is-on .a6-stale { animation: a6-stale calc(0.7s * var(--a6-k)) var(--ease) calc(var(--t, 0) * var(--a6-k) * 1s) both; }
+.a6--go .a6-scene.is-on .a6-strike { animation: a6-strike calc(0.4s * var(--a6-k)) var(--ease) calc(var(--t, 0) * var(--a6-k) * 1s) both; }
+
+.a6--go .a6-steps { display: flex; gap: 6px; list-style: none; margin: var(--space-4) 0 0; padding: 0; }
+.a6-steps li { position: relative; flex: 1; height: 3px; border-radius: 2px; background: var(--line); overflow: hidden; }
+.a6-steps li::after { content: ""; position: absolute; inset: 0; background: var(--teal); transform: scaleX(0); transform-origin: left; }
+.a6-steps li.is-done::after { transform: scaleX(1); }
+.a6-steps li.is-on::after { animation: a6-fill calc(3s * var(--a6-k)) linear both; }
+
+.a6--paused *, .a6--paused *::before, .a6--paused *::after { animation-play-state: paused !important; }
+
+@keyframes a6-sweep { from { transform: translateX(0); } to { transform: translateX(360px); } }
+@keyframes a6-head {
+  0% { transform: translateX(0); opacity: 1; }
+  94% { opacity: 1; }
+  100% { transform: translateX(360px); opacity: 0; }
+}
+@keyframes a6-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+@keyframes a6-stale { from { opacity: 1; } to { opacity: 0.35; } }
+@keyframes a6-strike { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes a6-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes a6-ring { from { opacity: 0.8; transform: scale(1); } to { opacity: 0; transform: scale(1.4); } }

@@ -241,7 +241,7 @@ main:focus { outline: none; }
    When a4.js arms it (.a4-on), the steps become scroll steps beside (desktop) or under (phone)
    a sticky A4 stage. */
 .split.split--axe { grid-template-columns: minmax(0, 1fr); }
-.a4-on .timeline__step { min-height: 46vh; }
+.a4-on .timeline__step { min-height: 18vh; }
 .a4-on .timeline__step { align-items: start; }
 .a4-on .timeline__body { align-content: start; }
 /* Inactive steps dim by colour, not opacity, so the text keeps 4.5:1 contrast in both themes. */
@@ -265,7 +265,7 @@ main:focus { outline: none; }
   .split.split--axe.a4-on { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); }
   .a4-on .a4 { order: 0; top: 110px; box-shadow: none; }
   .a4-on .a4 .diagram-frame__panel { padding: var(--space-6); }
-  .a4-on .timeline__step { min-height: 40vh; }
+  .a4-on .timeline__step { min-height: 16vh; }
 }
 
 /* ---------- Stage 7: A5, A6, A7 placement (appended) ---------- */

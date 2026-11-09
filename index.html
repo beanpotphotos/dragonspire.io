@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DragonSpire · AI Game Master</title>
-<meta name="description" content="DragonSpire runs your D&amp;D game with real rules, real dice and a world that remembers. The AI tells the story. Everything else is built to get it right.">
+<meta name="description" content="DragonSpire runs your D&amp;D game with real rules, hard coded dice and a persistent world.">
 <meta name="theme-color" content="#0F1219">
 <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
 <link rel="icon" href="assets/icons/favicon.ico" sizes="48x48">
@@ -52,8 +52,8 @@
   <div class="container hero__grid">
     <div class="hero__copy">
       <p class="eyebrow">Coming soon · Alpha</p>
-      <h1 class="display hero__title" id="hero-title">Not a chatbot <br>in a wizard's hat.</h1>
-      <p class="lede">DragonSpire runs your D&amp;D game with real rules, real dice and a world that remembers. The AI tells the story. Everything else is built to get it right.</p>
+      <h1 class="display hero__title" id="hero-title">Not a chatbot <br>wearing a wizard's hat</h1>
+      <p class="lede">DragonSpire runs your D&amp;D game with real rules, hard coded dice and a persistent world.</p>
       <div class="hero__actions">
         <a class="btn btn--primary" href="https://play.dragonspire.io">Log in to play</a>
         <a class="btn btn--secondary" href="#how">See how it works <span class="arrow" aria-hidden="true">↓</span></a>
@@ -159,7 +159,7 @@
   <div class="container">
     <div class="section-head">
       <h2 id="chatbot-title">You've tried the chatbot DM. So have we.</h2>
-      <p class="lede">You asked it to run a dungeon. It forgot the goblin's hit points, rolled a 23 on a d20, renamed the innkeeper twice, and handed you the dragon's hoard because you asked nicely. A language model on its own is a storyteller with no memory and no rulebook.</p>
+      <p class="lede">You asked it to run a dungeon. It forgot the goblin's hit points, rolled a 23 on a d20, renamed the innkeeper twice, and handed you the dragon's hoard because you asked nicely. A language model on its own is a storyteller with no memory and no rulebook. We made something different.</p>
     </div>
 
 <figure class="diagram-frame a2" aria-label="The same request, &quot;I swing my axe at the goblin&quot;, given to a chatbot DM and to DragonSpire">
@@ -212,7 +212,7 @@
       </section>
     </div>
     <div class="a2__foot a2-scope" data-a2-length="13.2">
-      <p class="a2__caption a2-step" style="--t:11.9">Same request. <em>One of them is running a game.</em></p>
+      <p class="a2__caption"></p>
       <button class="btn btn--secondary a2-replay" type="button">Replay <span aria-hidden="true">&#8635;</span></button>
     </div>
   </div>
@@ -221,9 +221,9 @@
     <div class="answer">
       <h2 class="answer__title">DragonSpire gives the storyteller a whole table to work with.</h2>
       <ul class="points">
-        <li class="point"><h3 class="point__title">Real dice, real rules.</h3><p class="point__text">Fantasy Grounds' 5E ruleset rolls every attack and applies every hit. The AI reads the result; it cannot make one up.</p></li>
-        <li class="point"><h3 class="point__title">A world that remembers.</h3><p class="point__text">Places, people and quests live in a database your GM writes, not in the AI's short memory, and handed to the game master every turn.</p></li>
-        <li class="point"><h3 class="point__title">Fair by design.</h3><p class="point__text">It never rolls for your character, never decides your action, and says no when you try to pocket loot nobody offered.</p></li>
+        <li class="point"><h3 class="point__title">Real dice, real rules.</h3><p class="point__text">Fantasy Grounds' ruleset rolls every attack and applies every hit. The AI reads the result; it cannot make one up.</p></li>
+        <li class="point"><h3 class="point__title">A world that remembers.</h3><p class="point__text">Places, people and quests live in a database, not in the AI's context memory. They get handed to the AI game master every turn for consistency.</p></li>
+        <li class="point"><h3 class="point__title">Fair by design.</h3><p class="point__text">You roll for your character. The AI never decides your action, you click it, type it or say it. The GM says no when you try to pocket loot nobody offered. It can check your inventory to see if you have a Wand of Fireballs.</p></li>
       </ul>
     </div>
   </div>
@@ -235,7 +235,7 @@
     <div class="section-head">
       <p class="eyebrow">How it works</p>
       <h2 id="how-title">Five parts. One game master.</h2>
-      <p class="lede">Each part does the job it is good at. Only one of them is AI.</p>
+      <p class="lede">Each part does the job it is good at.</p>
     </div>
 <figure class="diagram-frame a3" id="a3-slot" aria-label="DragonSpire's five parts as connected chambers: Cory, the brain, in the centre, wired to Dee Emma, FGU Link, Campaign Manager and DragonLibrary">
   <div class="diagram-frame__panel">
@@ -269,14 +269,14 @@
 <circle class="a3-dot" r="3.2"><animateMotion dur="2.4s" begin="-3.9s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear" path="M270 482 V280"/></circle>
 </svg>
       <button type="button" class="a3-ch p-cory" data-a3="cory"><span class="a3-ch__name">Cory</span> <span class="a3-ch__role">the brain</span> <span class="badge badge--ai a3-ch__badge">AI</span></button>
-      <button type="button" class="a3-ch p-dee" data-a3="dee"><span class="a3-ch__name">Dee Emma</span> <span class="a3-ch__role">the voice</span> <span class="badge a3-ch__badge">CODE + VOICE</span></button>
+      <button type="button" class="a3-ch p-dee" data-a3="dee"><span class="a3-ch__name">Dee Emma</span> <span class="a3-ch__role">the voice</span> <span class="badge badge--ai a3-ch__badge">AI</span></button>
       <button type="button" class="a3-ch p-fgu" data-a3="fgu"><span class="a3-ch__name">FGU Link</span> <span class="a3-ch__role">the hands</span> <span class="badge a3-ch__badge">CODE, NO AI</span></button>
       <button type="button" class="a3-ch p-cm" data-a3="cm"><span class="a3-ch__name">Campaign Manager</span> <span class="a3-ch__role">the memory</span> <span class="badge a3-ch__badge">DATABASE</span></button>
       <button type="button" class="a3-ch p-library" data-a3="lib"><span class="a3-ch__name">DragonLibrary</span> <span class="a3-ch__role">the rulebook</span> <span class="badge a3-ch__badge">DATABASE</span></button>
     </div>
     <ul class="a3-caps">
-      <li class="a3-cap p-cory" data-a3="cory"><span class="a3-cap__name">Cory</span> <span class="a3-cap__text">Decides what happens next and writes what the game master says. The only part that calls AI.</span></li>
-      <li class="a3-cap p-dee" data-a3="dee"><span class="a3-cap__name">Dee Emma</span> <span class="a3-cap__text">Hears each player in Discord and answers aloud in a narrator voice.</span></li>
+      <li class="a3-cap p-cory" data-a3="cory"><span class="a3-cap__name">Cory</span> <span class="a3-cap__text">Decides what happens next and writes what the game master says.</span></li>
+      <li class="a3-cap p-dee" data-a3="dee"><span class="a3-cap__name">Dee Emma</span> <span class="a3-cap__text">Hears each player in Discord / text chat and answers aloud in a narrator voice</span></li>
       <li class="a3-cap p-fgu" data-a3="fgu"><span class="a3-cap__name">FGU Link</span> <span class="a3-cap__text">Rolls, moves tokens and runs the combat tracker with Fantasy Grounds' own rules.</span></li>
       <li class="a3-cap p-cm" data-a3="cm"><span class="a3-cap__name">Campaign Manager</span> <span class="a3-cap__text">Every place, NPC and quest your GM writes, handed to the game master every turn.</span></li>
       <li class="a3-cap p-library" data-a3="lib"><span class="a3-cap__name">DragonLibrary</span> <span class="a3-cap__text">D&amp;D 2024 rules and thousands of Fantasy Grounds effect codes, matched to your table.</span></li>
@@ -288,8 +288,8 @@
           <div class="part-card__meta"><p class="part-card__role">The brain</p><span class="badge badge--ai">AI</span></div>
           <p class="part-card__copy">Decides what happens next and writes what the game master says.</p></li>
         <li class="part-card p-dee"><h3 class="part-card__name">Dee Emma</h3>
-          <div class="part-card__meta"><p class="part-card__role">The voice</p><span class="badge">Code + voice</span></div>
-          <p class="part-card__copy">Joins your Discord, hears each player, and answers out loud.</p></li>
+          <div class="part-card__meta"><p class="part-card__role">The voice</p><span class="badge badge--ai">AI</span></div>
+          <p class="part-card__copy">Hears each player in Discord / text chat and answers aloud in a narrator voice</p></li>
         <li class="part-card p-fgu"><h3 class="part-card__name">FGU Link</h3>
           <div class="part-card__meta"><p class="part-card__role">The hands</p><span class="badge">Code, no AI</span></div>
           <p class="part-card__copy">Works the Fantasy Grounds table: dice, tokens, maps, the combat tracker. Never calls an AI.</p></li>

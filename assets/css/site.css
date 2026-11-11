@@ -288,3 +288,5 @@ main:focus { outline: none; }
 .site-footer__links a { min-width: 44px; }
 .site-nav .site-nav__cta { min-height: 44px; }
 .nowrap { white-space: nowrap; }
+
+.hero__sub { margin: 0; font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: clamp(1.5rem, 1rem + 1.6vw, 2.25rem); line-height: 1.15; color: var(--gold); }

@@ -1,0 +1,7 @@
+# Cloudflare Wrangler local cache
+.wrangler/
+
+# Scratch favicon generation scripts and concept exports
+favicon-concepts/*.py
+favicon-concepts/*.png
+favicon-concepts/concept-*.svg
